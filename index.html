@@ -6,31 +6,35 @@
     <title>តារាងតេស្តពុម្ពអក្សរ - Toathmor Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
-            --bg-body: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-body: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            --bg-card: rgba(255, 255, 255, 0.85);
             --text-main: #0f172a;
-            --border-color: #cbd5e1;
+            --border-color: #e2e8f0;
             --textarea-bg: #ffffff;
             --textarea-text: #0f172a;
-            --primary-color: #6366f1;
-            --card-sub: #f1f5f9;
+            --primary-color: #4f46e5;
+            --card-sub: #f8fafc;
+            --switch-bg: #cbd5e1;
+            --switch-active: #10b981;
         }
 
         [data-theme="dark"] {
-            --bg-body: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-            --bg-card: rgba(15, 23, 42, 0.95);
-            --text-main: #f8fafc;
-            --border-color: #334155;
-            --textarea-bg: #0f172a;
-            --textarea-text: #f8fafc;
-            --primary-color: #818cf8;
-            --card-sub: rgba(30, 41, 59, 0.5);
+            --bg-body: linear-gradient(135deg, #090d16 0%, #0f172a 100%);
+            --bg-card: rgba(15, 23, 42, 0.8);
+            --text-main: #f1f5f9;
+            --border-color: #1e293b;
+            --textarea-bg: #0b0f19;
+            --textarea-text: #f1f5f9;
+            --primary-color: #6366f1;
+            --card-sub: rgba(30, 41, 59, 0.4);
+            --switch-bg: #475569;
+            --switch-active: #34d399;
         }
 
         body {
@@ -38,22 +42,23 @@
             background: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 10px;
+            padding: 16px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: background 0.4s ease;
         }
 
         .container {
             width: 100%;
-            max-width: 820px;
+            max-width: 900px;
             background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            padding: 16px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border-color);
             box-sizing: border-box;
         }
@@ -62,222 +67,204 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .brand-name {
-            font-size: 18px;
-            font-weight: 700;
-        }
+        .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
         .brand-name span {
-            font-size: 11px;
-            background: linear-gradient(45deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            margin-left: 5px;
+            font-size: 12px; background: linear-gradient(45deg, #4f46e5, #ec4899);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: 600; margin-left: 6px;
         }
 
         .theme-toggle {
-            background: var(--card-sub);
-            border: 1px solid var(--border-color);
-            padding: 4px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--text-main);
-            font-size: 11px;
-            font-weight: 600;
+            background: var(--card-sub); border: 1px solid var(--border-color);
+            padding: 6px 14px; border-radius: 30px; cursor: pointer;
+            color: var(--text-main); font-size: 12px; font-weight: 600;
+            transition: all 0.2s;
         }
+        .theme-toggle:hover { transform: scale(1.05); }
 
         .modern-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-            margin-bottom: 12px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 16px; margin-bottom: 16px;
         }
 
         .section-card {
-            background: var(--card-sub);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            background: var(--card-sub); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+            position: relative; transition: all 0.2s ease;
         }
 
         .section-card h4 {
-            margin: 0;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin: 0; font-size: 13px; font-weight: 700; color: var(--primary-color);
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .ctrl-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            flex-wrap: wrap;
-        }
-        .ctrl-row label { font-weight: 600; min-width: 65px; color: var(--text-main); }
-        .ctrl-row input[type="range"] { flex: 1; height: 4px; cursor: pointer; min-width: 50px; }
+        .title-actions { display: flex; align-items: center; gap: 8px; }
 
-        .btn-group { display: flex; gap: 3px; }
+        .switch {
+            position: relative; display: inline-block; width: 34px; height: 18px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--switch-bg); transition: .3s; border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--switch-active); }
+        input:checked + .slider:before { transform: translateX(16px); }
+
+        .ctrl-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+        .ctrl-row label { font-weight: 600; min-width: 65px; color: var(--text-main); opacity: 0.8; }
+        .ctrl-row input[type="range"] { flex: 1; height: 4px; cursor: pointer; accent-color: var(--primary-color); }
+
+        .btn-group { display: flex; gap: 4px; }
         .mini-btn {
-            padding: 3px 6px; border: 1px solid var(--border-color);
-            background: var(--textarea-bg); color: var(--text-main); border-radius: 6px;
-            cursor: pointer; font-size: 11px; font-family: inherit; font-weight: 500;
+            padding: 4px 8px; border: 1px solid var(--border-color);
+            background: var(--textarea-bg); color: var(--text-main); border-radius: 8px;
+            cursor: pointer; font-size: 11px; font-family: inherit; font-weight: 500; transition: all 0.15s;
         }
         .mini-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        
-        .style-btn { font-weight: 700; min-width: 22px; }
+        .style-btn { font-weight: 700; min-width: 24px; }
 
         .select-font {
-            flex: 1; padding: 3px 5px; border-radius: 6px; border: 1px solid var(--border-color);
+            flex: 1; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border-color);
             background: var(--textarea-bg); color: var(--text-main); font-family: inherit; font-size: 11px;
-            outline: none; min-width: 80px;
+            outline: none; cursor: pointer;
         }
 
         .file-label {
-            padding: 2px 6px; background: var(--primary-color);
-            color: white; border-radius: 4px; cursor: pointer; font-size: 10px; font-weight: 600;
+            padding: 3px 8px; background: var(--primary-color); opacity: 0.9;
+            color: white; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 600;
         }
         .file-input { display: none; }
-
-        .color-inline { display: flex; gap: 4px; align-items: center; }
-        .color-inline input[type="color"] { border: none; width: 20px; height: 20px; border-radius: 4px; cursor: pointer; background: transparent; padding: 0; }
+        
+        .color-inline { display: flex; gap: 6px; align-items: center; }
+        .color-inline input[type="color"] { border: none; width: 22px; height: 22px; border-radius: 6px; cursor: pointer; background: transparent; padding: 0; }
 
         .palette-mini { display: flex; gap: 4px; }
         .p-dot {
             width: 16px; height: 16px; border-radius: 50%; border: 1px solid #ffffff;
-            cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.15s;
         }
+        .p-dot:hover { transform: scale(1.15); }
 
         .text-actions {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
         }
-        .sample-buttons { display: flex; gap: 4px; align-items: center; font-size: 11px; font-weight: 600; }
+        .sample-buttons { display: flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 600; }
         .sample-btn {
-            background: rgba(99, 102, 241, 0.08); color: var(--primary-color); border: 1px solid rgba(99, 102, 241, 0.15);
-            padding: 3px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-family: inherit;
+            background: rgba(79, 70, 229, 0.08); color: var(--primary-color); border: 1px solid rgba(79, 70, 229, 0.15);
+            padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
         }
         .sample-btn:hover { background: var(--primary-color); color: white; }
+        
         .clear-btn {
             background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15);
-            padding: 3px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-family: inherit;
+            padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
         }
         .clear-btn:hover { background: #ef4444; color: white; }
 
-        /* Canvas Area Preview Design */
+        /* ==========================================================
+           🎨 PREVIEW AREA (FIXED SCROLL & FOOTER PUSH)
+           ========================================================== */
         .preview-wrapper {
             background: transparent;
-            border-radius: 12px;
+            border-radius: 20px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
         }
 
+        .canvas-container-aspect {
+            width: 100%;
+            position: relative;
+            height: 0;
+            padding-top: 56.25%; /* Aspect Ratio 16:9 Base */
+            background: var(--textarea-bg);
+        }
+
+        /* 💡 ដំណោះស្រាយ៖ បើក overflow-y: auto ដើម្បីឱ្យអូសចុះឡើងបានពេលសរសេរវែង */
+        .canvas-scroll-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* 💡 ដំណោះស្រាយ៖ ប្តូរមកប្រើ min-height និងលុប Flex justify ជៀសវាងអក្សរជាន់គ្នា */
         .canvas-area {
             width: 100%;
-            background: var(--textarea-bg);
+            min-height: 100%;
             box-sizing: border-box;
-            position: relative;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
             display: flex;
             flex-direction: column;
-            padding: 40px;
-            gap: 24px;
+            padding: 5% 8%;
+            position: relative;
         }
 
-        /* Canvas Background Overlay Layer */
-        .canvas-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+        .canvas-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-        .logo-block {
-            width: 100%;
-            display: none;
-            z-index: 3;
-            box-sizing: border-box;
-        }
-        .logo-img { max-height: 100%; max-width: 100%; object-fit: contain; display: block; }
+        .logo-block { width: 100%; display: none; z-index: 3; box-sizing: border-box; margin-bottom: 15px; }
+        .logo-img { max-height: 55px; max-width: 100%; object-fit: contain; display: block; }
 
-        .img-overlay-block {
-            position: absolute;
-            pointer-events: none;
-            z-index: 3;
-            display: none;
-        }
+        .img-overlay-block { position: absolute; pointer-events: none; z-index: 2; display: none; }
         .img-overlay-block img { width: 100%; height: 100%; object-fit: contain; }
 
+        /* Base class for editable blocks */
         .editable-block {
             width: 100%;
             background: transparent;
             border: none;
             box-sizing: border-box;
             outline: none;
-            white-space: pre-wrap;
+            white-space: pre-wrap; 
             word-wrap: break-word;
-            font-weight: normal; 
-            font-style: normal;
             z-index: 4;
             position: relative;
-            text-underline-offset: 0.25em;
         }
 
-        .editable-title {
-            font-size: 36px;
-            color: var(--textarea-text);
-            text-align: center;
-            font-family: 'Kantumruy Pro', sans-serif;
-            line-height: 1.4;
+        .editable-title { font-size: 26px; color: var(--textarea-text); text-align: center; line-height: 1.4; margin: 0 auto 20px auto; }
+        
+        /* 💡 ដំណោះស្រាយ៖ ប្រើ margin-bottom ជំនួស flex-grow ដើម្បីរុញ Footer ចុះក្រោមតាមធម្មជាតិ */
+        .editable-preview { 
+            font-size: 18px; 
+            color: var(--textarea-text); 
+            min-height: 60px; 
+            line-height: 1.6; 
+            text-align: center; 
+            margin-bottom: 30px; 
         }
+        
+        .editable-footer { font-size: 12px; color: #64748b; text-align: right; line-height: 1.4; margin: auto 0 0 auto; padding-top: 15px; }
 
-        .editable-preview {
-            font-size: 26px;
-            color: var(--textarea-text);
-            min-height: 60px;
-            line-height: 1.7;
-            text-align: left;
-            font-family: 'Kantumruy Pro', sans-serif;
-        }
+        .block-hidden { display: none !important; }
+        .editable-block:empty:before { content: attr(placeholder); color: #94a3b8; cursor: text; opacity: 0.6; }
 
-        .editable-block:empty:before {
-            content: attr(placeholder);
-            color: #94a3b8;
-            cursor: text;
-        }
-
-        .editable-footer {
-            font-size: 14px;
-            color: #64748b;
-            text-align: right;
-            font-family: 'Kantumruy Pro', sans-serif;
-            line-height: 1.4;
-        }
-
-        .action-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+        .action-bar { display: flex; gap: 8px; flex-wrap: wrap; }
         .action-btn {
-            flex: 1; min-width: 100px; padding: 8px; border: none; border-radius: 8px;
+            flex: 1; min-width: 120px; padding: 10px; border: none; border-radius: 12px;
             cursor: pointer; font-weight: 600; font-family: inherit; display: flex;
-            align-items: center; justify-content: center; gap: 4px; transition: 0.15s;
-            background: var(--card-sub); color: var(--text-main); font-size: 12px;
+            align-items: center; justify-content: center; gap: 6px; transition: all 0.2s;
+            background: var(--card-sub); color: var(--text-main); font-size: 13px;
             border: 1px solid var(--border-color);
         }
-        .action-btn.primary { background: #3b82f6; color: white; border-color: #3b82f6; }
-        .action-btn:hover { transform: translateY(-1px); }
+        .action-btn.primary { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
+        .action-btn.primary:hover { background: #2563eb; }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .chbox-label { display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
@@ -286,25 +273,32 @@
 <div class="container">
     <div class="header-bar">
         <div class="brand-name">តារាងតេស្តពុម្ពអក្សរ <span>Toathmor Pro</span></div>
-        <button class="theme-toggle" id="themeBtn">🌙 Dark</button>
+        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
     </div>
 
     <div class="modern-grid">
         <div class="section-card">
-            <h4>⚙️ ចំណងជើង (Header) 
-                <label class="file-label" for="hFontFile">➕ បញ្ចូលពុម្ព</label>
-                <input type="file" id="hFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+            <h4>
+                <span>⚙️ ចំណងជើង (Header)</span>
+                <div class="title-actions">
+                    <label class="switch" title="បង្ហាញ/លាក់">
+                        <input type="checkbox" id="hideHeaderToggle" checked onchange="toggleBlockVisibility('header')">
+                        <span class="slider"></span>
+                    </label>
+                    <label class="file-label" for="hFontFile">➕</label>
+                    <input type="file" id="hFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+                </div>
             </h4>
             <div class="ctrl-row">
                 <label>ពុម្ពអក្សរ:</label>
                 <select id="hFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro (លំនាំដើម)</option>
+                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
                 </select>
             </div>
             <div class="ctrl-row">
                 <label>ទំហំអក្សរ:</label>
-                <input type="range" id="hFontSize" min="16" max="80" value="36">
-                <span style="min-width:30px; text-align:right;" id="hSizeVal">36px</span>
+                <input type="range" id="hFontSize" min="14" max="80" value="26">
+                <span style="min-width:30px; text-align:right;" id="hSizeVal">26px</span>
             </div>
             <div class="ctrl-row">
                 <label>គម្លាតតួ:</label>
@@ -324,9 +318,9 @@
                     <button class="mini-btn style-btn" id="hUnderline" onclick="toggleStyle('header', 'underline')">U</button>
                 </div>
                 <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn" onclick="setAlign('header', 'left')">ឆ្វេង</button>
+                    <button class="mini-btn" id="hAlignBtnLeft" onclick="setAlign('header', 'left')">ឆ្វេង</button>
                     <button class="mini-btn active" id="hAlignBtnCenter" onclick="setAlign('header', 'center')">កណ្តាល</button>
-                    <button class="mini-btn" onclick="setAlign('header', 'right')">ស្តាំ</button>
+                    <button class="mini-btn" id="hAlignBtnRight" onclick="setAlign('header', 'right')">ស្តាំ</button>
                 </div>
             </div>
             <div class="ctrl-row">
@@ -336,20 +330,27 @@
         </div>
 
         <div class="section-card">
-            <h4>⚙️ អត្ថបទកណ្តាល (Main)
-                <label class="file-label" for="mFontFile">➕ បញ្ចូលពុម្ព</label>
-                <input type="file" id="mFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+            <h4>
+                <span>⚙️ អត្ថបទកណ្តាល (Main)</span>
+                <div class="title-actions">
+                    <label class="switch" title="បង្ហាញ/លាក់">
+                        <input type="checkbox" id="hideMainToggle" checked onchange="toggleBlockVisibility('main')">
+                        <span class="slider"></span>
+                    </label>
+                    <label class="file-label" for="mFontFile">➕</label>
+                    <input type="file" id="mFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+                </div>
             </h4>
             <div class="ctrl-row">
                 <label>ពុម្ពអក្សរ:</label>
                 <select id="mFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro (លំនាំដើម)</option>
+                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
                 </select>
             </div>
             <div class="ctrl-row">
                 <label>ទំហំអក្សរ:</label>
-                <input type="range" id="mFontSize" min="14" max="80" value="26">
-                <span style="min-width:30px; text-align:right;" id="mSizeVal">26px</span>
+                <input type="range" id="mFontSize" min="12" max="60" value="18">
+                <span style="min-width:30px; text-align:right;" id="mSizeVal">18px</span>
             </div>
             <div class="ctrl-row">
                 <label>គម្លាតតួ:</label>
@@ -358,8 +359,8 @@
             </div>
             <div class="ctrl-row">
                 <label>គម្លាតជួរ:</label>
-                <input type="range" id="mLineSpacing" min="1" max="3" step="0.1" value="1.7">
-                <span style="min-width:30px; text-align:right;" id="mLineVal">1.7</span>
+                <input type="range" id="mLineSpacing" min="1" max="3" step="0.1" value="1.6">
+                <span style="min-width:30px; text-align:right;" id="mLineVal">1.6</span>
             </div>
             <div class="ctrl-row">
                 <label>រចនាបថ:</label>
@@ -369,28 +370,35 @@
                     <button class="mini-btn style-btn" id="mUnderline" onclick="toggleStyle('main', 'underline')">U</button>
                 </div>
                 <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn active" id="mAlignBtnLeft" onclick="setAlign('main', 'left')">ឆ្វេង</button>
-                    <button class="mini-btn" onclick="setAlign('main', 'center')">កណ្តាល</button>
-                    <button class="mini-btn" onclick="setAlign('main', 'right')">ស្តាំ</button>
+                    <button class="mini-btn" id="mAlignBtnLeft" onclick="setAlign('main', 'left')">ឆ្វេង</button>
+                    <button class="mini-btn active" id="mAlignBtnCenter" onclick="setAlign('main', 'center')">កណ្តាល</button>
+                    <button class="mini-btn" id="mAlignBtnRight" onclick="setAlign('main', 'right')">ស្តាំ</button>
                 </div>
             </div>
         </div>
 
         <div class="section-card">
-            <h4>⚙️ ឯកសារយោង (Footer)
-                <label class="file-label" for="fFontFile">➕ បញ្ចូលពុម្ព</label>
-                <input type="file" id="fFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+            <h4>
+                <span>⚙️ ឯកសារយោង (Footer)</span>
+                <div class="title-actions">
+                    <label class="switch" title="បង្ហាញ/លាក់">
+                        <input type="checkbox" id="hideFooterToggle" checked onchange="toggleBlockVisibility('footer')">
+                        <span class="slider"></span>
+                    </label>
+                    <label class="file-label" for="fFontFile">➕</label>
+                    <input type="file" id="fFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+                </div>
             </h4>
             <div class="ctrl-row">
                 <label>ពុម្ពអក្សរ:</label>
                 <select id="fFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro (លំនាំដើម)</option>
+                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
                 </select>
             </div>
             <div class="ctrl-row">
                 <label>ទំហំអក្សរ:</label>
-                <input type="range" id="fFontSize" min="10" max="40" value="14">
-                <span style="min-width:30px; text-align:right;" id="fSizeVal">14px</span>
+                <input type="range" id="fFontSize" min="10" max="40" value="12">
+                <span style="min-width:30px; text-align:right;" id="fSizeVal">12px</span>
             </div>
             <div class="ctrl-row">
                 <label>គម្លាតតួ:</label>
@@ -410,8 +418,8 @@
                     <button class="mini-btn style-btn" id="fUnderline" onclick="toggleStyle('footer', 'underline')">U</button>
                 </div>
                 <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn" onclick="setAlign('footer', 'left')">ឆ្វេង</button>
-                    <button class="mini-btn" onclick="setAlign('footer', 'center')">កណ្តាល</button>
+                    <button class="mini-btn" id="fAlignBtnLeft" onclick="setAlign('footer', 'left')">ឆ្វេង</button>
+                    <button class="mini-btn" id="fAlignBtnCenter" onclick="setAlign('footer', 'center')">កណ្តាល</button>
                     <button class="mini-btn active" id="fAlignBtnRight" onclick="setAlign('footer', 'right')">ស្តាំ</button>
                 </div>
             </div>
@@ -432,8 +440,8 @@
         </div>
     </div>
 
-    <div class="section-card" style="margin-bottom: 12px;">
-        <h4>🖼️ ផ្ទៃក្រោយ & ម៉ូដលាយពណ៌ (Background Size, Blend Mode & Logo)</h4>
+    <div class="section-card" style="margin-bottom: 16px;">
+        <h4>🖼️ ផ្ទៃក្រោយ & ម៉ូដលាយពណ៌ (Background & Logo Options)</h4>
         <div class="ctrl-row">
             <label class="file-label" for="bgImageFile">🌄 ផ្ទុកកម្រាលក្រោយ</label>
             <input type="file" id="bgImageFile" class="file-input" accept="image/*">
@@ -447,7 +455,7 @@
             <span id="bgScaleVal" style="min-width:30px;">100%</span>
 
             <label style="min-width:55px; margin-left:8px;">ម៉ូដ Blend:</label>
-            <select id="bgBlendMode" class="select-font" style="max-width:90px;">
+            <select id="bgBlendMode" class="select-font" style="max-width:95px;">
                 <option value="normal">Normal</option>
                 <option value="multiply">Multiply</option>
                 <option value="screen">Screen</option>
@@ -457,38 +465,38 @@
             </select>
         </div>
 
-        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 2px;">
+        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 2px;">
             <label style="min-width:60px;">Overlay ពណ៌:</label>
-            <input type="color" id="overlayColor" value="#000000" style="width:20px; height:20px; border:none; padding:0; cursor:pointer;">
+            <input type="color" id="overlayColor" value="#000000" style="width:22px; height:22px; border:none; padding:0; cursor:pointer;">
             
-            <select id="shadowMode" class="select-font" style="max-width:110px; margin-left:4px;">
+            <select id="shadowMode" class="select-font" style="max-width:115px; margin-left:4px;">
                 <option value="solid">ស្មើទូទាំងរូប (Solid)</option>
                 <option value="gradient">ប្រដេញក្រោម-លើ (Gradient)</option>
             </select>
-            <input type="range" id="overlayOpacity" min="0" max="1" step="0.05" value="0.25" style="max-width:70px;">
+            <input type="range" id="overlayOpacity" min="0" max="1" step="0.05" value="0.0">
 
             <label class="file-label" style="background:#10b981; margin-left:auto;" for="logoFile">🛡️ ឡូហ្គូ</label>
             <input type="file" id="logoFile" class="file-input" accept="image/*">
             <label class="chbox-label"><input type="checkbox" id="enableLogo" checked> បង្ហាញ</label>
         </div>
 
-        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 2px;">
+        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 2px;">
             <label style="min-width:50px;">ទំហំឡូហ្គូ:</label>
-            <input type="range" id="logoSize" min="20" max="300" value="80" style="max-width:80px;">
-            <span id="logoSizeVal" style="min-width:35px;">80px</span>
+            <input type="range" id="logoSize" min="20" max="200" value="60" style="max-width:80px;">
+            <span id="logoSizeVal" style="min-width:35px;">60px</span>
 
             <label style="min-width:35px; margin-left:4px;">ព្រិល:</label>
             <input type="range" id="logoOpacity" min="0.1" max="1" step="0.05" value="1" style="max-width:70px;">
 
             <label style="min-width:35px; margin-left:4px;">ទីតាំង:</label>
-            <select id="logoAlign" class="select-font" style="max-width:130px;">
+            <select id="logoAlign" class="select-font" style="max-width:135px;">
                 <option value="top-center">ខាងលើ - កណ្តាល</option>
                 <option value="top-left">ខាងលើ - ឆ្វេង</option>
                 <option value="top-right">ខាងលើ - ស្តាំ</option>
                 <option value="center">ចំកណ្តាលផ្ទាំង</option>
                 <option value="bottom-center">ខាងក្រោម - កណ្តាល</option>
                 <option value="bottom-left">ខាងក្រោម - ឆ្វេង</option>
-                <option value="bottom-right">ខាងក្រោម - ស្តាំ</option>
+                <option value="bottom-right" selected>ខាងក្រោម - ស្តាំ</option>
             </select>
         </div>
     </div>
@@ -504,23 +512,25 @@
     </div>
 
     <div class="preview-wrapper">
-        <div class="canvas-area" id="canvasArea">
-            <div class="canvas-overlay" id="canvasOverlay"></div>
-            
-            <div class="logo-block" id="logoBlock">
-                <img src="" class="logo-img" id="logoImg" alt="Logo">
-            </div>
+        <div class="canvas-container-aspect">
+            <div class="canvas-scroll-container">
+                <div class="canvas-area" id="canvasArea">
+                    <div class="canvas-overlay" id="canvasOverlay"></div>
+                    
+                    <div class="logo-block" id="logoBlock">
+                        <img src="" class="logo-img" id="logoImg" alt="Logo">
+                    </div>
 
-            <div class="img-overlay-block" id="imgOverlayBlock">
-                <img src="" id="imgOverlayElement" alt="Overlay">
-            </div>
+                    <div class="img-overlay-block" id="imgOverlayBlock">
+                        <img src="" id="imgOverlayElement" alt="Overlay">
+                    </div>
 
-            <div class="editable-block editable-title" id="headerTitle" contenteditable="true" placeholder="សូមវាយចំណងជើងធំ...">ចំណងជើងបទកំណាព្យ</div>
-            <div class="editable-block editable-preview" id="textPreview" contenteditable="true" placeholder="សូមវាយអត្ថបទខ្មែរ...">អនិច្ចាតោថ្មលោកកសាង
-មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ
-ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ
-ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
-            <div class="editable-block editable-footer" id="footerPreview" contenteditable="true" placeholder="— វាយឈ្មោះ ឬ ឯកសារយោង...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
+                    <div class="editable-block editable-title" id="headerTitle" contenteditable="true" placeholder="សូមវាយចំណងជើងធំ...">ចំណងជើងបទកំណាព្យ</div>
+                    <div class="editable-block editable-preview" id="textPreview" contenteditable="true" placeholder="សូមវាយអត្ថបទខ្មែរ...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ
+ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
+                    <div class="editable-block editable-footer" id="footerPreview" contenteditable="true" placeholder="— វាយឈ្មោះ...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -596,19 +606,27 @@
     let logoLoadedImage = null;
 
     let styles = {
-        header: { bold: false, italic: false, underline: false, align: 'center' },
-        main: { bold: false, italic: false, underline: false, align: 'left' },
-        footer: { bold: false, italic: false, underline: false, align: 'right' }
+        header: { bold: false, italic: false, underline: false, align: 'center', visible: true },
+        main: { bold: false, italic: false, underline: false, align: 'center', visible: true },
+        footer: { bold: false, italic: false, underline: false, align: 'right', visible: true }
     };
 
     const samples = {
-        abc: "ក្ក ខ្ខ គ្គ ឃ្ឃ ង្ង ច្ច ឆ្ឆ ជ្ជ ឈ្ឈ ញ្ញ ដ្ដ ឋ្ឋ ឌ្ឌ ឍ្ឍ ណ្ណ ត្ត ថ្ថ ទ្ទ ធ្ធ ប្ប ផ្ផ ព្ព ភ្ភ ម្ម យ្យ រ្រ ល្ល វ្វ ស្ស ហ្ហ ឡ អ្អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម。\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា。",
-        poem: "អនិច្ចាតោថ្មលោកកសាង\nមើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ\nស្តាយអើយស្តាយមិនគួរមកពិការ"
+        abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
     function insertSample(type) { textPreview.innerText = samples[type]; }
     clearBtn.addEventListener('click', () => { headerTitle.innerText=''; textPreview.innerText = ''; footerPreview.innerText=''; textPreview.focus(); });
+
+    function toggleBlockVisibility(section) {
+        const toggleEl = document.getElementById(`hide${section.charAt(0).toUpperCase() + section.slice(1)}Toggle`);
+        styles[section].visible = toggleEl.checked;
+        const block = section === 'header' ? headerTitle : (section === 'main' ? textPreview : footerPreview);
+        if(styles[section].visible) { block.classList.remove('block-hidden'); } else { block.classList.add('block-hidden'); }
+        updateLogoOverlayDOM();
+    }
 
     function toggleStyle(section, styleType) {
         styles[section][styleType] = !styles[section][styleType];
@@ -632,10 +650,10 @@
         container.querySelectorAll('.mini-btn').forEach(btn => {
             if(['ឆ្វេង','កណ្តាល','ស្តាំ'].includes(btn.textContent.trim())) btn.classList.remove('active');
         });
-        const searchWord = type === 'left' ? 'ឆ្វេង' : (type === 'center' ? 'កណ្តាល' : 'ស្តាំ');
-        container.querySelectorAll('.mini-btn').forEach(btn => {
-            if(btn.textContent.trim() === searchWord) btn.classList.add('active');
-        });
+        
+        const activeBtnId = `${section.charAt(0)}AlignBtn${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        const activeBtn = document.getElementById(activeBtnId);
+        if(activeBtn) activeBtn.classList.add('active');
     }
 
     hFontSize.addEventListener('input', (e) => { headerTitle.style.fontSize = e.target.value + 'px'; hSizeVal.textContent = e.target.value + 'px'; });
@@ -670,8 +688,7 @@
     headerTitle.addEventListener('paste', cleanPaste); textPreview.addEventListener('paste', cleanPaste); footerPreview.addEventListener('paste', cleanPaste);
 
     bgImageFile.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+        const file = e.target.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = (event) => {
             const img = new Image();
@@ -685,9 +702,7 @@
         if (enableBgImage.checked && bgLoadedImage) { 
             canvasArea.style.backgroundImage = `url(${bgLoadedImage.src})`; 
             canvasArea.style.backgroundSize = bgScaleSize.value + '%';
-        } else { 
-            canvasArea.style.backgroundImage = 'none'; 
-        }
+        } else { canvasArea.style.backgroundImage = 'none'; }
         updateOverlay();
     }
     enableBgImage.addEventListener('change', renderBgDisplay);
@@ -696,13 +711,10 @@
     function updateOverlay() {
         const hex = overlayColor.value, opacity = parseFloat(overlayOpacity.value), mode = shadowMode.value;
         const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-        
         canvasOverlay.style.mixBlendMode = bgBlendMode.value;
         if (mode === 'gradient' && (enableBgImage.checked && bgLoadedImage)) {
             canvasOverlay.style.background = `linear-gradient(to top, rgba(${r}, ${g}, ${b}, ${opacity}) 0%, rgba(${r}, ${g}, ${b}, 0) 100%)`;
-        } else {
-            canvasOverlay.style.background = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-        }
+        } else { canvasOverlay.style.background = `rgba(${r}, ${g}, ${b}, ${opacity})`; }
     }
     overlayColor.addEventListener('input', updateOverlay);
     shadowMode.addEventListener('change', updateOverlay);
@@ -710,12 +722,10 @@
     bgBlendMode.addEventListener('change', updateOverlay);
 
     logoFile.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+        const file = e.target.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = (event) => {
-            logoImg.src = event.target.result;
-            imgOverlayElement.src = event.target.result;
+            logoImg.src = event.target.result; imgOverlayElement.src = event.target.result;
             const img = new Image();
             img.onload = () => { logoLoadedImage = img; updateLogoOverlayDOM(); };
             img.src = event.target.result;
@@ -724,9 +734,7 @@
     });
 
     function updateLogoOverlayDOM() {
-        if (!logoLoadedImage || !enableLogo.checked) {
-            logoBlock.style.display = 'none'; imgOverlayBlock.style.display = 'none'; return;
-        }
+        if (!logoLoadedImage || !enableLogo.checked) { logoBlock.style.display = 'none'; imgOverlayBlock.style.display = 'none'; return; }
         const pos = logoAlign.value, size = parseInt(logoSize.value), op = parseFloat(logoOpacity.value);
         logoBlock.style.display = 'none'; imgOverlayBlock.style.display = 'none';
 
@@ -772,172 +780,148 @@
     setupMultiFontUpload(document.getElementById('fFontFile'));
 
     /* ==========================================================================
-       🔥 CANVAS ENGINE: ជួសជុលបញ្ហាបន្ទាត់ Underline វែងជ្រុល និងការធ្លាក់ជួរអក្សរ
+       🔥 VIRTUAL CANVAS ENGINE (1920x1080 AUTO-EXPANDING HEIGHT ONLY FOR DRAW)
        ========================================================================== */
+    function drawTextLines(ctx, lines, startY, fontHeight, fontStyle, fontSelectValue, fontColor, alignment, letterSpacing, lineSpacing, paddingX, baseWidth) {
+        ctx.save();
+        ctx.textBaseline = "top";
+        ctx.font = `${fontStyle.italic ? 'italic' : 'normal'} ${fontStyle.bold ? 'bold' : 'normal'} ${fontHeight}px ${fontSelectValue}, sans-serif`;
+        ctx.fillStyle = fontColor; ctx.strokeStyle = fontColor;
+
+        let localY = startY;
+        lines.forEach(line => {
+            let textW = 0;
+            if (letterSpacing === 0) { textW = ctx.measureText(line).width; } 
+            else {
+                for (let i = 0; i < line.length; i++) {
+                    textW += ctx.measureText(line[i]).width + (i < line.length - 1 ? letterSpacing : 0);
+                }
+            }
+
+            let x = paddingX;
+            if (alignment === 'center') x = (baseWidth / 2) - (textW / 2);
+            if (alignment === 'right') x = baseWidth - paddingX - textW;
+
+            if (letterSpacing === 0) { ctx.fillText(line, x, localY); } 
+            else {
+                let curX = x;
+                for (let i = 0; i < line.length; i++) {
+                    ctx.fillText(line[i], curX, localY);
+                    curX += ctx.measureText(line[i]).width + letterSpacing;
+                }
+            }
+
+            if (fontStyle.underline && line.trim()) {
+                ctx.beginPath(); ctx.lineWidth = Math.max(3, fontHeight / 16);
+                let uY = localY + (fontHeight * 1.15); ctx.moveTo(x, uY); ctx.lineTo(x + textW, uY); ctx.stroke();
+            }
+            localY += (fontHeight * lineSpacing);
+        });
+        ctx.restore(); return localY;
+    }
+
     function drawTextToCanvas(callback) {
         document.fonts.ready.then(() => {
-            const scale = 3; // គុណភាពច្បាស់ HD
-            const domRect = canvasArea.getBoundingClientRect();
-            const baseWidth = domRect.width;
-            const baseHeight = domRect.height;
+            const baseWidth = 1920; 
+            const paddingX = 140;
 
-            const canvas = document.createElement('canvas');
-            canvas.width = baseWidth * scale;
-            canvas.height = baseHeight * scale;
+            // Calculate Required Height dynamically before rendering image to prevent cutting off
+            const testCanvas = document.createElement('canvas');
+            const testCtx = testCanvas.getContext('2d');
+            
+            let calculatedHeight = 240; // top/bottom padding anchors
+            const logoSizePx = enableLogo.checked && logoLoadedImage ? parseInt(logoSize.value) * 2.5 : 0;
+            if (logoSizePx > 0 && logoAlign.value.startsWith('top')) calculatedHeight += logoSizePx + 40;
+
+            if (styles.header.visible && headerTitle.innerText.trim()) {
+                let lines = headerTitle.innerText.split('\n');
+                calculatedHeight += lines.length * (parseInt(hFontSize.value) * 2.2 * parseFloat(hLineSpacing.value)) + 40;
+            }
+            if (styles.main.visible && textPreview.innerText.trim()) {
+                let lines = textPreview.innerText.split('\n');
+                calculatedHeight += lines.length * (parseInt(mFontSize.value) * 2.2 * parseFloat(mLineSpacing.value)) + 40;
+            }
+            if (styles.footer.visible && footerPreview.innerText.trim()) {
+                let lines = footerPreview.innerText.split('\n');
+                calculatedHeight += lines.length * (parseInt(fFontSize.value) * 2.2 * parseFloat(fLineSpacing.value));
+            }
+            if (logoSizePx > 0 && logoAlign.value.startsWith('bottom')) calculatedHeight += logoSizePx + 30;
+
+            // Standardize output to minimum 1080p, or higher if content demands it
+            const baseHeight = Math.max(1080, calculatedHeight);
+
+            const canvas = document.createElement('canvas'); canvas.width = baseWidth; canvas.height = baseHeight;
             const ctx = canvas.getContext('2d');
-            ctx.scale(scale, scale);
 
-            // ១. គូរពណ៌ផ្ទៃក្រោយលំនាំដើម
-            ctx.fillStyle = bgColor.value;
-            ctx.fillRect(0, 0, baseWidth, baseHeight);
+            ctx.fillStyle = bgColor.value; ctx.fillRect(0, 0, baseWidth, baseHeight);
 
-            // ២. គូររូបភាពកម្រាលក្រោយ (Background Image)
             if (bgLoadedImage && enableBgImage.checked) {
-                let imgW = bgLoadedImage.width;
-                let imgH = bgLoadedImage.height;
-                let scaleFactor = parseInt(bgScaleSize.value) / 100;
-
-                let renderW = baseWidth * scaleFactor;
-                let renderH = (imgH * (baseWidth / imgW)) * scaleFactor;
-                
+                let imgW = bgLoadedImage.width; let imgH = bgLoadedImage.height; let scaleFactor = parseInt(bgScaleSize.value) / 100;
+                let renderW = baseWidth * scaleFactor; let renderH = (imgH * (baseWidth / imgW)) * scaleFactor;
                 if(renderW < baseWidth || renderH < baseHeight) {
                     let ratio = Math.max(baseWidth / imgW, baseHeight / imgH);
-                    renderW = imgW * ratio * scaleFactor;
-                    renderH = imgH * ratio * scaleFactor;
+                    renderW = imgW * ratio * scaleFactor; renderH = imgH * ratio * scaleFactor;
                 }
-
-                let offsetX = (baseWidth - renderW) / 2;
-                let offsetY = (baseHeight - renderH) / 2;
-
-                ctx.drawImage(bgLoadedImage, offsetX, offsetY, renderW, renderH);
+                ctx.drawImage(bgLoadedImage, (baseWidth - renderW) / 2, (baseHeight - renderH) / 2, renderW, renderH);
             }
 
-            // ៣. គូរស្រទាប់ Overlay ពណ៌ និង Blend Mode
             const op = parseFloat(overlayOpacity.value);
             if (op > 0) {
-                ctx.save();
-                ctx.globalCompositeOperation = bgBlendMode.value === 'normal' ? 'source-over' : bgBlendMode.value;
-                const hex = overlayColor.value;
-                const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-                
+                ctx.save(); ctx.globalCompositeOperation = bgBlendMode.value === 'normal' ? 'source-over' : bgBlendMode.value;
+                const hex = overlayColor.value; const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
                 if (shadowMode.value === 'gradient' && bgLoadedImage && enableBgImage.checked) {
                     let grad = ctx.createLinearGradient(0, baseHeight, 0, 0);
-                    grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${op})`);
-                    grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${op * 0.3})`);
-                    grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+                    grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${op})`); grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${op * 0.3})`); grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
                     ctx.fillStyle = grad;
-                } else { 
-                    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${op})`; 
-                }
-                ctx.fillRect(0, 0, baseWidth, baseHeight);
-                ctx.restore();
+                } else { ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${op})`; }
+                ctx.fillRect(0, 0, baseWidth, baseHeight); ctx.restore();
             }
 
-            // ៤. គូរឡូហ្គូចំកណ្តាលផ្ទាំង (Center Isolated Logo)
-            const logoSizePx = enableLogo.checked && logoLoadedImage ? parseInt(logoSize.value) : 0;
             if (logoSizePx > 0 && logoAlign.value === 'center') {
-                ctx.save();
-                ctx.globalAlpha = parseFloat(logoOpacity.value);
+                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
                 let aspect = logoLoadedImage.width / logoLoadedImage.height;
-                let logoH = logoSizePx;
-                let logoW = logoSizePx * aspect;
-                ctx.drawImage(logoLoadedImage, (baseWidth - logoW) / 2, (baseHeight - logoH) / 2, logoW, logoH);
-                ctx.restore();
+                let logoH = logoSizePx; let logoW = logoSizePx * aspect;
+                ctx.drawImage(logoLoadedImage, (baseWidth - logoW) / 2, (baseHeight - logoH) / 2, logoW, logoH); ctx.restore();
             }
 
-            // ៥. គូរធាតុអត្ថបទ និងឡូហ្គូតាមប្លង់ DOM
-            const elementsToDraw = [];
-            
-            if (logoSizePx > 0 && logoAlign.value !== 'center') {
-                elementsToDraw.push({ id: 'logo', el: logoBlock, type: 'logo' });
-            }
-            if (headerTitle.innerText.trim()) {
-                elementsToDraw.push({ id: 'header', el: headerTitle, type: 'text', font: hFontSelect.value, size: parseInt(hFontSize.value), lineH: parseFloat(hLineSpacing.value), letterSp: parseFloat(hLetterSpacing.value), color: hColor.value });
-            }
-            if (textPreview.innerText.trim()) {
-                elementsToDraw.push({ id: 'main', el: textPreview, type: 'text', font: mFontSelect.value, size: parseInt(mFontSize.value), lineH: parseFloat(mLineSpacing.value), letterSp: parseFloat(mLetterSpacing.value), color: mColor.value });
-            }
-            if (footerPreview.innerText.trim()) {
-                elementsToDraw.push({ id: 'footer', el: footerPreview, type: 'text', font: fFontSelect.value, size: parseInt(fFontSize.value), lineH: parseFloat(fLineSpacing.value), letterSp: parseFloat(fLetterSpacing.value), color: fColor.value });
+            let currentY = 120;
+            if (logoSizePx > 0 && logoAlign.value.startsWith('top')) {
+                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
+                let aspect = logoLoadedImage.width / logoLoadedImage.height;
+                let logoH = logoSizePx; let logoW = logoSizePx * aspect; let logoX = (baseWidth - logoW) / 2;
+                if (logoAlign.value.endsWith('left')) logoX = paddingX; if (logoAlign.value.endsWith('right')) logoX = baseWidth - paddingX - logoW;
+                ctx.drawImage(logoLoadedImage, logoX, currentY, logoW, logoH); ctx.restore();
+                currentY += logoH + 40;
             }
 
-            const parentTop = domRect.top + window.scrollY;
+            if (styles.header.visible && headerTitle.innerText.trim()) {
+                let hSize = parseInt(hFontSize.value) * 2.2; let lines = headerTitle.innerText.split('\n');
+                currentY = drawTextLines(ctx, lines, currentY, hSize, styles.header, hFontSelect.value, hColor.value, styles.header.align, parseFloat(hLetterSpacing.value) * 2, parseFloat(hLineSpacing.value), paddingX, baseWidth);
+                currentY += 40;
+            }
 
-            elementsToDraw.forEach(item => {
-                const itemRect = item.el.getBoundingClientRect();
-                let currentY = (itemRect.top + window.scrollY) - parentTop;
+            if (styles.main.visible && textPreview.innerText.trim()) {
+                let mSize = parseInt(mFontSize.value) * 2.2; let lines = textPreview.innerText.split('\n');
+                currentY = drawTextLines(ctx, lines, currentY, mSize, styles.main, mFontSelect.value, mColor.value, styles.main.align, parseFloat(mLetterSpacing.value) * 2, parseFloat(mLineSpacing.value), paddingX, baseWidth);
+            }
 
-                if (item.type === 'logo') {
-                    ctx.save();
-                    ctx.globalAlpha = parseFloat(logoOpacity.value);
-                    let aspect = logoLoadedImage.width / logoLoadedImage.height;
-                    let logoH = logoSizePx;
-                    let logoW = logoSizePx * aspect;
-                    let logoX = (baseWidth - logoW) / 2;
-                    
-                    if (logoAlign.value.endsWith('left')) logoX = 40;
-                    if (logoAlign.value.endsWith('right')) logoX = baseWidth - 40 - logoW;
+            let bottomY = baseHeight - 120;
+            if (logoSizePx > 0 && logoAlign.value.startsWith('bottom')) {
+                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
+                let aspect = logoLoadedImage.width / logoLoadedImage.height;
+                let logoH = logoSizePx; let logoW = logoSizePx * aspect; let logoX = (baseWidth - logoW) / 2;
+                if (logoAlign.value.endsWith('left')) logoX = paddingX; if (logoAlign.value.endsWith('right')) logoX = baseWidth - paddingX - logoW;
+                ctx.drawImage(logoLoadedImage, logoX, bottomY - logoH, logoW, logoH); ctx.restore();
+                bottomY -= (logoH + 30);
+            }
 
-                    ctx.drawImage(logoLoadedImage, logoX, currentY, logoW, logoH);
-                    ctx.restore();
-                } 
-                else if (item.type === 'text') {
-                    ctx.save();
-                    ctx.textBaseline = "top";
-                    ctx.font = `${styles[item.id].italic ? 'italic' : 'normal'} ${styles[item.id].bold ? 'bold' : 'normal'} ${item.size}px ${item.font}, sans-serif`;
-                    ctx.fillStyle = item.color;
-                    ctx.strokeStyle = item.color;
-
-                    // បំបែកជួរអត្ថបទពិតប្រាកដ
-                    let lines = item.el.innerText.split('\n');
-                    
-                    lines.forEach((lineText) => {
-                        // គណនាប្រវែងទទឹងអក្សររួមទាំង Letter Spacing ឱ្យបានត្រឹមត្រូវបំផុត
-                        let textW = 0;
-                        if (item.letterSp === 0) {
-                            textW = ctx.measureText(lineText).width;
-                        } else {
-                            for (let i = 0; i < lineText.length; i++) {
-                                textW += ctx.measureText(lineText[i]).width;
-                                if (i < lineText.length - 1) {
-                                    textW += item.letterSp; // បូកតែចន្លោះកណ្តាល មិនបូកតួចុងក្រោយបង្អស់ទេ
-                                }
-                            }
-                        }
-
-                        // កំណត់ទីតាំង X តាម Alignment
-                        let x = 40; 
-                        if (styles[item.id].align === 'center') x = (baseWidth / 2) - (textW / 2);
-                        if (styles[item.id].align === 'right') x = baseWidth - 40 - textW;
-
-                        // គូរតួអក្សរលើ Canvas
-                        if (item.letterSp === 0) {
-                            ctx.fillText(lineText, x, currentY);
-                        } else {
-                            let currentX = x;
-                            for (let i = 0; i < lineText.length; i++) {
-                                let char = lineText[i];
-                                ctx.fillText(char, currentX, currentY);
-                                currentX += ctx.measureText(char).width + item.letterSp;
-                            }
-                        }
-
-                        // គូររបារបន្ទាត់ពីក្រោម (Underline Fix) - បន្ទាត់នឹងមានប្រវែងស្មើនឹងអក្សរពិតប្រាកដ
-                        if (styles[item.id].underline) {
-                            ctx.beginPath();
-                            ctx.lineWidth = Math.max(1.5, item.size / 16); // កម្រាស់បន្ទាត់សមាមាត្រនឹងទំហំអក្សរ
-                            let underlineY = currentY + (item.size * 1.12); // កំណត់គម្លាតបន្ទាត់ធ្លាក់ក្រោមអក្សរបន្តិច
-                            ctx.moveTo(x, underlineY);
-                            ctx.lineTo(x + textW, underlineY);
-                            ctx.stroke();
-                        }
-
-                        // រុញទីតាំងជួរបន្ទាប់ចុះក្រោមតាមតម្លៃ Line Height ពិតប្រាកដ
-                        currentY += (item.size * item.lineH);
-                    });
-                    ctx.restore();
-                }
-            });
+            if (styles.footer.visible && footerPreview.innerText.trim()) {
+                let fSize = parseInt(fFontSize.value) * 2.2; let lines = footerPreview.innerText.split('\n');
+                let totalFooterHeight = 0;
+                lines.forEach((l, idx) => { totalFooterHeight += fSize * (idx === 0 ? 1 : parseFloat(fLineSpacing.value)); });
+                bottomY -= totalFooterHeight;
+                drawTextLines(ctx, lines, bottomY, fSize, styles.footer, fFontSelect.value, fColor.value, styles.footer.align, parseFloat(fLetterSpacing.value) * 2, parseFloat(fLineSpacing.value), paddingX, baseWidth);
+            }
 
             callback(canvas.toDataURL('image/png'), baseWidth, baseHeight);
         });
@@ -945,8 +929,7 @@
 
     document.getElementById('saveImgBtn').addEventListener('click', () => {
         drawTextToCanvas((pngUrl) => {
-            const link = document.createElement('a');
-            link.download = 'toathmor-pro-exact-render.png'; link.href = pngUrl; link.click();
+            const link = document.createElement('a'); link.download = 'toathmor-pro-canvas.png'; link.href = pngUrl; link.click();
         });
     });
 
@@ -954,21 +937,18 @@
         drawTextToCanvas((pngUrl, width, height) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(width > height ? 'l' : 'p', 'px', [width, height]);
-            pdf.addImage(pngUrl, 'PNG', 0, 0, width, height);
-            pdf.save('toathmor-pro-exact-render.pdf');
+            pdf.addImage(pngUrl, 'PNG', 0, 0, width, height); pdf.save('toathmor-pro-document.pdf');
         });
     });
 
     const themeBtn = document.getElementById('themeBtn');
     themeBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            themeBtn.textContent = '🌙 Dark'; setQuickColor('#0f172a', '#64748b', '#ffffff');
-            hColor.value = "#0f172a"; headerTitle.style.color = "#0f172a";
+            document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙 Dark Mode'; 
+            setQuickColor('#0f172a', '#64748b', '#ffffff'); hColor.value = "#0f172a"; headerTitle.style.color = "#0f172a";
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeBtn.textContent = '☀️ Light'; setQuickColor('#f8fafc', '#94a3b8', '#0f172a');
-            hColor.value = "#f8fafc"; headerTitle.style.color = "#f8fafc";
+            document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️ Light Mode'; 
+            setQuickColor('#f1f5f9', '#94a3b8', '#0f172a'); hColor.value = "#f1f5f9"; headerTitle.style.color = "#f1f5f9";
         }
     });
 
