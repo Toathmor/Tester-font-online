@@ -2,7 +2,7 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>តារាងតេស្តពុម្ពអក្សរ - Toathmor Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
     <style>
         :root {
             --bg-body: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.9);
             --text-main: #0f172a;
             --border-color: #e2e8f0;
             --textarea-bg: #ffffff;
@@ -26,13 +26,13 @@
 
         [data-theme="dark"] {
             --bg-body: linear-gradient(135deg, #090d16 0%, #0f172a 100%);
-            --bg-card: rgba(15, 23, 42, 0.8);
+            --bg-card: rgba(15, 23, 42, 0.85);
             --text-main: #f1f5f9;
             --border-color: #1e293b;
             --textarea-bg: #0b0f19;
             --textarea-text: #f1f5f9;
             --primary-color: #6366f1;
-            --card-sub: rgba(30, 41, 59, 0.4);
+            --card-sub: rgba(30, 41, 59, 0.5);
             --switch-bg: #475569;
             --switch-active: #34d399;
         }
@@ -42,17 +42,18 @@
             background: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 16px;
+            padding: 24px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.4s ease;
+            box-sizing: border-box;
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -70,6 +71,8 @@
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
@@ -87,19 +90,25 @@
         }
         .theme-toggle:hover { transform: scale(1.05); }
 
+        /* ==========================================================
+           🎛️ CONTROLS GRID (RESPONSIVE)
+           ========================================================== */
         .modern-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 16px; margin-bottom: 16px;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px; 
+            margin-bottom: 16px;
         }
 
         .section-card {
             background: var(--card-sub); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+            border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px;
             position: relative; transition: all 0.2s ease;
+            box-sizing: border-box;
         }
 
         .section-card h4 {
-            margin: 0; font-size: 13px; font-weight: 700; color: var(--primary-color);
+            margin: 0; font-size: 14px; font-weight: 700; color: var(--primary-color);
             display: flex; justify-content: space-between; align-items: center;
         }
 
@@ -120,55 +129,62 @@
         input:checked + .slider { background-color: var(--switch-active); }
         input:checked + .slider:before { transform: translateX(16px); }
 
-        .ctrl-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
-        .ctrl-row label { font-weight: 600; min-width: 65px; color: var(--text-main); opacity: 0.8; }
-        .ctrl-row input[type="range"] { flex: 1; height: 4px; cursor: pointer; accent-color: var(--primary-color); }
+        .ctrl-row { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 12px; 
+            flex-wrap: wrap; /* ការពារការរុញធ្លាយលើអេក្រង់តូច */
+        }
+        .ctrl-row label { font-weight: 600; min-width: 75px; color: var(--text-main); opacity: 0.8; }
+        .ctrl-row input[type="range"] { flex: 1; min-width: 80px; height: 4px; cursor: pointer; accent-color: var(--primary-color); }
 
-        .btn-group { display: flex; gap: 4px; }
+        .btn-group { display: flex; gap: 4px; flex-wrap: wrap; }
         .mini-btn {
-            padding: 4px 8px; border: 1px solid var(--border-color);
+            padding: 5px 10px; border: 1px solid var(--border-color);
             background: var(--textarea-bg); color: var(--text-main); border-radius: 8px;
             cursor: pointer; font-size: 11px; font-family: inherit; font-weight: 500; transition: all 0.15s;
         }
         .mini-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .style-btn { font-weight: 700; min-width: 24px; }
+        .style-btn { font-weight: 700; min-width: 26px; }
 
         .select-font {
-            flex: 1; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border-color);
+            flex: 1; min-width: 120px; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--border-color);
             background: var(--textarea-bg); color: var(--text-main); font-family: inherit; font-size: 11px;
             outline: none; cursor: pointer;
         }
 
         .file-label {
-            padding: 3px 8px; background: var(--primary-color); opacity: 0.9;
-            color: white; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 600;
+            padding: 4px 10px; background: var(--primary-color); opacity: 0.9;
+            color: white; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;
+            display: inline-block; text-align: center;
         }
         .file-input { display: none; }
         
-        .color-inline { display: flex; gap: 6px; align-items: center; }
-        .color-inline input[type="color"] { border: none; width: 22px; height: 22px; border-radius: 6px; cursor: pointer; background: transparent; padding: 0; }
+        .color-inline { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        .color-inline input[type="color"] { border: none; width: 24px; height: 24px; border-radius: 6px; cursor: pointer; background: transparent; padding: 0; }
 
-        .palette-mini { display: flex; gap: 4px; }
+        .palette-mini { display: flex; gap: 6px; align-items: center; }
         .p-dot {
-            width: 16px; height: 16px; border-radius: 50%; border: 1px solid #ffffff;
+            width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff;
             cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.15s;
         }
         .p-dot:hover { transform: scale(1.15); }
 
         .text-actions {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+            margin-bottom: 14px; flex-wrap: wrap; gap: 10px;
         }
-        .sample-buttons { display: flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 600; }
+        .sample-buttons { display: flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 600; flex-wrap: wrap; }
         .sample-btn {
             background: rgba(79, 70, 229, 0.08); color: var(--primary-color); border: 1px solid rgba(79, 70, 229, 0.15);
-            padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
+            padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
         }
         .sample-btn:hover { background: var(--primary-color); color: white; }
         
         .clear-btn {
             background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15);
-            padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
+            padding: 5px 14px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
         }
         .clear-btn:hover { background: #ef4444; color: white; }
 
@@ -190,19 +206,20 @@
             width: 100%;
             position: relative;
             height: 0;
-            padding-top: 56.25%; /* Aspect Ratio 16:9 Base */
+            padding-top: 56.25%; /* ទម្រង់ខ្នាតស្តង់ដារ 16:9 Base */
             background: var(--textarea-bg);
         }
 
-        /* 💡 ដំណោះស្រាយ៖ បើក overflow-y: auto ដើម្បីឱ្យអូសចុះឡើងបានពេលសរសេរវែង */
+        /* បើក overflow-y: auto ដើម្បីអាចអូស Scroll ចុះឡើងបានយ៉ាងរលូនលើទូរស័ព្ទ */
         .canvas-scroll-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             overflow-y: auto;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch; /* ជំនួយការអូសឱ្យរអិលស្រួលលើ iOS */
         }
 
-        /* 💡 ដំណោះស្រាយ៖ ប្តូរមកប្រើ min-height និងលុប Flex justify ជៀសវាងអក្សរជាន់គ្នា */
+        /* ប្រើ min-height និងដក justify-content: space-between ដើម្បីកុំឱ្យអក្សរបុកជាន់គ្នា */
         .canvas-area {
             width: 100%;
             min-height: 100%;
@@ -212,7 +229,7 @@
             background-size: cover;
             display: flex;
             flex-direction: column;
-            padding: 5% 8%;
+            padding: 6% 8%;
             position: relative;
         }
 
@@ -224,7 +241,7 @@
         .img-overlay-block { position: absolute; pointer-events: none; z-index: 2; display: none; }
         .img-overlay-block img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Base class for editable blocks */
+        /* ផ្ទាំងសរសេរអត្ថបទកែសម្រួលបាន */
         .editable-block {
             width: 100%;
             background: transparent;
@@ -239,14 +256,14 @@
 
         .editable-title { font-size: 26px; color: var(--textarea-text); text-align: center; line-height: 1.4; margin: 0 auto 20px auto; }
         
-        /* 💡 ដំណោះស្រាយ៖ ប្រើ margin-bottom ជំនួស flex-grow ដើម្បីរុញ Footer ចុះក្រោមតាមធម្មជាតិ */
+        /* ប្រើ margin-bottom ជំនួស flex-grow ដើម្បីរុញ Footer ចុះក្រោមតាមចំនួនជួរអក្សរជាក់ស្តែង */
         .editable-preview { 
             font-size: 18px; 
             color: var(--textarea-text); 
             min-height: 60px; 
             line-height: 1.6; 
             text-align: center; 
-            margin-bottom: 30px; 
+            margin-bottom: 40px; 
         }
         
         .editable-footer { font-size: 12px; color: #64748b; text-align: right; line-height: 1.4; margin: auto 0 0 auto; padding-top: 15px; }
@@ -254,18 +271,48 @@
         .block-hidden { display: none !important; }
         .editable-block:empty:before { content: attr(placeholder); color: #94a3b8; cursor: text; opacity: 0.6; }
 
-        .action-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+        /* ==========================================================
+           🔘 ACTION BUTTONS
+           ========================================================== */
+        .action-bar { display: flex; gap: 10px; flex-wrap: wrap; }
         .action-btn {
-            flex: 1; min-width: 120px; padding: 10px; border: none; border-radius: 12px;
+            flex: 1; min-width: 140px; padding: 12px; border: none; border-radius: 12px;
             cursor: pointer; font-weight: 600; font-family: inherit; display: flex;
-            align-items: center; justify-content: center; gap: 6px; transition: all 0.2s;
+            align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
             background: var(--card-sub); color: var(--text-main); font-size: 13px;
             border: 1px solid var(--border-color);
         }
         .action-btn.primary { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
         .action-btn.primary:hover { background: #2563eb; }
         .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .chbox-label { display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 600; }
+        .chbox-label { display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 600; user-select: none; }
+
+        /* ==========================================================
+           📱 MEDIA QUERIES FOR IPHONE & MOBILE SCREENS
+           ========================================================== */
+        @media (max-width: 680px) {
+            body { padding: 12px; }
+            .container { padding: 16px; border-radius: 18px; }
+            .modern-grid { grid-template-columns: 1fr; gap: 12px; }
+            
+            .ctrl-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .ctrl-row label { min-width: 100%; margin-bottom: 2px; }
+            .ctrl-row input[type="range"], .select-font { width: 100%; flex: none; }
+            
+            .btn-group { width: 100%; justify-content: space-between; }
+            .btn-group .mini-btn { flex: 1; text-align: center; }
+            
+            .color-inline { width: 100%; justify-content: flex-start; margin-top: 4px; }
+            .palette-mini { width: 100%; margin-left: 0 !important; margin-top: 6px; justify-content: flex-start; }
+            
+            .text-actions { justify-content: center; flex-direction: column; align-items: stretch; }
+            .sample-buttons { justify-content: center; }
+            .clear-btn { text-align: center; width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -446,16 +493,16 @@
             <label class="file-label" for="bgImageFile">🌄 ផ្ទុកកម្រាលក្រោយ</label>
             <input type="file" id="bgImageFile" class="file-input" accept="image/*">
             
-            <label class="chbox-label" style="margin-left: 4px;">
+            <label class="chbox-label">
                 <input type="checkbox" id="enableBgImage" checked> បើកកម្រាល
             </label>
 
-            <label style="min-width:45px; margin-left:8px;">ទំហំរូប:</label>
-            <input type="range" id="bgScaleSize" min="50" max="200" value="100" style="max-width:75px;">
+            <label style="min-width:45px;">ទំហំរូប:</label>
+            <input type="range" id="bgScaleSize" min="50" max="200" value="100">
             <span id="bgScaleVal" style="min-width:30px;">100%</span>
 
-            <label style="min-width:55px; margin-left:8px;">ម៉ូដ Blend:</label>
-            <select id="bgBlendMode" class="select-font" style="max-width:95px;">
+            <label style="min-width:55px;">ម៉ូដ Blend:</label>
+            <select id="bgBlendMode" class="select-font">
                 <option value="normal">Normal</option>
                 <option value="multiply">Multiply</option>
                 <option value="screen">Screen</option>
@@ -469,7 +516,7 @@
             <label style="min-width:60px;">Overlay ពណ៌:</label>
             <input type="color" id="overlayColor" value="#000000" style="width:22px; height:22px; border:none; padding:0; cursor:pointer;">
             
-            <select id="shadowMode" class="select-font" style="max-width:115px; margin-left:4px;">
+            <select id="shadowMode" class="select-font" style="max-width:120px;">
                 <option value="solid">ស្មើទូទាំងរូប (Solid)</option>
                 <option value="gradient">ប្រដេញក្រោម-លើ (Gradient)</option>
             </select>
@@ -482,14 +529,14 @@
 
         <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 2px;">
             <label style="min-width:50px;">ទំហំឡូហ្គូ:</label>
-            <input type="range" id="logoSize" min="20" max="200" value="60" style="max-width:80px;">
+            <input type="range" id="logoSize" min="20" max="200" value="60">
             <span id="logoSizeVal" style="min-width:35px;">60px</span>
 
-            <label style="min-width:35px; margin-left:4px;">ព្រិល:</label>
-            <input type="range" id="logoOpacity" min="0.1" max="1" step="0.05" value="1" style="max-width:70px;">
+            <label style="min-width:35px;">ព្រិល:</label>
+            <input type="range" id="logoOpacity" min="0.1" max="1" step="0.05" value="1">
 
-            <label style="min-width:35px; margin-left:4px;">ទីតាំង:</label>
-            <select id="logoAlign" class="select-font" style="max-width:135px;">
+            <label style="min-width:35px;">ទីតាំង:</label>
+            <select id="logoAlign" class="select-font">
                 <option value="top-center">ខាងលើ - កណ្តាល</option>
                 <option value="top-left">ខាងលើ - ឆ្វេង</option>
                 <option value="top-right">ខាងលើ - ស្តាំ</option>
@@ -612,8 +659,8 @@
     };
 
     const samples = {
-        abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
+        abc: "ក ខ្ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម।\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
         poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
@@ -646,8 +693,9 @@
         const targetEl = section === 'header' ? headerTitle : (section === 'main' ? textPreview : footerPreview);
         targetEl.style.textAlign = type;
         
-        const container = hFontSize.closest('.modern-grid').querySelectorAll('.section-card')[section === 'header' ? 0 : (section === 'main' ? 1 : 2)];
-        container.querySelectorAll('.mini-btn').forEach(btn => {
+        const cards = document.querySelectorAll('.section-card');
+        const cardIndex = section === 'header' ? 0 : (section === 'main' ? 1 : 2);
+        cards[cardIndex].querySelectorAll('.mini-btn').forEach(btn => {
             if(['ឆ្វេង','កណ្តាល','ស្តាំ'].includes(btn.textContent.trim())) btn.classList.remove('active');
         });
         
@@ -825,11 +873,10 @@
             const baseWidth = 1920; 
             const paddingX = 140;
 
-            // Calculate Required Height dynamically before rendering image to prevent cutting off
             const testCanvas = document.createElement('canvas');
             const testCtx = testCanvas.getContext('2d');
             
-            let calculatedHeight = 240; // top/bottom padding anchors
+            let calculatedHeight = 240; 
             const logoSizePx = enableLogo.checked && logoLoadedImage ? parseInt(logoSize.value) * 2.5 : 0;
             if (logoSizePx > 0 && logoAlign.value.startsWith('top')) calculatedHeight += logoSizePx + 40;
 
@@ -847,7 +894,6 @@
             }
             if (logoSizePx > 0 && logoAlign.value.startsWith('bottom')) calculatedHeight += logoSizePx + 30;
 
-            // Standardize output to minimum 1080p, or higher if content demands it
             const baseHeight = Math.max(1080, calculatedHeight);
 
             const canvas = document.createElement('canvas'); canvas.width = baseWidth; canvas.height = baseHeight;
@@ -900,7 +946,7 @@
                 currentY += 40;
             }
 
-            if (styles.main.visible && textPreview.innerText.trim()) {
+            if (styles.visible && textPreview.innerText.trim()) {
                 let mSize = parseInt(mFontSize.value) * 2.2; let lines = textPreview.innerText.split('\n');
                 currentY = drawTextLines(ctx, lines, currentY, mSize, styles.main, mFontSelect.value, mColor.value, styles.main.align, parseFloat(mLetterSpacing.value) * 2, parseFloat(mLineSpacing.value), paddingX, baseWidth);
             }
