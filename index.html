@@ -2,772 +2,679 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>តារាងតេស្តពុម្ពអក្សរ - Toathmor Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Toathmor Font Tester Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
-            --bg-body: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-app: #f4f6f9;
+            --bg-card: #ffffff;
             --text-main: #0f172a;
-            --border-color: #e2e8f0;
-            --textarea-bg: #ffffff;
-            --textarea-text: #0f172a;
-            --primary-color: #4f46e5;
-            --card-sub: #f8fafc;
-            --switch-bg: #cbd5e1;
-            --switch-active: #10b981;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #4f46e5;
+            --accent-light: rgba(79, 70, 229, 0.1);
+            --preview-bg: #ffffff;
         }
 
         [data-theme="dark"] {
-            --bg-body: linear-gradient(135deg, #090d16 0%, #0f172a 100%);
-            --bg-card: rgba(15, 23, 42, 0.8);
+            --bg-app: #0b0f19;
+            --bg-card: #151f32;
             --text-main: #f1f5f9;
-            --border-color: #1e293b;
-            --textarea-bg: #0b0f19;
-            --textarea-text: #f1f5f9;
-            --primary-color: #6366f1;
-            --card-sub: rgba(30, 41, 59, 0.4);
-            --switch-bg: #475569;
-            --switch-active: #34d399;
+            --text-muted: #94a3b8;
+            --border: #22314d;
+            --accent: #6366f1;
+            --accent-light: rgba(99, 102, 241, 0.15);
+            --preview-bg: #090d16;
         }
+
+        * { box-sizing: border-box; font-family: 'Kantumruy Pro', system-ui, sans-serif; }
 
         body {
-            font-family: 'Kantumruy Pro', system-ui, sans-serif;
-            background: var(--bg-body);
+            background-color: var(--bg-app);
             color: var(--text-main);
             margin: 0;
-            padding: 16px;
-            min-height: 100vh;
+            padding: 20px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            transition: background 0.4s ease;
+            align-items: flex-start;
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
-        .container {
+        .app-container {
             width: 100%;
-            max-width: 900px;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 24px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
         }
 
-        .header-bar {
+        @media (max-width: 1024px) {
+            .app-container { grid-template-columns: 1fr; }
+        }
+
+        /* 💻 SIDEBAR CONTROLS */
+        .control-panel {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
         }
 
-        .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-        .brand-name span {
-            font-size: 12px; background: linear-gradient(45deg, #4f46e5, #ec4899);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-weight: 600; margin-left: 6px;
+        .logo-title { font-size: 18px; font-weight: 700; color: var(--text-main); }
+        .logo-title span { color: var(--accent); font-size: 12px; margin-left: 5px; background: var(--accent-light); padding: 2px 8px; border-radius: 20px; }
+
+        .btn-theme {
+            background: var(--bg-app); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px;
+            color: var(--text-main); cursor: pointer; font-size: 12px; font-weight: 500;
         }
 
-        .theme-toggle {
-            background: var(--card-sub); border: 1px solid var(--border-color);
-            padding: 6px 14px; border-radius: 30px; cursor: pointer;
-            color: var(--text-main); font-size: 12px; font-weight: 600;
+        /* 🎛️ MODERN TABS INTERFACE */
+        .tabs-nav {
+            display: flex;
+            background: var(--bg-app);
+            padding: 4px;
+            border-radius: 12px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1; text-align: center; padding: 8px; background: transparent; border: none;
+            color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 8px;
             transition: all 0.2s;
         }
-        .theme-toggle:hover { transform: scale(1.05); }
 
-        .modern-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 16px; margin-bottom: 16px;
+        .tab-btn.active {
+            background: var(--bg-card); color: var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         }
 
-        .section-card {
-            background: var(--card-sub); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px;
-            position: relative; transition: all 0.2s ease;
-        }
+        .tab-content { display: none; flex-direction: column; gap: 16px; }
+        .tab-content.active { display: flex; }
 
-        .section-card h4 {
-            margin: 0; font-size: 13px; font-weight: 700; color: var(--primary-color);
+        .group-box {
+            border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: rgba(0,0,0,0.01);
+        }
+        .group-title {
+            margin: 0 0 12px 0; font-size: 13px; font-weight: 700; color: var(--accent);
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        .title-actions { display: flex; align-items: center; gap: 8px; }
+        /* ROW INPUT SYSTEM */
+        .ctrl-row {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; flex-wrap: wrap;
+        }
+        .ctrl-row:last-child { margin-bottom: 0; }
+        .ctrl-row label { min-width: 80px; font-weight: 600; color: var(--text-muted); }
+        
+        .input-slider { flex: 1; min-width: 100px; height: 5px; accent-color: var(--accent); cursor: pointer; }
+        .val-indicator { min-width: 35px; text-align: right; color: var(--text-muted); font-weight: 500; }
 
-        .switch {
-            position: relative; display: inline-block; width: 34px; height: 18px;
+        .select-custom {
+            flex: 1; min-width: 130px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--bg-app); color: var(--text-main); outline: none; cursor: pointer;
         }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: var(--switch-bg); transition: .3s; border-radius: 20px;
-        }
-        .slider:before {
-            position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px;
-            background-color: white; transition: .3s; border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--switch-active); }
-        input:checked + .slider:before { transform: translateX(16px); }
-
-        .ctrl-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
-        .ctrl-row label { font-weight: 600; min-width: 65px; color: var(--text-main); opacity: 0.8; }
-        .ctrl-row input[type="range"] { flex: 1; height: 4px; cursor: pointer; accent-color: var(--primary-color); }
 
         .btn-group { display: flex; gap: 4px; }
         .mini-btn {
-            padding: 4px 8px; border: 1px solid var(--border-color);
-            background: var(--textarea-bg); color: var(--text-main); border-radius: 8px;
-            cursor: pointer; font-size: 11px; font-family: inherit; font-weight: 500; transition: all 0.15s;
+            padding: 6px 12px; border: 1px solid var(--border); background: var(--bg-app);
+            color: var(--text-main); border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;
         }
-        .mini-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .style-btn { font-weight: 700; min-width: 24px; }
+        .mini-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .select-font {
-            flex: 1; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border-color);
-            background: var(--textarea-bg); color: var(--text-main); font-family: inherit; font-size: 11px;
-            outline: none; cursor: pointer;
-        }
+        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+        input:checked + .slider { background-color: #10b981; }
+        input:checked + .slider:before { transform: translateX(16px); }
 
-        .file-label {
-            padding: 3px 8px; background: var(--primary-color); opacity: 0.9;
-            color: white; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 600;
+        .file-lbl {
+            padding: 5px 12px; background: var(--accent-light); color: var(--accent); border-radius: 6px;
+            cursor: pointer; font-size: 11px; font-weight: 600; border: 1px solid transparent;
         }
-        .file-input { display: none; }
-        
-        .color-inline { display: flex; gap: 6px; align-items: center; }
-        .color-inline input[type="color"] { border: none; width: 22px; height: 22px; border-radius: 6px; cursor: pointer; background: transparent; padding: 0; }
+        .file-lbl:hover { border-color: var(--accent); }
+        .file-hidden { display: none; }
 
-        .palette-mini { display: flex; gap: 4px; }
-        .p-dot {
-            width: 16px; height: 16px; border-radius: 50%; border: 1px solid #ffffff;
-            cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.15s;
-        }
-        .p-dot:hover { transform: scale(1.15); }
-
-        .text-actions {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
-        }
-        .sample-buttons { display: flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 600; }
-        .sample-btn {
-            background: rgba(79, 70, 229, 0.08); color: var(--primary-color); border: 1px solid rgba(79, 70, 229, 0.15);
-            padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
-        }
-        .sample-btn:hover { background: var(--primary-color); color: white; }
-        
-        .clear-btn {
-            background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15);
-            padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-family: inherit; transition: all 0.2s;
-        }
-        .clear-btn:hover { background: #ef4444; color: white; }
-
-        /* ==========================================================
-           🎨 PREVIEW AREA (FIXED SCROLL & FOOTER PUSH)
-           ========================================================== */
-        .preview-wrapper {
-            background: transparent;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            margin-bottom: 16px;
-            width: 100%;
-            position: relative;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+        /* 🎨 PREVIEW MONITOR FRAME */
+        .monitor-panel {
+            display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px;
         }
 
-        .canvas-container-aspect {
-            width: 100%;
-            position: relative;
-            height: 0;
-            padding-top: 56.25%; /* Aspect Ratio 16:9 Base */
-            background: var(--textarea-bg);
+        .preview-frame {
+            width: 100%; background: var(--border); border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            position: relative; height: 0; padding-top: 56.25%; /* 16:9 Screen Ratio Base */
         }
 
-        /* 💡 ដំណោះស្រាយ៖ បើក overflow-y: auto ដើម្បីឱ្យអូសចុះឡើងបានពេលសរសេរវែង */
-        .canvas-scroll-container {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            overflow-y: auto;
-            overflow-x: hidden;
+        .scroll-wrapper {
+            position: absolute; top:0; left:0; width:100%; height:100%; overflow-y:auto; overflow-x:hidden;
+            -webkit-overflow-scrolling: touch; background: var(--preview-bg);
         }
 
-        /* 💡 ដំណោះស្រាយ៖ ប្តូរមកប្រើ min-height និងលុប Flex justify ជៀសវាងអក្សរជាន់គ្នា */
-        .canvas-area {
-            width: 100%;
-            min-height: 100%;
-            box-sizing: border-box;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            display: flex;
-            flex-direction: column;
-            padding: 5% 8%;
-            position: relative;
+        .viewport-canvas {
+            width: 100%; min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column;
+            padding: 40px 50px; position: relative; background-position: center; background-size: cover; background-repeat: no-repeat;
         }
 
-        .canvas-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .layer-blur-overlay { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
 
-        .logo-block { width: 100%; display: none; z-index: 3; box-sizing: border-box; margin-bottom: 15px; }
-        .logo-img { max-height: 55px; max-width: 100%; object-fit: contain; display: block; }
-
-        .img-overlay-block { position: absolute; pointer-events: none; z-index: 2; display: none; }
-        .img-overlay-block img { width: 100%; height: 100%; object-fit: contain; }
-
-        /* Base class for editable blocks */
-        .editable-block {
-            width: 100%;
-            background: transparent;
-            border: none;
-            box-sizing: border-box;
-            outline: none;
-            white-space: pre-wrap; 
-            word-wrap: break-word;
-            z-index: 4;
-            position: relative;
+        .block-editable {
+            width: 100%; background: transparent; border: none; outline: none;
+            white-space: pre-wrap; word-wrap: break-word; word-break: break-word; /* បង្ខំឱ្យចុះបន្ទាត់អូតូទោះវាយជាប់គ្នា */
+            z-index: 5; position: relative; margin: 0;
         }
+        .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
-        .editable-title { font-size: 26px; color: var(--textarea-text); text-align: center; line-height: 1.4; margin: 0 auto 20px auto; }
-        
-        /* 💡 ដំណោះស្រាយ៖ ប្រើ margin-bottom ជំនួស flex-grow ដើម្បីរុញ Footer ចុះក្រោមតាមធម្មជាតិ */
-        .editable-preview { 
-            font-size: 18px; 
-            color: var(--textarea-text); 
-            min-height: 60px; 
-            line-height: 1.6; 
-            text-align: center; 
-            margin-bottom: 30px; 
-        }
-        
-        .editable-footer { font-size: 12px; color: #64748b; text-align: right; line-height: 1.4; margin: auto 0 0 auto; padding-top: 15px; }
+        .view-title { font-size: 24px; text-align: center; margin-bottom: 20px; font-weight: 700; }
+        .view-main { font-size: 16px; text-align: center; min-height: 50px; margin-bottom: 40px; line-height: 1.6; }
+        .view-footer { font-size: 11px; text-align: right; margin-top: auto; color: var(--text-muted); }
 
-        .block-hidden { display: none !important; }
-        .editable-block:empty:before { content: attr(placeholder); color: #94a3b8; cursor: text; opacity: 0.6; }
+        .node-hidden { display: none !important; }
 
-        .action-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+        .logo-box { width: 100%; display: none; z-index: 6; margin-bottom: 12px; }
+        .logo-node { max-height: 50px; max-width: 150px; object-fit: contain; }
+
+        .center-logo-box { position: absolute; pointer-events: none; z-index: 2; display: none; }
+        .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* 🔘 QUICK ACTIONS BAR */
+        .bottom-bar { display: flex; gap: 10px; flex-wrap: wrap; }
         .action-btn {
-            flex: 1; min-width: 120px; padding: 10px; border: none; border-radius: 12px;
-            cursor: pointer; font-weight: 600; font-family: inherit; display: flex;
-            align-items: center; justify-content: center; gap: 6px; transition: all 0.2s;
-            background: var(--card-sub); color: var(--text-main); font-size: 13px;
-            border: 1px solid var(--border-color);
+            flex: 1; min-width: 130px; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
+            font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 8px; background: var(--bg-card); color: var(--text-main); transition: all 0.2s;
         }
-        .action-btn.primary { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
-        .action-btn.primary:hover { background: #2563eb; }
-        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .chbox-label { display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 600; }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
+        .action-btn.primary-btn:hover { background: #3b82f6; border-color: #3b82f6; }
+
+        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+        .sample-pill { background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; cursor: pointer; color: var(--text-main); font-size: 11px; }
+        .sample-pill:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 600; cursor: pointer; }
+
+        /* 📱 RESPONSIVE ADJUSTMENTS FOR SMALL PHONES */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .control-panel { padding: 16px; gap: 14px; }
+            .viewport-canvas { padding: 25px 30px; }
+            .ctrl-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+            .ctrl-row label { min-width: 100%; }
+            .input-slider, .select-custom { width: 100%; }
+            .btn-group { width: 100%; }
+            .btn-group .mini-btn { flex: 1; text-align: center; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header-bar">
-        <div class="brand-name">តារាងតេស្តពុម្ពអក្សរ <span>Toathmor Pro</span></div>
-        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
-    </div>
+<div class="app-container">
+    
+    <div class="control-panel">
+        <div class="app-header">
+            <div class="logo-title">ផ្ទាំងគ្រប់គ្រងពុម្ពអក្សរ <span>Toathmor Pro</span></div>
+            <button class="btn-theme" id="themeToggleBtn">🌙 Dark</button>
+        </div>
 
-    <div class="modern-grid">
-        <div class="section-card">
-            <h4>
-                <span>⚙️ ចំណងជើង (Header)</span>
-                <div class="title-actions">
-                    <label class="switch" title="បង្ហាញ/លាក់">
-                        <input type="checkbox" id="hideHeaderToggle" checked onchange="toggleBlockVisibility('header')">
-                        <span class="slider"></span>
-                    </label>
-                    <label class="file-label" for="hFontFile">➕</label>
-                    <input type="file" id="hFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('text-tab')">📝 អត្ថបទ</button>
+            <button class="tab-btn" onclick="switchTab('bg-tab')">🖼️ ផ្ទៃក្រោយ</button>
+            <button class="tab-btn" onclick="switchTab('logo-tab')">🛡️ ឡូហ្គូ</button>
+        </div>
+
+        <div id="text-tab" class="tab-content active">
+            <div class="group-box">
+                <div class="group-title">
+                    <span>ចំណងជើងធំ (Header)</span>
+                    <label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label>
                 </div>
-            </h4>
-            <div class="ctrl-row">
-                <label>ពុម្ពអក្សរ:</label>
-                <select id="hFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
-                </select>
-            </div>
-            <div class="ctrl-row">
-                <label>ទំហំអក្សរ:</label>
-                <input type="range" id="hFontSize" min="14" max="80" value="26">
-                <span style="min-width:30px; text-align:right;" id="hSizeVal">26px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតតួ:</label>
-                <input type="range" id="hLetterSpacing" min="-2" max="10" step="0.5" value="0">
-                <span style="min-width:30px; text-align:right;" id="hLetterVal">0px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតជួរ:</label>
-                <input type="range" id="hLineSpacing" min="1" max="3" step="0.1" value="1.4">
-                <span style="min-width:30px; text-align:right;" id="hLineVal">1.4</span>
-            </div>
-            <div class="ctrl-row">
-                <label>រចនាបថ:</label>
-                <div class="btn-group">
-                    <button class="mini-btn style-btn" id="hBold" onclick="toggleStyle('header', 'bold')">B</button>
-                    <button class="mini-btn style-btn" id="hItalic" onclick="toggleStyle('header', 'italic')">I</button>
-                    <button class="mini-btn style-btn" id="hUnderline" onclick="toggleStyle('header', 'underline')">U</button>
+                <div class="ctrl-row">
+                    <label>ពុម្ពអក្សរ:</label>
+                    <select id="hFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                    <label class="file-lbl" for="hFFile">➕</label><input type="file" id="hFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
                 </div>
-                <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn" id="hAlignBtnLeft" onclick="setAlign('header', 'left')">ឆ្វេង</button>
-                    <button class="mini-btn active" id="hAlignBtnCenter" onclick="setAlign('header', 'center')">កណ្តាល</button>
-                    <button class="mini-btn" id="hAlignBtnRight" onclick="setAlign('header', 'right')">ស្តាំ</button>
+                <div class="ctrl-row">
+                    <label>ទំហំ & គម្លាត:</label>
+                    <input type="range" id="hSize" class="input-slider" min="16" max="80" value="26"><span class="val-indicator" id="hSizeLbl">26px</span>
+                </div>
+                <div class="ctrl-row">
+                    <label>គម្លាតជួរ/តួ:</label>
+                    <input type="range" id="hLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.4">
+                    <input type="range" id="hSpace" class="input-slider" min="-2" max="8" step="0.5" value="0">
+                </div>
+                <div class="ctrl-row">
+                    <label>រចនាបថ:</label>
+                    <div class="btn-group">
+                        <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
+                        <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
+                        <button class="mini-btn" id="hU" onclick="toggleTextFormat('header','U')">U</button>
+                    </div>
+                    <div class="btn-group" style="margin-left: auto;">
+                        <button class="mini-btn" id="hAL" onclick="setTextAlignment('header','left')">ឆ្វេង</button>
+                        <button class="mini-btn active" id="hAC" onclick="setTextAlignment('header','center')">កណ្តាល</button>
+                        <button class="mini-btn" id="hAR" onclick="setTextAlignment('header','right')">ស្តាំ</button>
+                    </div>
+                </div>
+                <div class="ctrl-row">
+                    <label>ពណ៌អក្សរ:</label>
+                    <input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; cursor:pointer;">
                 </div>
             </div>
-            <div class="ctrl-row">
-                <label>ពណ៌អក្សរ:</label>
-                <div class="color-inline"><input type="color" id="hColor" value="#0f172a"></div>
+
+            <div class="group-box">
+                <div class="group-title">
+                    <span>អត្ថបទកណ្តាល (Main)</span>
+                    <label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label>
+                </div>
+                <div class="ctrl-row">
+                    <label>ពុម្ពអក្សរ:</label>
+                    <select id="mFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                    <label class="file-lbl" for="mFFile">➕</label><input type="file" id="mFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                </div>
+                <div class="ctrl-row">
+                    <label>ទំហំ & គម្លាត:</label>
+                    <input type="range" id="mSize" class="input-slider" min="12" max="50" value="17"><span class="val-indicator" id="mSizeLbl">17px</span>
+                </div>
+                <div class="ctrl-row">
+                    <label>គម្លាតជួរ/តួ:</label>
+                    <input type="range" id="mLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.6">
+                    <input type="range" id="mSpace" class="input-slider" min="-2" max="8" step="0.5" value="0">
+                </div>
+                <div class="ctrl-row">
+                    <label>រចនាបថ:</label>
+                    <div class="btn-group">
+                        <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
+                        <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
+                        <button class="mini-btn" id="mU" onclick="toggleTextFormat('main','U')">U</button>
+                    </div>
+                    <div class="btn-group" style="margin-left: auto;">
+                        <button class="mini-btn" id="mAL" onclick="setTextAlignment('main','left')">ឆ្វេង</button>
+                        <button class="mini-btn active" id="mAC" onclick="setTextAlignment('main','center')">កណ្តាល</button>
+                        <button class="mini-btn" id="mAR" onclick="setTextAlignment('main','right')">ស្តាំ</button>
+                    </div>
+                </div>
+                <div class="ctrl-row">
+                    <label>ពណ៌អក្សរ:</label>
+                    <input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; cursor:pointer;">
+                </div>
+            </div>
+
+            <div class="group-box">
+                <div class="group-title">
+                    <span>ឯកសារយោង (Footer)</span>
+                    <label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label>
+                </div>
+                <div class="ctrl-row">
+                    <label>ពុម្ពអក្សរ:</label>
+                    <select id="fFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                    <label class="file-lbl" for="fFFile">➕</label><input type="file" id="fFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                </div>
+                <div class="ctrl-row">
+                    <label>ទំហំអក្សរ:</label>
+                    <input type="range" id="fSize" class="input-slider" min="10" max="30" value="12"><span class="val-indicator" id="fSizeLbl">12px</span>
+                </div>
+                <div class="ctrl-row">
+                    <label>រចនាបថ:</label>
+                    <div class="btn-group">
+                        <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
+                        <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
+                        <button class="mini-btn" id="fU" onclick="toggleTextFormat('footer','U')">U</button>
+                    </div>
+                    <div class="btn-group" style="margin-left: auto;">
+                        <button class="mini-btn" id="fAL" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
+                        <button class="mini-btn" id="fAC" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
+                        <button class="mini-btn active" id="fAR" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
+                    </div>
+                </div>
+                <div class="ctrl-row">
+                    <label>ពណ៌ Footer:</label>
+                    <input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; cursor:pointer;">
+                </div>
             </div>
         </div>
 
-        <div class="section-card">
-            <h4>
-                <span>⚙️ អត្ថបទកណ្តាល (Main)</span>
-                <div class="title-actions">
-                    <label class="switch" title="បង្ហាញ/លាក់">
-                        <input type="checkbox" id="hideMainToggle" checked onchange="toggleBlockVisibility('main')">
-                        <span class="slider"></span>
-                    </label>
-                    <label class="file-label" for="mFontFile">➕</label>
-                    <input type="file" id="mFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+        <div id="bg-tab" class="tab-content">
+            <div class="group-box">
+                <div class="group-title">ការកំណត់ផ្ទៃខាងក្រោយ</div>
+                <div class="ctrl-row">
+                    <label>ពណ៌ផ្ទៃក្រោយ:</label>
+                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; cursor:pointer;">
                 </div>
-            </h4>
-            <div class="ctrl-row">
-                <label>ពុម្ពអក្សរ:</label>
-                <select id="mFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
-                </select>
-            </div>
-            <div class="ctrl-row">
-                <label>ទំហំអក្សរ:</label>
-                <input type="range" id="mFontSize" min="12" max="60" value="18">
-                <span style="min-width:30px; text-align:right;" id="mSizeVal">18px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតតួ:</label>
-                <input type="range" id="mLetterSpacing" min="-2" max="10" step="0.5" value="0">
-                <span style="min-width:30px; text-align:right;" id="mLetterVal">0px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតជួរ:</label>
-                <input type="range" id="mLineSpacing" min="1" max="3" step="0.1" value="1.6">
-                <span style="min-width:30px; text-align:right;" id="mLineVal">1.6</span>
-            </div>
-            <div class="ctrl-row">
-                <label>រចនាបថ:</label>
-                <div class="btn-group">
-                    <button class="mini-btn style-btn" id="mBold" onclick="toggleStyle('main', 'bold')">B</button>
-                    <button class="mini-btn style-btn" id="mItalic" onclick="toggleStyle('main', 'italic')">I</button>
-                    <button class="mini-btn style-btn" id="mUnderline" onclick="toggleStyle('main', 'underline')">U</button>
+                <div class="ctrl-row" style="border-top:1px dashed var(--border); padding-top:12px; margin-top:10px;">
+                    <label class="file-lbl" for="bgUpload">🌄 ផ្ទុកកម្រាលរូបភាព</label>
+                    <input type="file" id="bgUpload" class="file-hidden" accept="image/*">
+                    <label class="switch"><input type="checkbox" id="useBgImage" checked><span class="slider"></span></label>
                 </div>
-                <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn" id="mAlignBtnLeft" onclick="setAlign('main', 'left')">ឆ្វេង</button>
-                    <button class="mini-btn active" id="mAlignBtnCenter" onclick="setAlign('main', 'center')">កណ្តាល</button>
-                    <button class="mini-btn" id="mAlignBtnRight" onclick="setAlign('main', 'right')">ស្តាំ</button>
+                <div class="ctrl-row">
+                    <label>ទំហំរូបភាព:</label>
+                    <input type="range" id="bgScale" class="input-slider" min="50" max="200" value="100"><span class="val-indicator" id="bgScaleLbl">100%</span>
+                </div>
+                <div class="ctrl-row">
+                    <label>ម៉ូដ Blend:</label>
+                    <select id="blendSelect" class="select-custom">
+                        <option value="normal">Normal</option>
+                        <option value="multiply">Multiply</option>
+                        <option value="screen">Screen</option>
+                        <option value="overlay">Overlay</option>
+                    </select>
+                </div>
+                <div class="ctrl-row" style="border-top:1px dashed var(--border); padding-top:12px; margin-top:10px;">
+                    <label>Overlay ពណ៌:</label>
+                    <input type="color" id="layerColor" value="#000000" style="border:none; background:transparent; cursor:pointer;">
+                    <select id="layerStyle" class="select-custom"><option value="solid">ស្មើ (Solid)</option><option value="gradient">ប្រដេញ (Gradient)</option></select>
+                </div>
+                <div class="ctrl-row">
+                    <label>កម្រិតព្រិល:</label>
+                    <input type="range" id="layerOpacity" class="input-slider" min="0" max="1" step="0.05" value="0">
                 </div>
             </div>
         </div>
 
-        <div class="section-card">
-            <h4>
-                <span>⚙️ ឯកសារយោង (Footer)</span>
-                <div class="title-actions">
-                    <label class="switch" title="បង្ហាញ/លាក់">
-                        <input type="checkbox" id="hideFooterToggle" checked onchange="toggleBlockVisibility('footer')">
-                        <span class="slider"></span>
-                    </label>
-                    <label class="file-label" for="fFontFile">➕</label>
-                    <input type="file" id="fFontFile" class="file-input" accept=".ttf,.otf,.woff,.woff2" multiple>
+        <div id="logo-tab" class="tab-content">
+            <div class="group-box">
+                <div class="group-title">ការកំណត់ឡូហ្គូ</div>
+                <div class="ctrl-row">
+                    <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white;">🛡️ ជ្រើសរើសឡូហ្គូ</label>
+                    <input type="file" id="logoUpload" class="file-hidden" accept="image/*">
+                    <label class="switch"><input type="checkbox" id="useLogo" checked><span class="slider"></span></label>
                 </div>
-            </h4>
-            <div class="ctrl-row">
-                <label>ពុម្ពអក្សរ:</label>
-                <select id="fFontSelect" class="select-font">
-                    <option value="'Kantumruy Pro'">Kantumruy Pro</option>
-                </select>
-            </div>
-            <div class="ctrl-row">
-                <label>ទំហំអក្សរ:</label>
-                <input type="range" id="fFontSize" min="10" max="40" value="12">
-                <span style="min-width:30px; text-align:right;" id="fSizeVal">12px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតតួ:</label>
-                <input type="range" id="fLetterSpacing" min="-2" max="10" step="0.5" value="0">
-                <span style="min-width:30px; text-align:right;" id="fLetterVal">0px</span>
-            </div>
-            <div class="ctrl-row">
-                <label>គម្លាតជួរ:</label>
-                <input type="range" id="fLineSpacing" min="1" max="3" step="0.1" value="1.4">
-                <span style="min-width:30px; text-align:right;" id="fLineVal">1.4</span>
-            </div>
-            <div class="ctrl-row">
-                <label>រចនាបថ:</label>
-                <div class="btn-group">
-                    <button class="mini-btn style-btn" id="fBold" onclick="toggleStyle('footer', 'bold')">B</button>
-                    <button class="mini-btn style-btn" id="fItalic" onclick="toggleStyle('footer', 'italic')">I</button>
-                    <button class="mini-btn style-btn" id="fUnderline" onclick="toggleStyle('footer', 'underline')">U</button>
+                <div class="ctrl-row">
+                    <label>ទំហំឡូហ្គូ:</label>
+                    <input type="range" id="logoScale" class="input-slider" min="20" max="250" value="55"><span class="val-indicator" id="logoScaleLbl">55px</span>
                 </div>
-                <div class="btn-group" style="margin-left:auto;">
-                    <button class="mini-btn" id="fAlignBtnLeft" onclick="setAlign('footer', 'left')">ឆ្វេង</button>
-                    <button class="mini-btn" id="fAlignBtnCenter" onclick="setAlign('footer', 'center')">កណ្តាល</button>
-                    <button class="mini-btn active" id="fAlignBtnRight" onclick="setAlign('footer', 'right')">ស្តាំ</button>
+                <div class="ctrl-row">
+                    <label>ភាពច្បាស់ (Alpha):</label>
+                    <input type="range" id="logoAlpha" class="input-slider" min="0.1" max="1" step="0.05" value="1">
+                </div>
+                <div class="ctrl-row">
+                    <label>ទីតាំងឡូហ្គូ:</label>
+                    <select id="logoPlacement" class="select-custom">
+                        <option value="top-center">ខាងលើ - កណ្តាល</option>
+                        <option value="top-left">ខាងលើ - ឆ្វេង</option>
+                        <option value="top-right">ខាងលើ - ស្តាំ</option>
+                        <option value="center">ចំកណ្តាលផ្ទាំង</option>
+                        <option value="bottom-center">ខាងក្រោម - កណ្តាល</option>
+                        <option value="bottom-left">ខាងក្រោម - ឆ្វេង</option>
+                        <option value="bottom-right" selected>ខាងក្រោម - ស្តាំ</option>
+                    </select>
                 </div>
             </div>
-            <div class="ctrl-row">
-                <label>ពណ៌សរុប:</label>
-                <div class="color-inline">
-                    <input type="color" id="mColor" value="#0f172a" title="ពណ៌អត្ថបទកណ្តាល">
-                    <input type="color" id="fColor" value="#64748b" title="ពណ៌ Footer">
-                    <input type="color" id="bgColor" value="#ffffff" title="ពណ៌ផ្ទៃក្រោយ">
-                </div>
-                <div class="palette-mini" style="margin-left:auto;">
-                    <div class="p-dot" style="background:#ffffff; border-color:#ccc;" onclick="setQuickColor('#0f172a','#64748b','#ffffff')"></div>
-                    <div class="p-dot" style="background:#0f172a;" onclick="setQuickColor('#f8fafc','#94a3b8','#0f172a')"></div>
-                    <div class="p-dot" style="background:#1e3a8a;" onclick="setQuickColor('#facc15','#93c5fd','#1e3a8a')"></div>
-                    <div class="p-dot" style="background:#15803d;" onclick="setQuickColor('#ffffff','#a7f3d0','#15803d')"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-card" style="margin-bottom: 16px;">
-        <h4>🖼️ ផ្ទៃក្រោយ & ម៉ូដលាយពណ៌ (Background & Logo Options)</h4>
-        <div class="ctrl-row">
-            <label class="file-label" for="bgImageFile">🌄 ផ្ទុកកម្រាលក្រោយ</label>
-            <input type="file" id="bgImageFile" class="file-input" accept="image/*">
-            
-            <label class="chbox-label" style="margin-left: 4px;">
-                <input type="checkbox" id="enableBgImage" checked> បើកកម្រាល
-            </label>
-
-            <label style="min-width:45px; margin-left:8px;">ទំហំរូប:</label>
-            <input type="range" id="bgScaleSize" min="50" max="200" value="100" style="max-width:75px;">
-            <span id="bgScaleVal" style="min-width:30px;">100%</span>
-
-            <label style="min-width:55px; margin-left:8px;">ម៉ូដ Blend:</label>
-            <select id="bgBlendMode" class="select-font" style="max-width:95px;">
-                <option value="normal">Normal</option>
-                <option value="multiply">Multiply</option>
-                <option value="screen">Screen</option>
-                <option value="overlay">Overlay</option>
-                <option value="darken">Darken</option>
-                <option value="lighten">Lighten</option>
-            </select>
-        </div>
-
-        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 2px;">
-            <label style="min-width:60px;">Overlay ពណ៌:</label>
-            <input type="color" id="overlayColor" value="#000000" style="width:22px; height:22px; border:none; padding:0; cursor:pointer;">
-            
-            <select id="shadowMode" class="select-font" style="max-width:115px; margin-left:4px;">
-                <option value="solid">ស្មើទូទាំងរូប (Solid)</option>
-                <option value="gradient">ប្រដេញក្រោម-លើ (Gradient)</option>
-            </select>
-            <input type="range" id="overlayOpacity" min="0" max="1" step="0.05" value="0.0">
-
-            <label class="file-label" style="background:#10b981; margin-left:auto;" for="logoFile">🛡️ ឡូហ្គូ</label>
-            <input type="file" id="logoFile" class="file-input" accept="image/*">
-            <label class="chbox-label"><input type="checkbox" id="enableLogo" checked> បង្ហាញ</label>
-        </div>
-
-        <div class="ctrl-row" style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 2px;">
-            <label style="min-width:50px;">ទំហំឡូហ្គូ:</label>
-            <input type="range" id="logoSize" min="20" max="200" value="60" style="max-width:80px;">
-            <span id="logoSizeVal" style="min-width:35px;">60px</span>
-
-            <label style="min-width:35px; margin-left:4px;">ព្រិល:</label>
-            <input type="range" id="logoOpacity" min="0.1" max="1" step="0.05" value="1" style="max-width:70px;">
-
-            <label style="min-width:35px; margin-left:4px;">ទីតាំង:</label>
-            <select id="logoAlign" class="select-font" style="max-width:135px;">
-                <option value="top-center">ខាងលើ - កណ្តាល</option>
-                <option value="top-left">ខាងលើ - ឆ្វេង</option>
-                <option value="top-right">ខាងលើ - ស្តាំ</option>
-                <option value="center">ចំកណ្តាលផ្ទាំង</option>
-                <option value="bottom-center">ខាងក្រោម - កណ្តាល</option>
-                <option value="bottom-left">ខាងក្រោម - ឆ្វេង</option>
-                <option value="bottom-right" selected>ខាងក្រោម - ស្តាំ</option>
-            </select>
         </div>
     </div>
 
-    <div class="text-actions">
-        <div class="sample-buttons">
-            <span>គំរូ៖</span>
-            <button class="sample-btn" onclick="insertSample('abc')">ព្យញ្ជនៈ</button>
-            <button class="sample-btn" onclick="insertSample('proverb')">សុភាសិត</button>
-            <button class="sample-btn" onclick="insertSample('poem')">កំណាព្យ</button>
+    <div class="monitor-panel">
+        <div class="sample-bar">
+            <span>គំរូអត្ថបទ៖</span>
+            <button class="sample-pill" onclick="loadSampleText('abc')">ព្យញ្ជនៈ</button>
+            <button class="sample-pill" onclick="loadSampleText('proverb')">សុភាសិត</button>
+            <button class="sample-pill" onclick="loadSampleText('poem')">កំណាព្យ</button>
+            <button class="btn-clear" id="actionClearBtn">🧹 សម្អាត</button>
         </div>
-        <button class="clear-btn" id="clearBtn">🧹 សម្អាត</button>
-    </div>
 
-    <div class="preview-wrapper">
-        <div class="canvas-container-aspect">
-            <div class="canvas-scroll-container">
-                <div class="canvas-area" id="canvasArea">
-                    <div class="canvas-overlay" id="canvasOverlay"></div>
+        <div class="preview-frame">
+            <div class="scroll-wrapper">
+                <div class="viewport-canvas" id="vCanvas">
+                    <div class="layer-blur-overlay" id="vOverlay"></div>
                     
-                    <div class="logo-block" id="logoBlock">
-                        <img src="" class="logo-img" id="logoImg" alt="Logo">
+                    <div class="logo-box" id="vLogoBox">
+                        <img src="" class="logo-node" id="vLogoImg" alt="Logo">
                     </div>
 
-                    <div class="img-overlay-block" id="imgOverlayBlock">
-                        <img src="" id="imgOverlayElement" alt="Overlay">
+                    <div class="center-logo-box" id="vLogoCenterBox">
+                        <img src="" id="vLogoCenterImg" alt="Logo Center">
                     </div>
 
-                    <div class="editable-block editable-title" id="headerTitle" contenteditable="true" placeholder="សូមវាយចំណងជើងធំ...">ចំណងជើងបទកំណាព្យ</div>
-                    <div class="editable-block editable-preview" id="textPreview" contenteditable="true" placeholder="សូមវាយអត្ថបទខ្មែរ...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ
-ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
-                    <div class="editable-block editable-footer" id="footerPreview" contenteditable="true" placeholder="— វាយឈ្មោះ...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
+                    <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="ចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
+                    <p class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទទីនេះ...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</p>
+                    <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ឈ្មោះ...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
                 </div>
             </div>
         </div>
+
+        <div class="bottom-bar">
+            <button class="action-btn primary-btn" id="btnExportImg">🖼️ រក្សាទុករូបភាព</button>
+            <button class="action-btn" id="btnExportPdf">📄 PDF</button>
+            <button class="action-btn" id="btnShareApp">🔗 ចែករំលែក</button>
+        </div>
     </div>
 
-    <div class="action-bar">
-        <button class="action-btn primary" id="saveImgBtn">🖼️ រក្សាទុករូបភាព</button>
-        <button class="action-btn" id="savePdfBtn">📄 ទាញយកជា PDF</button>
-        <button class="action-btn" id="shareBtn">🔗 ចែករំលែក</button>
-    </div>
 </div>
 
 <script>
-    const headerTitle = document.getElementById('headerTitle');
-    const textPreview = document.getElementById('textPreview');
-    const footerPreview = document.getElementById('footerPreview');
-    const canvasArea = document.getElementById('canvasArea');
-    const canvasOverlay = document.getElementById('canvasOverlay');
-    const clearBtn = document.getElementById('clearBtn');
+    // System DOM Cache
+    const vTitle = document.getElementById('vTitle');
+    const vMainText = document.getElementById('vMainText');
+    const vFooterText = document.getElementById('vFooterText');
+    const vCanvas = document.getElementById('vCanvas');
+    const vOverlay = document.getElementById('vOverlay');
 
-    const hFontSelect = document.getElementById('hFontSelect');
-    const mFontSelect = document.getElementById('mFontSelect');
-    const fFontSelect = document.getElementById('fFontSelect');
+    const hFont = document.getElementById('hFont');
+    const mFont = document.getElementById('mFont');
+    const fFont = document.getElementById('fFont');
 
-    const hFontSize = document.getElementById('hFontSize');
-    const mFontSize = document.getElementById('mFontSize');
-    const fFontSize = document.getElementById('fFontSize');
+    const hSize = document.getElementById('hSize');
+    const mSize = document.getElementById('mSize');
+    const fSize = document.getElementById('fSize');
     
-    const hLetterSpacing = document.getElementById('hLetterSpacing');
-    const mLetterSpacing = document.getElementById('mLetterSpacing');
-    const fLetterSpacing = document.getElementById('fLetterSpacing');
-
-    const hLineSpacing = document.getElementById('hLineSpacing');
-    const mLineSpacing = document.getElementById('mLineSpacing');
-    const fLineSpacing = document.getElementById('fLineSpacing');
-
-    const hSizeVal = document.getElementById('hSizeVal');
-    const mSizeVal = document.getElementById('mSizeVal');
-    const fSizeVal = document.getElementById('fSizeVal');
-    const hLetterVal = document.getElementById('hLetterVal');
-    const mLetterVal = document.getElementById('mLetterVal');
-    const fLetterVal = document.getElementById('fLetterVal');
-    const hLineVal = document.getElementById('hLineVal');
-    const mLineVal = document.getElementById('mLineVal');
-    const fLineVal = document.getElementById('fLineVal');
-
-    const hColor = document.getElementById('hColor');
-    const mColor = document.getElementById('mColor');
-    const fColor = document.getElementById('fColor');
-    const bgColor = document.getElementById('bgColor');
-
-    const bgImageFile = document.getElementById('bgImageFile');
-    const enableBgImage = document.getElementById('enableBgImage');
-    const overlayColor = document.getElementById('overlayColor');
-    const shadowMode = document.getElementById('shadowMode');
-    const overlayOpacity = document.getElementById('overlayOpacity');
+    const hLine = document.getElementById('hLine');
+    const mLine = document.getElementById('mLine');
     
-    const bgScaleSize = document.getElementById('bgScaleSize');
-    const bgScaleVal = document.getElementById('bgScaleVal');
-    const bgBlendMode = document.getElementById('bgBlendMode');
-    
-    const logoFile = document.getElementById('logoFile');
-    const enableLogo = document.getElementById('enableLogo');
-    const logoSize = document.getElementById('logoSize');
-    const logoSizeVal = document.getElementById('logoSizeVal');
-    const logoOpacity = document.getElementById('logoOpacity');
-    const logoAlign = document.getElementById('logoAlign');
-    const logoImg = document.getElementById('logoImg');
-    const logoBlock = document.getElementById('logoBlock');
-    
-    const imgOverlayBlock = document.getElementById('imgOverlayBlock');
-    const imgOverlayElement = document.getElementById('imgOverlayElement');
+    const hSpace = document.getElementById('hSpace');
+    const mSpace = document.getElementById('mSpace');
 
-    let bgLoadedImage = null;
-    let logoLoadedImage = null;
+    const hSizeLbl = document.getElementById('hSizeLbl');
+    const mSizeLbl = document.getElementById('mSizeLbl');
+    const fSizeLbl = document.getElementById('fSizeLbl');
+    const bgScaleLbl = document.getElementById('bgScaleLbl');
+    const logoScaleLbl = document.getElementById('logoScaleLbl');
 
-    let styles = {
+    const hColorInput = document.getElementById('hColorInput');
+    const mColorInput = document.getElementById('mColorInput');
+    const fColorInput = document.getElementById('fColorInput');
+    const panelBgColor = document.getElementById('panelBgColor');
+
+    const bgUpload = document.getElementById('bgUpload');
+    const useBgImage = document.getElementById('useBgImage');
+    const layerColor = document.getElementById('layerColor');
+    const layerStyle = document.getElementById('layerStyle');
+    const layerOpacity = document.getElementById('layerOpacity');
+    const bgScale = document.getElementById('bgScale');
+    const blendSelect = document.getElementById('blendSelect');
+    
+    const logoUpload = document.getElementById('logoUpload');
+    const useLogo = document.getElementById('useLogo');
+    const logoScale = document.getElementById('logoScale');
+    const logoAlpha = document.getElementById('logoAlpha');
+    const logoPlacement = document.getElementById('logoPlacement');
+    const vLogoImg = document.getElementById('vLogoImg');
+    const vLogoBox = document.getElementById('vLogoBox');
+    const vLogoCenterBox = document.getElementById('vLogoCenterBox');
+    const vLogoCenterImg = document.getElementById('vLogoCenterImg');
+
+    let memoryBgImage = null;
+    let memoryLogoImage = null;
+
+    let textConfigs = {
         header: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         main: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         footer: { bold: false, italic: false, underline: false, align: 'right', visible: true }
     };
 
-    const samples = {
-        abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
+    const textLibrary = {
+        abc: "ក ខ្ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
         proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ​​។"
     };
 
-    function insertSample(type) { textPreview.innerText = samples[type]; }
-    clearBtn.addEventListener('click', () => { headerTitle.innerText=''; textPreview.innerText = ''; footerPreview.innerText=''; textPreview.focus(); });
-
-    function toggleBlockVisibility(section) {
-        const toggleEl = document.getElementById(`hide${section.charAt(0).toUpperCase() + section.slice(1)}Toggle`);
-        styles[section].visible = toggleEl.checked;
-        const block = section === 'header' ? headerTitle : (section === 'main' ? textPreview : footerPreview);
-        if(styles[section].visible) { block.classList.remove('block-hidden'); } else { block.classList.add('block-hidden'); }
-        updateLogoOverlayDOM();
+    // Tab Navigation Logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    function toggleStyle(section, styleType) {
-        styles[section][styleType] = !styles[section][styleType];
-        const targetBtn = document.getElementById(`${section.charAt(0)}${styleType.charAt(0).toUpperCase() + styleType.slice(1)}`);
-        const targetElement = section === 'header' ? headerTitle : (section === 'main' ? textPreview : footerPreview);
-        
-        if (styles[section][styleType]) targetBtn.classList.add('active');
-        else targetBtn.classList.remove('active');
+    function loadSampleText(key) { vMainText.innerText = textLibrary[key]; }
+    document.getElementById('actionClearBtn').addEventListener('click', () => { vTitle.innerText=''; vMainText.innerText=''; vFooterText.innerText=''; vMainText.focus(); });
 
-        if(styleType === 'bold') targetElement.style.fontWeight = styles[section].bold ? 'bold' : 'normal';
-        if(styleType === 'italic') targetElement.style.fontStyle = styles[section].italic ? 'italic' : 'normal';
-        if(styleType === 'underline') targetElement.style.textDecoration = styles[section].underline ? 'underline' : 'none';
+    function updateVisibility(section) {
+        const check = document.getElementById(`v${section.charAt(0).toUpperCase() + section.slice(1)}`);
+        textConfigs[section].visible = check.checked;
+        const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
+        if(check.checked) target.classList.remove('node-hidden'); else target.classList.add('node-hidden');
     }
 
-    function setAlign(section, type) {
-        styles[section].align = type;
-        const targetEl = section === 'header' ? headerTitle : (section === 'main' ? textPreview : footerPreview);
-        targetEl.style.textAlign = type;
+    function toggleTextFormat(section, mode) {
+        const flag = mode === 'B' ? 'bold' : (mode === 'I' ? 'italic' : 'underline');
+        textConfigs[section][flag] = !textConfigs[section][flag];
         
-        const container = hFontSize.closest('.modern-grid').querySelectorAll('.section-card')[section === 'header' ? 0 : (section === 'main' ? 1 : 2)];
-        container.querySelectorAll('.mini-btn').forEach(btn => {
-            if(['ឆ្វេង','កណ្តាល','ស្តាំ'].includes(btn.textContent.trim())) btn.classList.remove('active');
+        const btn = document.getElementById(`${section.charAt(0)}${mode}`);
+        if(textConfigs[section][flag]) btn.classList.add('active'); else btn.classList.remove('active');
+
+        const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
+        if(mode === 'B') target.style.fontWeight = textConfigs[section].bold ? 'bold' : 'normal';
+        if(mode === 'I') target.style.fontStyle = textConfigs[section].italic ? 'italic' : 'normal';
+        if(mode === 'U') target.style.textDecoration = textConfigs[section].underline ? 'underline' : 'none';
+    }
+
+    function setTextAlignment(section, alignType) {
+        textConfigs[section].align = alignType;
+        const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
+        target.style.textAlign = alignType;
+
+        document.querySelectorAll(`#${section}-tab .mini-btn` || `.control-panel .mini-btn`).forEach(b => {
+            if(b.id && b.id.startsWith(`${section.charAt(0)}A`)) b.classList.remove('active');
         });
-        
-        const activeBtnId = `${section.charAt(0)}AlignBtn${type.charAt(0).toUpperCase() + type.slice(1)}`;
-        const activeBtn = document.getElementById(activeBtnId);
-        if(activeBtn) activeBtn.classList.add('active');
+        document.getElementById(`${section.charAt(0)}A${alignType.charAt(0).toUpperCase() + alignType.slice(1)}`).classList.add('active');
     }
 
-    hFontSize.addEventListener('input', (e) => { headerTitle.style.fontSize = e.target.value + 'px'; hSizeVal.textContent = e.target.value + 'px'; });
-    mFontSize.addEventListener('input', (e) => { textPreview.style.fontSize = e.target.value + 'px'; mSizeVal.textContent = e.target.value + 'px'; });
-    fFontSize.addEventListener('input', (e) => { footerPreview.style.fontSize = e.target.value + 'px'; fSizeVal.textContent = e.target.value + 'px'; });
+    // Dynamic Live Customization Event Handlers
+    hSize.addEventListener('input', (e) => { vTitle.style.fontSize = e.target.value + 'px'; hSizeLbl.textContent = e.target.value + 'px'; });
+    mSize.addEventListener('input', (e) => { vMainText.style.fontSize = e.target.value + 'px'; mSizeLbl.textContent = e.target.value + 'px'; });
+    fSize.addEventListener('input', (e) => { vFooterText.style.fontSize = e.target.value + 'px'; fSizeLbl.textContent = e.target.value + 'px'; });
 
-    hLetterSpacing.addEventListener('input', (e) => { headerTitle.style.letterSpacing = e.target.value + 'px'; hLetterVal.textContent = e.target.value + 'px'; });
-    mLetterSpacing.addEventListener('input', (e) => { textPreview.style.letterSpacing = e.target.value + 'px'; mLetterVal.textContent = e.target.value + 'px'; });
-    fLetterSpacing.addEventListener('input', (e) => { footerPreview.style.letterSpacing = e.target.value + 'px'; fLetterVal.textContent = e.target.value + 'px'; });
+    hLine.addEventListener('input', (e) => { vTitle.style.lineHeight = e.target.value; });
+    mLine.addEventListener('input', (e) => { vMainText.style.lineHeight = e.target.value; });
+    
+    hSpace.addEventListener('input', (e) => { vTitle.style.letterSpacing = e.target.value + 'px'; });
+    mSpace.addEventListener('input', (e) => { vMainText.style.letterSpacing = e.target.value + 'px'; });
 
-    hLineSpacing.addEventListener('input', (e) => { headerTitle.style.lineHeight = e.target.value; hLineVal.textContent = e.target.value; });
-    mLineSpacing.addEventListener('input', (e) => { textPreview.style.lineHeight = e.target.value; mLineVal.textContent = e.target.value; });
-    fLineSpacing.addEventListener('input', (e) => { footerPreview.style.lineHeight = e.target.value; fLineVal.textContent = e.target.value; });
-
-    hColor.addEventListener('input', (e) => { headerTitle.style.color = e.target.value; });
-    mColor.addEventListener('input', (e) => { textPreview.style.color = e.target.value; });
-    fColor.addEventListener('input', (e) => { footerPreview.style.color = e.target.value; });
-    bgColor.addEventListener('input', (e) => { canvasArea.style.backgroundColor = e.target.value; bgLoadedImage = null; canvasArea.style.backgroundImage = 'none'; updateOverlay(); });
-
-    function setQuickColor(txt, foot, bg) {
-        mColor.value = txt; hColor.value = txt; fColor.value = foot; bgColor.value = bg;
-        textPreview.style.color = txt; headerTitle.style.color = txt; footerPreview.style.color = foot;
-        canvasArea.style.backgroundColor = bg; canvasArea.style.backgroundImage = 'none'; bgLoadedImage = null;
-        updateOverlay();
-    }
-
-    hFontSelect.addEventListener('change', (e) => { headerTitle.style.fontFamily = e.target.value; });
-    mFontSelect.addEventListener('change', (e) => { textPreview.style.fontFamily = e.target.value; });
-    fFontSelect.addEventListener('change', (e) => { footerPreview.style.fontFamily = e.target.value; });
-
-    function cleanPaste(e) { e.preventDefault(); const text = (e.originalEvent || e).clipboardData.getData('text/plain'); document.execCommand('insertText', false, text); }
-    headerTitle.addEventListener('paste', cleanPaste); textPreview.addEventListener('paste', cleanPaste); footerPreview.addEventListener('paste', cleanPaste);
-
-    bgImageFile.addEventListener('change', (e) => {
-        const file = e.target.files[0]; if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => { bgLoadedImage = img; renderBgDisplay(); };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
+    hColorInput.addEventListener('input', (e) => { vTitle.style.color = e.target.value; });
+    mColorInput.addEventListener('input', (e) => { vMainText.style.color = e.target.value; });
+    fColorInput.addEventListener('input', (e) => { vFooterText.style.color = e.target.value; });
+    
+    panelBgColor.addEventListener('input', (e) => { 
+        vCanvas.style.backgroundColor = e.target.value; 
+        memoryBgImage = null; vCanvas.style.backgroundImage = 'none'; 
+        applyOverlayFilter(); 
     });
 
-    function renderBgDisplay() {
-        if (enableBgImage.checked && bgLoadedImage) { 
-            canvasArea.style.backgroundImage = `url(${bgLoadedImage.src})`; 
-            canvasArea.style.backgroundSize = bgScaleSize.value + '%';
-        } else { canvasArea.style.backgroundImage = 'none'; }
-        updateOverlay();
-    }
-    enableBgImage.addEventListener('change', renderBgDisplay);
-    bgScaleSize.addEventListener('input', (e) => { bgScaleVal.textContent = e.target.value + '%'; renderBgDisplay(); });
+    hFont.addEventListener('change', (e) => { vTitle.style.fontFamily = e.target.value; });
+    mFont.addEventListener('change', (e) => { vMainText.style.fontFamily = e.target.value; });
+    fFont.addEventListener('change', (e) => { vFooterText.style.fontFamily = e.target.value; });
 
-    function updateOverlay() {
-        const hex = overlayColor.value, opacity = parseFloat(overlayOpacity.value), mode = shadowMode.value;
-        const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-        canvasOverlay.style.mixBlendMode = bgBlendMode.value;
-        if (mode === 'gradient' && (enableBgImage.checked && bgLoadedImage)) {
-            canvasOverlay.style.background = `linear-gradient(to top, rgba(${r}, ${g}, ${b}, ${opacity}) 0%, rgba(${r}, ${g}, ${b}, 0) 100%)`;
-        } else { canvasOverlay.style.background = `rgba(${r}, ${g}, ${b}, ${opacity})`; }
-    }
-    overlayColor.addEventListener('input', updateOverlay);
-    shadowMode.addEventListener('change', updateOverlay);
-    overlayOpacity.addEventListener('input', updateOverlay);
-    bgBlendMode.addEventListener('change', updateOverlay);
+    // Sanitize Clipboard Paste Data
+    function cleanPasteEvent(e) { e.preventDefault(); const t = (e.originalEvent || e).clipboardData.getData('text/plain'); document.execCommand('insertText', false, t); }
+    vTitle.addEventListener('paste', cleanPasteEvent); vMainText.addEventListener('paste', cleanPasteEvent); vFooterText.addEventListener('paste', cleanPasteEvent);
 
-    logoFile.addEventListener('change', (e) => {
-        const file = e.target.files[0]; if (!file) return;
+    // Image Upload & Layout Engines
+    bgUpload.addEventListener('change', (e) => {
+        const f = e.target.files[0]; if(!f) return;
         const reader = new FileReader();
-        reader.onload = (event) => {
-            logoImg.src = event.target.result; imgOverlayElement.src = event.target.result;
+        reader.onload = (evt) => {
             const img = new Image();
-            img.onload = () => { logoLoadedImage = img; updateLogoOverlayDOM(); };
-            img.src = event.target.result;
+            img.onload = () => { memoryBgImage = img; drawBackgroundLayer(); };
+            img.src = evt.target.result;
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(f);
     });
 
-    function updateLogoOverlayDOM() {
-        if (!logoLoadedImage || !enableLogo.checked) { logoBlock.style.display = 'none'; imgOverlayBlock.style.display = 'none'; return; }
-        const pos = logoAlign.value, size = parseInt(logoSize.value), op = parseFloat(logoOpacity.value);
-        logoBlock.style.display = 'none'; imgOverlayBlock.style.display = 'none';
+    function drawBackgroundLayer() {
+        if(useBgImage.checked && memoryBgImage) {
+            vCanvas.style.backgroundImage = `url(${memoryBgImage.src})`;
+            vCanvas.style.backgroundSize = bgScale.value + '%';
+        } else { vCanvas.style.backgroundImage = 'none'; }
+        applyOverlayFilter();
+    }
+    useBgImage.addEventListener('change', drawBackgroundLayer);
+    bgScale.addEventListener('input', (e) => { bgScaleLbl.textContent = e.target.value + '%'; drawBackgroundLayer(); });
 
-        if (pos === 'center') {
-            imgOverlayBlock.style.display = 'block'; imgOverlayBlock.style.width = size + 'px'; imgOverlayBlock.style.opacity = op;
-            imgOverlayBlock.style.top = '50%'; imgOverlayBlock.style.left = '50%'; imgOverlayBlock.style.transform = 'translate(-50%, -50%)';
+    function applyOverlayFilter() {
+        const hex = layerColor.value, alpha = parseFloat(layerOpacity.value), type = layerStyle.value;
+        const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
+        vOverlay.style.mixBlendMode = blendSelect.value;
+        if(type === 'gradient' && (useBgImage.checked && memoryBgImage)) {
+            vOverlay.style.background = `linear-gradient(to top, rgba(${r},${g},${b},${alpha}) 0%, rgba(${r},${g},${b},0) 100%)`;
+        } else { vOverlay.style.background = `rgba(${r},${g},${b},${alpha})`; }
+    }
+    layerColor.addEventListener('input', applyOverlayFilter);
+    layerStyle.addEventListener('change', applyOverlayFilter);
+    layerOpacity.addEventListener('input', applyOverlayFilter);
+    blendSelect.addEventListener('change', applyOverlayFilter);
+
+    logoUpload.addEventListener('change', (e) => {
+        const f = e.target.files[0]; if(!f) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            vLogoImg.src = evt.target.result; vLogoCenterImg.src = evt.target.result;
+            const img = new Image();
+            img.onload = () => { memoryLogoImage = img; drawLogoLayer(); };
+            img.src = evt.target.result;
+        };
+        reader.readAsDataURL(f);
+    });
+
+    function drawLogoLayer() {
+        if(!memoryLogoImage || !useLogo.checked) { vLogoBox.style.display = 'none'; vLogoCenterBox.style.display = 'none'; return; }
+        const align = logoPlacement.value, size = parseInt(logoScale.value), alpha = parseFloat(logoAlpha.value);
+        vLogoBox.style.display = 'none'; vLogoCenterBox.style.display = 'none';
+
+        if(align === 'center') {
+            vLogoCenterBox.style.display = 'block'; vLogoCenterBox.style.width = size + 'px'; vLogoCenterBox.style.opacity = alpha;
+            vLogoCenterBox.style.top = '50%'; vLogoCenterBox.style.left = '50%'; vLogoCenterBox.style.transform = 'translate(-50%, -50%)';
         } else {
-            logoBlock.style.display = 'flex'; logoImg.style.height = size + 'px'; logoImg.style.opacity = op;
-            if (pos.endsWith('left')) logoBlock.style.justifyContent = 'flex-start';
-            if (pos.endsWith('center')) logoBlock.style.justifyContent = 'center';
-            if (pos.endsWith('right')) logoBlock.style.justifyContent = 'flex-end';
-            if (pos.startsWith('top')) { if (canvasArea.firstElementChild !== logoBlock) canvasArea.insertBefore(logoBlock, canvasArea.firstChild); }
-            else { if (canvasArea.lastElementChild !== logoBlock) canvasArea.appendChild(logoBlock); }
+            vLogoBox.style.display = 'flex'; vLogoImg.style.height = size + 'px'; vLogoImg.style.opacity = alpha;
+            if(align.endsWith('left')) vLogoBox.style.justifyContent = 'flex-start';
+            if(align.endsWith('center')) vLogoBox.style.justifyContent = 'center';
+            if(align.endsWith('right')) vLogoBox.style.justifyContent = 'flex-end';
+            if(align.startsWith('top')) { if(vCanvas.firstElementChild !== vLogoBox) vCanvas.insertBefore(vLogoBox, vCanvas.firstChild); }
+            else { if(vCanvas.lastElementChild !== vLogoBox) vCanvas.appendChild(vLogoBox); }
         }
     }
-    enableLogo.addEventListener('change', updateLogoOverlayDOM);
-    logoSize.addEventListener('input', (e) => { logoSizeVal.textContent = e.target.value + 'px'; updateLogoOverlayDOM(); });
-    logoOpacity.addEventListener('input', updateLogoOverlayDOM);
-    logoAlign.addEventListener('change', updateLogoOverlayDOM);
+    useLogo.addEventListener('change', drawLogoLayer);
+    logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
+    logoAlpha.addEventListener('input', drawLogoLayer);
+    logoPlacement.addEventListener('change', drawLogoLayer);
 
-    function setupMultiFontUpload(fileInput) {
-        fileInput.addEventListener('change', function(e) {
-            const files = e.target.files;
-            Array.from(files).forEach(file => {
-                const fontName = 'Uploaded_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+    function initializeFontImporter(uploader) {
+        uploader.addEventListener('change', function(e) {
+            Array.from(e.target.files).forEach(file => {
+                const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*100);
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    const customFont = new FontFace(fontName, `url(${event.target.result})`);
-                    customFont.load().then(function(loadedFont) {
-                        document.fonts.add(loadedFont);
-                        [hFontSelect, mFontSelect, fFontSelect].forEach(selectEl => {
-                            const opt = document.createElement('option');
-                            opt.value = fontName; opt.textContent = "📁 " + file.name.replace(/\.[^/.]+$/, ""); selectEl.appendChild(opt);
+                reader.onload = function(evt) {
+                    const fontFaceObj = new FontFace(fKey, `url(${evt.target.result})`);
+                    fontFaceObj.load().then(function(loaded) {
+                        document.fonts.add(loaded);
+                        [hFont, mFont, fFont].forEach(select => {
+                            const o = document.createElement('option'); o.value = fKey; o.textContent = "📁 " + file.name.replace(/\.[^/.]+$/, ""); select.appendChild(o);
                         });
                     });
                 };
@@ -775,32 +682,65 @@
             });
         });
     }
-    setupMultiFontUpload(document.getElementById('hFontFile'));
-    setupMultiFontUpload(document.getElementById('mFontFile'));
-    setupMultiFontUpload(document.getElementById('fFontFile'));
+    initializeFontImporter(document.getElementById('hFFile'));
+    initializeFontImporter(document.getElementById('mFFile'));
+    initializeFontImporter(document.getElementById('fFFile'));
 
     /* ==========================================================================
-       🔥 VIRTUAL CANVAS ENGINE (1920x1080 AUTO-EXPANDING HEIGHT ONLY FOR DRAW)
+       🔥 ADVANCED CANVAS WRAPPING ENGINE (FULLY AUTO WORD-WRAP & ENTER SENSITIVE)
        ========================================================================== */
-    function drawTextLines(ctx, lines, startY, fontHeight, fontStyle, fontSelectValue, fontColor, alignment, letterSpacing, lineSpacing, paddingX, baseWidth) {
+    function renderMultiLineTextCanvas(ctx, rawText, startY, fontSize, fontConfig, fontName, fontColor, alignment, letterSpacing, lineSpacing, paddingX, maxWidth) {
         ctx.save();
         ctx.textBaseline = "top";
-        ctx.font = `${fontStyle.italic ? 'italic' : 'normal'} ${fontStyle.bold ? 'bold' : 'normal'} ${fontHeight}px ${fontSelectValue}, sans-serif`;
+        ctx.font = `${fontConfig.italic ? 'italic' : 'normal'} ${fontConfig.bold ? 'bold' : 'normal'} ${fontSize}px ${fontName}, sans-serif`;
         ctx.fillStyle = fontColor; ctx.strokeStyle = fontColor;
 
+        // ១. បំបែកជួរតាមការចុះបន្ទាត់ពិតប្រាកដរបស់បងជាមុន (Manual Enter Check)
+        let paragraphs = rawText.split('\n');
+        let finalLines = [];
+
+        // ២. មុខងារពិនិត្យ និងកាត់បន្ទាត់ស្វ័យប្រវត្តិ (Auto Word-Wrap Algorithm)
+        paragraphs.forEach(paragraph => {
+            if(paragraph.trim() === "") { finalLines.push(""); return; }
+            
+            let words = paragraph.split(' ');
+            let currentLine = "";
+
+            for(let n = 0; n < words.length; n++) {
+                let testLine = currentLine + (currentLine === "" ? "" : " ") + words[n];
+                
+                // គណនាទំហំទទឹងសរុបបូករួមទាំង Letter Spacing Custom
+                let testWidth = 0;
+                if (letterSpacing === 0) { testWidth = ctx.measureText(testLine).width; } 
+                else {
+                    for (let i = 0; i < testLine.length; i++) {
+                        testWidth += ctx.measureText(testLine[i]).width + (i < testLine.length - 1 ? letterSpacing : 0);
+                    }
+                }
+
+                // ប្រសិនបើទទឹងអក្សរធំជាងទំហំ Canvas ត្រូវកាត់ទម្លាក់ជួរអូតូ
+                if (testWidth > (maxWidth - (paddingX * 2)) && n > 0) {
+                    finalLines.push(currentLine);
+                    currentLine = words[n];
+                } else { currentLine = testLine; }
+            }
+            finalLines.push(currentLine);
+        });
+
+        // ៣. ចាប់ផ្តើមគូរអក្សរចូលទៅលើ Canvas តាមលំដាប់ជួរនីមួយៗ
         let localY = startY;
-        lines.forEach(line => {
-            let textW = 0;
-            if (letterSpacing === 0) { textW = ctx.measureText(line).width; } 
+        finalLines.forEach(line => {
+            let lineW = 0;
+            if (letterSpacing === 0) { lineW = ctx.measureText(line).width; } 
             else {
                 for (let i = 0; i < line.length; i++) {
-                    textW += ctx.measureText(line[i]).width + (i < line.length - 1 ? letterSpacing : 0);
+                    lineW += ctx.measureText(line[i]).width + (i < line.length - 1 ? letterSpacing : 0);
                 }
             }
 
             let x = paddingX;
-            if (alignment === 'center') x = (baseWidth / 2) - (textW / 2);
-            if (alignment === 'right') x = baseWidth - paddingX - textW;
+            if (alignment === 'center') x = (maxWidth / 2) - (lineW / 2);
+            if (alignment === 'right') x = maxWidth - paddingX - lineW;
 
             if (letterSpacing === 0) { ctx.fillText(line, x, localY); } 
             else {
@@ -811,150 +751,160 @@
                 }
             }
 
-            if (fontStyle.underline && line.trim()) {
-                ctx.beginPath(); ctx.lineWidth = Math.max(3, fontHeight / 16);
-                let uY = localY + (fontHeight * 1.15); ctx.moveTo(x, uY); ctx.lineTo(x + textW, uY); ctx.stroke();
+            if (fontConfig.underline && line.trim()) {
+                ctx.beginPath(); ctx.lineWidth = Math.max(3, fontSize / 15);
+                let uY = localY + (fontSize * 1.15); ctx.moveTo(x, uY); ctx.lineTo(x + lineW, uY); ctx.stroke();
             }
-            localY += (fontHeight * lineSpacing);
+            localY += (fontSize * lineSpacing);
         });
+
         ctx.restore(); return localY;
     }
 
-    function drawTextToCanvas(callback) {
+    function buildHighResCanvas(callback) {
         document.fonts.ready.then(() => {
-            const baseWidth = 1920; 
-            const paddingX = 140;
+            const baseW = 1920; 
+            const padX = 140;
 
-            // Calculate Required Height dynamically before rendering image to prevent cutting off
             const testCanvas = document.createElement('canvas');
             const testCtx = testCanvas.getContext('2d');
             
-            let calculatedHeight = 240; // top/bottom padding anchors
-            const logoSizePx = enableLogo.checked && logoLoadedImage ? parseInt(logoSize.value) * 2.5 : 0;
-            if (logoSizePx > 0 && logoAlign.value.startsWith('top')) calculatedHeight += logoSizePx + 40;
+            let dynamicHeight = 250; 
+            const logoHpx = useLogo.checked && memoryLogoImage ? parseInt(logoScale.value) * 2.5 : 0;
+            if (logoHpx > 0 && logoPlacement.value.startsWith('top')) dynamicHeight += logoHpx + 50;
 
-            if (styles.header.visible && headerTitle.innerText.trim()) {
-                let lines = headerTitle.innerText.split('\n');
-                calculatedHeight += lines.length * (parseInt(hFontSize.value) * 2.2 * parseFloat(hLineSpacing.value)) + 40;
+            // គណនាទំហំកម្ពស់អក្សររត់ចុះក្រោមស្វ័យប្រវត្ត ដើម្បីកុំឱ្យបាក់ជួរ ឬដាច់រូបភាព
+            testCtx.font = `26px ${hFont.value}, sans-serif`;
+            if (textConfigs.header.visible && vTitle.innerText.trim()) {
+                let hSizePx = parseInt(hSize.value) * 2.2;
+                dynamicHeight += (vTitle.innerText.split('\n').length * hSizePx * parseFloat(hLine.value)) + 80;
             }
-            if (styles.main.visible && textPreview.innerText.trim()) {
-                let lines = textPreview.innerText.split('\n');
-                calculatedHeight += lines.length * (parseInt(mFontSize.value) * 2.2 * parseFloat(mLineSpacing.value)) + 40;
+            if (textConfigs.main.visible && vMainText.innerText.trim()) {
+                let mSizePx = parseInt(mSize.value) * 2.2;
+                // បន្ថែមបន្ទាត់ اندازة ប្រហាក់ប្រហែលសម្រាប់ការ Wrap
+                let approximateLines = Math.ceil(vMainText.innerText.length / 45); 
+                dynamicHeight += (approximateLines * mSizePx * parseFloat(mLine.value)) + 100;
             }
-            if (styles.footer.visible && footerPreview.innerText.trim()) {
-                let lines = footerPreview.innerText.split('\n');
-                calculatedHeight += lines.length * (parseInt(fFontSize.value) * 2.2 * parseFloat(fLineSpacing.value));
-            }
-            if (logoSizePx > 0 && logoAlign.value.startsWith('bottom')) calculatedHeight += logoSizePx + 30;
+            if (logoHpx > 0 && logoPlacement.value.startsWith('bottom')) dynamicHeight += logoHpx + 50;
 
-            // Standardize output to minimum 1080p, or higher if content demands it
-            const baseHeight = Math.max(1080, calculatedHeight);
+            const baseH = Math.max(1080, dynamicHeight);
 
-            const canvas = document.createElement('canvas'); canvas.width = baseWidth; canvas.height = baseHeight;
-            const ctx = canvas.getContext('2d');
+            const mainCanvas = document.createElement('canvas'); mainCanvas.width = baseW; mainCanvas.height = baseH;
+            const ctx = mainCanvas.getContext('2d');
 
-            ctx.fillStyle = bgColor.value; ctx.fillRect(0, 0, baseWidth, baseHeight);
+            // ផ្ទៃកម្រាលក្រោយ
+            ctx.fillStyle = panelBgColor.value; ctx.fillRect(0, 0, baseW, baseH);
 
-            if (bgLoadedImage && enableBgImage.checked) {
-                let imgW = bgLoadedImage.width; let imgH = bgLoadedImage.height; let scaleFactor = parseInt(bgScaleSize.value) / 100;
-                let renderW = baseWidth * scaleFactor; let renderH = (imgH * (baseWidth / imgW)) * scaleFactor;
-                if(renderW < baseWidth || renderH < baseHeight) {
-                    let ratio = Math.max(baseWidth / imgW, baseHeight / imgH);
-                    renderW = imgW * ratio * scaleFactor; renderH = imgH * ratio * scaleFactor;
+            if (memoryBgImage && useBgImage.checked) {
+                let imgW = memoryBgImage.width; let imgH = memoryBgImage.height; let factor = parseInt(bgScale.value) / 100;
+                let rW = baseW * factor; let rH = (imgH * (baseW / imgW)) * factor;
+                if(rW < baseW || rH < baseH) {
+                    let r = Math.max(baseW / imgW, baseH / imgH); rW = imgW * r * factor; rH = imgH * r * factor;
                 }
-                ctx.drawImage(bgLoadedImage, (baseWidth - renderW) / 2, (baseHeight - renderH) / 2, renderW, renderH);
+                ctx.drawImage(memoryBgImage, (baseW - rW) / 2, (baseH - rH) / 2, rW, rH);
             }
 
-            const op = parseFloat(overlayOpacity.value);
+            // ពណ៌ស្បៃប្រដេញ ឬស្មើ
+            const op = parseFloat(layerOpacity.value);
             if (op > 0) {
-                ctx.save(); ctx.globalCompositeOperation = bgBlendMode.value === 'normal' ? 'source-over' : bgBlendMode.value;
-                const hex = overlayColor.value; const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-                if (shadowMode.value === 'gradient' && bgLoadedImage && enableBgImage.checked) {
-                    let grad = ctx.createLinearGradient(0, baseHeight, 0, 0);
-                    grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${op})`); grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${op * 0.3})`); grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-                    ctx.fillStyle = grad;
-                } else { ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${op})`; }
-                ctx.fillRect(0, 0, baseWidth, baseHeight); ctx.restore();
+                ctx.save(); ctx.globalCompositeOperation = blendSelect.value === 'normal' ? 'source-over' : blendSelect.value;
+                const hex = layerColor.value; const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
+                if (layerStyle.value === 'gradient' && memoryBgImage && useBgImage.checked) {
+                    let gld = ctx.createLinearGradient(0, baseH, 0, 0);
+                    gld.addColorStop(0, `rgba(${r},${g},${b},${op})`); gld.addColorStop(0.6, `rgba(${r},${g},${b},${op*0.2})`); gld.addColorStop(1, `rgba(${r},${g},${b},0)`);
+                    ctx.fillStyle = gld;
+                } else { ctx.fillStyle = `rgba(${r},${g},${b},${op})`; }
+                ctx.fillRect(0, 0, baseW, baseH); ctx.restore();
             }
 
-            if (logoSizePx > 0 && logoAlign.value === 'center') {
-                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
-                let aspect = logoLoadedImage.width / logoLoadedImage.height;
-                let logoH = logoSizePx; let logoW = logoSizePx * aspect;
-                ctx.drawImage(logoLoadedImage, (baseWidth - logoW) / 2, (baseHeight - logoH) / 2, logoW, logoH); ctx.restore();
+            // ចំកណ្តាលឡូហ្គូ
+            if (logoHpx > 0 && logoPlacement.value === 'center') {
+                ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
+                let aspect = memoryLogoImage.width / memoryLogoImage.height;
+                let lW = logoHpx * aspect; ctx.drawImage(memoryLogoImage, (baseW - lW)/2, (baseH - logoHpx)/2, lW, logoHpx); ctx.restore();
             }
 
-            let currentY = 120;
-            if (logoSizePx > 0 && logoAlign.value.startsWith('top')) {
-                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
-                let aspect = logoLoadedImage.width / logoLoadedImage.height;
-                let logoH = logoSizePx; let logoW = logoSizePx * aspect; let logoX = (baseWidth - logoW) / 2;
-                if (logoAlign.value.endsWith('left')) logoX = paddingX; if (logoAlign.value.endsWith('right')) logoX = baseWidth - paddingX - logoW;
-                ctx.drawImage(logoLoadedImage, logoX, currentY, logoW, logoH); ctx.restore();
-                currentY += logoH + 40;
+            let trackY = 120;
+            // គូរឡូហ្គូផ្នែកខាងលើ
+            if (logoHpx > 0 && logoPlacement.value.startsWith('top')) {
+                ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
+                let aspect = memoryLogoImage.width / memoryLogoImage.height;
+                let lW = logoHpx * aspect; let lX = (baseW - lW) / 2;
+                if (logoPlacement.value.endsWith('left')) lX = padX; if (logoPlacement.value.endsWith('right')) lX = baseW - padX - lW;
+                ctx.drawImage(memoryLogoImage, lX, trackY, lW, logoHpx); ctx.restore();
+                trackY += logoHpx + 50;
             }
 
-            if (styles.header.visible && headerTitle.innerText.trim()) {
-                let hSize = parseInt(hFontSize.value) * 2.2; let lines = headerTitle.innerText.split('\n');
-                currentY = drawTextLines(ctx, lines, currentY, hSize, styles.header, hFontSelect.value, hColor.value, styles.header.align, parseFloat(hLetterSpacing.value) * 2, parseFloat(hLineSpacing.value), paddingX, baseWidth);
-                currentY += 40;
+            // គូរអត្ថបទចំណងជើង
+            if (textConfigs.header.visible && vTitle.innerText.trim()) {
+                let size = parseInt(hSize.value) * 2.2;
+                trackY = renderMultiLineTextCanvas(ctx, vTitle.innerText, trackY, size, textConfigs.header, hFont.value, hColorInput.value, textConfigs.header.align, parseFloat(hSpace.value)*2, parseFloat(hLine.value), padX, baseW);
+                trackY += 40;
             }
 
-            if (styles.main.visible && textPreview.innerText.trim()) {
-                let mSize = parseInt(mFontSize.value) * 2.2; let lines = textPreview.innerText.split('\n');
-                currentY = drawTextLines(ctx, lines, currentY, mSize, styles.main, mFontSelect.value, mColor.value, styles.main.align, parseFloat(mLetterSpacing.value) * 2, parseFloat(mLineSpacing.value), paddingX, baseWidth);
+            // គូរអត្ថបទកណ្តាល (ជាមួយ Auto Word-Wrap)
+            if (textConfigs.main.visible && vMainText.innerText.trim()) {
+                let size = parseInt(mSize.value) * 2.2;
+                trackY = renderMultiLineTextCanvas(ctx, vMainText.innerText, trackY, size, textConfigs.main, mFont.value, mColorInput.value, textConfigs.main.align, parseFloat(mSpace.value)*2, parseFloat(mLine.value), padX, baseW);
             }
 
-            let bottomY = baseHeight - 120;
-            if (logoSizePx > 0 && logoAlign.value.startsWith('bottom')) {
-                ctx.save(); ctx.globalAlpha = parseFloat(logoOpacity.value);
-                let aspect = logoLoadedImage.width / logoLoadedImage.height;
-                let logoH = logoSizePx; let logoW = logoSizePx * aspect; let logoX = (baseWidth - logoW) / 2;
-                if (logoAlign.value.endsWith('left')) logoX = paddingX; if (logoAlign.value.endsWith('right')) logoX = baseWidth - paddingX - logoW;
-                ctx.drawImage(logoLoadedImage, logoX, bottomY - logoH, logoW, logoH); ctx.restore();
-                bottomY -= (logoH + 30);
+            let footerY = baseH - 120;
+            // គូរឡូហ្គូផ្នែកខាងក្រោម
+            if (logoHpx > 0 && logoPlacement.value.startsWith('bottom')) {
+                ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
+                let aspect = memoryLogoImage.width / memoryLogoImage.height;
+                let lW = logoHpx * aspect; let lX = (baseW - lW) / 2;
+                if (logoPlacement.value.endsWith('left')) lX = padX; if (logoPlacement.value.endsWith('right')) lX = baseW - padX - lW;
+                ctx.drawImage(memoryLogoImage, lX, footerY - logoHpx, lW, logoHpx); ctx.restore();
+                footerY -= (logoHpx + 40);
             }
 
-            if (styles.footer.visible && footerPreview.innerText.trim()) {
-                let fSize = parseInt(fFontSize.value) * 2.2; let lines = footerPreview.innerText.split('\n');
-                let totalFooterHeight = 0;
-                lines.forEach((l, idx) => { totalFooterHeight += fSize * (idx === 0 ? 1 : parseFloat(fLineSpacing.value)); });
-                bottomY -= totalFooterHeight;
-                drawTextLines(ctx, lines, bottomY, fSize, styles.footer, fFontSelect.value, fColor.value, styles.footer.align, parseFloat(fLetterSpacing.value) * 2, parseFloat(fLineSpacing.value), paddingX, baseWidth);
+            // គូរអត្ថបទយោង Footer
+            if (textConfigs.footer.visible && vFooterText.innerText.trim()) {
+                let size = parseInt(fSize.value) * 2.2;
+                let lines = vFooterText.innerText.split('\n');
+                let fBlockH = lines.length * size * 1.4; footerY -= fBlockH;
+                renderMultiLineTextCanvas(ctx, vFooterText.innerText, footerY, size, textConfigs.footer, fFont.value, fColorInput.value, textConfigs.footer.align, 0, 1.4, padX, baseW);
             }
 
-            callback(canvas.toDataURL('image/png'), baseWidth, baseHeight);
+            callback(mainCanvas.toDataURL('image/png'), baseW, baseH);
         });
     }
 
-    document.getElementById('saveImgBtn').addEventListener('click', () => {
-        drawTextToCanvas((pngUrl) => {
-            const link = document.createElement('a'); link.download = 'toathmor-pro-canvas.png'; link.href = pngUrl; link.click();
+    // Export Trigger Buttons Connection
+    document.getElementById('btnExportImg').addEventListener('click', () => {
+        buildHighResCanvas((url) => {
+            const a = document.createElement('a'); a.download = 'Toathmor_Font_Tester.png'; a.href = url; a.click();
         });
     });
 
-    document.getElementById('savePdfBtn').addEventListener('click', () => {
-        drawTextToCanvas((pngUrl, width, height) => {
+    document.getElementById('btnExportPdf').addEventListener('click', () => {
+        buildHighResCanvas((url, w, h) => {
             const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF(width > height ? 'l' : 'p', 'px', [width, height]);
-            pdf.addImage(pngUrl, 'PNG', 0, 0, width, height); pdf.save('toathmor-pro-document.pdf');
+            const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
+            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Font_Tester.pdf');
         });
     });
 
-    const themeBtn = document.getElementById('themeBtn');
-    themeBtn.addEventListener('click', () => {
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    themeToggleBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙 Dark Mode'; 
-            setQuickColor('#0f172a', '#64748b', '#ffffff'); hColor.value = "#0f172a"; headerTitle.style.color = "#0f172a";
+            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 Dark'; 
+            panelBgColor.value = "#ffffff"; vCanvas.style.backgroundColor = "#ffffff";
+            hColorInput.value = "#0f172a"; mColorInput.value = "#0f172a"; fColorInput.value = "#64748b";
+            vTitle.style.color = "#0f172a"; vMainText.style.color = "#0f172a"; vFooterText.style.color = "#64748b";
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️ Light Mode'; 
-            setQuickColor('#f1f5f9', '#94a3b8', '#0f172a'); hColor.value = "#f1f5f9"; headerTitle.style.color = "#f1f5f9";
+            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ Light'; 
+            panelBgColor.value = "#090d16"; vCanvas.style.backgroundColor = "#090d16";
+            hColorInput.value = "#f1f5f9"; mColorInput.value = "#f1f5f9"; fColorInput.value = "#94a3b8";
+            vTitle.style.color = "#f1f5f9"; vMainText.style.color = "#f1f5f9"; vFooterText.style.color = "#94a3b8";
         }
+        memoryBgImage = null; vCanvas.style.backgroundImage = 'none'; applyOverlayFilter();
     });
 
-    document.getElementById('shareBtn').addEventListener('click', async () => {
-        if (navigator.share) { try { await navigator.share({ title: 'Toathmor Pro', text: 'Font Tester Application', url: window.location.href }); } catch (err) {} }
-        else { alert('មិនទាន់គាំទ្រមុខងារ Share លើ Browser នេះទេ'); }
+    document.getElementById('btnShareApp').addEventListener('click', async () => {
+        if (navigator.share) { try { await navigator.share({ title: 'Toathmor Pro', text: 'កម្មវិធីតេស្តពុម្ពអក្សរខ្មែរ', url: window.location.href }); } catch(e){} }
+        else { alert('Browser នេះមិនទាន់គាំទ្រមុខងារចែករំលែកឡើយ'); }
     });
 </script>
 
