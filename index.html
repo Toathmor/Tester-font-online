@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Font Tester Pro</title>
+    <title>Toathmor Font Studio v3.3</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,63 +13,76 @@
 
     <style>
         :root {
-            --bg-app: #f4f6f9;
+            --bg-app: #f1f5f9;
             --bg-card: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --accent: #4f46e5;
-            --accent-light: rgba(79, 70, 229, 0.1);
+            --accent-hover: #4338ca;
+            --accent-light: rgba(79, 70, 229, 0.08);
             --preview-bg: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.06);
+            --radius-lg: 20px;
+            --radius-md: 12px;
         }
 
         [data-theme="dark"] {
-            --bg-app: #0b0f19;
-            --bg-card: #151f32;
-            --text-main: #f1f5f9;
+            --bg-app: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #22314d;
-            --accent: #6366f1;
-            --accent-light: rgba(99, 102, 241, 0.15);
-            --preview-bg: #090d16;
+            --border: #334155;
+            --accent: #818cf8;
+            --accent-hover: #6366f1;
+            --accent-light: rgba(129, 140, 248, 0.15);
+            --preview-bg: #0b0f19;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+            --shadow-md: 0 12px 30px rgba(0,0,0,0.3);
         }
 
-        * { box-sizing: border-box; font-family: 'Kantumruy Pro', system-ui, sans-serif; }
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Kantumruy Pro', system-ui, sans-serif;
+            margin: 0; padding: 0;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background-color: var(--bg-app);
             color: var(--text-main);
-            margin: 0;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
             min-height: 100vh;
-            transition: all 0.3s ease;
         }
 
         .app-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1260px;
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
+            grid-template-columns: 1fr 1.1fr;
             gap: 24px;
         }
 
         @media (max-width: 1024px) {
-            .app-container { grid-template-columns: 1fr; }
+            .app-container { grid-template-columns: 1fr; gap: 20px; }
+            body { padding: 12px; }
         }
 
-        /* 💻 SIDEBAR CONTROLS */
+        /* 🎛️ CONTROL SIDEBAR */
         .control-panel {
             background: var(--bg-card);
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             padding: 24px;
             border: 1px solid var(--border);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+            height: fit-content;
         }
 
         .app-header {
@@ -76,151 +90,174 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
+            padding-bottom: 16px;
         }
 
-        .logo-title { font-size: 18px; font-weight: 700; color: var(--text-main); }
-        .logo-title span { color: var(--accent); font-size: 12px; margin-left: 5px; background: var(--accent-light); padding: 2px 8px; border-radius: 20px; }
+        .logo-title { font-size: 18px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 3px 10px; border-radius: 30px; }
 
         .btn-theme {
-            background: var(--bg-app); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px;
-            color: var(--text-main); cursor: pointer; font-size: 12px; font-weight: 500;
+            background: var(--bg-app); border: 1px solid var(--border); padding: 6px 14px; border-radius: 30px;
+            color: var(--text-main); cursor: pointer; font-size: 12px; font-weight: 600;
         }
 
-        /* 🎛️ MODERN TABS INTERFACE */
+        /* TABS NAVIGATION */
         .tabs-nav {
             display: flex;
             background: var(--bg-app);
             padding: 4px;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             gap: 4px;
+            border: 1px solid var(--border);
         }
 
         .tab-btn {
-            flex: 1; text-align: center; padding: 8px; background: transparent; border: none;
+            flex: 1; text-align: center; padding: 10px; background: transparent; border: none;
             color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 8px;
-            transition: all 0.2s;
         }
-
         .tab-btn.active {
-            background: var(--bg-card); color: var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            background: var(--bg-card); color: var(--accent); box-shadow: var(--shadow-sm);
         }
 
         .tab-content { display: none; flex-direction: column; gap: 16px; }
         .tab-content.active { display: flex; }
 
+        /* ACCORDION DESIGN */
         .group-box {
-            border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: rgba(0,0,0,0.01);
+            border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; 
+            background: rgba(255, 255, 255, 0.01);
+            display: flex; flex-direction: column;
         }
-        .group-title {
-            margin: 0 0 12px 0; font-size: 13px; font-weight: 700; color: var(--accent);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        /* ROW INPUT SYSTEM */
-        .ctrl-row {
-            display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; flex-wrap: wrap;
-        }
-        .ctrl-row:last-child { margin-bottom: 0; }
-        .ctrl-row label { min-width: 80px; font-weight: 600; color: var(--text-muted); }
         
-        .input-slider { flex: 1; min-width: 100px; height: 5px; accent-color: var(--accent); cursor: pointer; }
-        .val-indicator { min-width: 35px; text-align: right; color: var(--text-muted); font-weight: 500; }
+        .group-header-clickable {
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; user-select: none; padding: 4px 0;
+        }
+        
+        .group-title {
+            font-size: 14px; font-weight: 700; color: var(--accent);
+            display: flex; align-items: center; gap: 8px; pointer-events: none;
+        }
+        
+        .collapse-icon {
+            font-size: 14px; color: var(--text-muted); font-weight: bold;
+            transition: transform 0.2s ease; pointer-events: none;
+        }
+        
+        .group-body-collapsible {
+            display: flex; flex-direction: column; gap: 14px; margin-top: 14px;
+            overflow: hidden;
+        }
+        
+        .group-box.collapsed .group-body-collapsible { display: none !important; }
+        .group-box.collapsed .collapse-icon { transform: rotate(-90deg); }
+
+        /* CONTROL ROWS */
+        .ctrl-row { display: flex; flex-direction: column; gap: 6px; font-size: 13px; width: 100%; }
+        .ctrl-row-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .ctrl-row-header label { font-weight: 600; color: var(--text-muted); }
+        
+        .slider-wrapper { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; }
+        .input-slider { 
+            flex: 1; min-width: 0; height: 6px; accent-color: var(--accent); cursor: pointer; 
+            background: var(--border); border-radius: 10px; appearance: none; -webkit-appearance: none;
+        }
+        .input-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); }
+        .val-indicator { min-width: 42px; text-align: right; color: var(--text-muted); font-weight: 600; font-size: 12px; }
 
         .select-custom {
-            flex: 1; min-width: 130px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--bg-app); color: var(--text-main); outline: none; cursor: pointer;
+            width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 13px;
         }
 
-        .btn-group { display: flex; gap: 4px; }
+        .input-actions-flex { display: flex; gap: 8px; width: 100%; align-items: center; min-width: 0; }
+        .btn-group { display: flex; background: var(--bg-app); padding: 3px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; flex-shrink: 0; }
         .mini-btn {
-            padding: 6px 12px; border: 1px solid var(--border); background: var(--bg-app);
-            color: var(--text-main); border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;
+            padding: 6px 14px; border: none; background: transparent;
+            color: var(--text-main); border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
         }
-        .mini-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .mini-btn.active { background: var(--accent); color: white; }
 
-        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 20px; }
-        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+        /* TOGGLE SWITCH */
+        .switch { 
+            position: relative; display: inline-block; width: 42px; height: 22px; 
+            flex-shrink: 0 !important; -webkit-flex-shrink: 0 !important; max-width: 42px; max-height: 22px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; display: none; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 30px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
         input:checked + .slider { background-color: #10b981; }
-        input:checked + .slider:before { transform: translateX(16px); }
+        input:checked + .slider:before { transform: translateX(20px); }
 
         .file-lbl {
-            padding: 5px 12px; background: var(--accent-light); color: var(--accent); border-radius: 6px;
-            cursor: pointer; font-size: 11px; font-weight: 600; border: 1px solid transparent;
+            padding: 8px 14px; background: var(--accent-light); color: var(--accent); border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 600; border: 1px solid transparent; white-space: nowrap;
         }
-        .file-lbl:hover { border-color: var(--accent); }
         .file-hidden { display: none; }
 
-        /* 🎨 PREVIEW MONITOR FRAME */
-        .monitor-panel {
-            display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px;
+        /* 🎨 PREVIEW MONITOR */
+        .monitor-panel { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; height: fit-content; }
+        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 13px; }
+        .sample-pill { background: var(--bg-card); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px; cursor: pointer; color: var(--text-main); font-size: 12px; font-weight: 500; }
+        .sample-pill:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
+
+        /* ⚡ QUICK COLOR PALETTE COMPONENT */
+        .quick-color-box {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm);
         }
+        .quick-color-title { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+        .palette-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+        .palette-item {
+            width: 34px; height: 34px; border-radius: 50%; border: 2px solid #ffffff; 
+            box-shadow: 0 0 0 1px var(--border); cursor: pointer; position: relative; overflow: hidden;
+            display: flex; transform: scale(1); transition: transform 0.15s ease;
+        }
+        .palette-item:hover { transform: scale(1.1); }
+        .p-split { flex: 1; height: 100%; }
 
         .preview-frame {
-            width: 100%; background: var(--border); border-radius: 20px; overflow: hidden;
-            border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            position: relative; height: 0; padding-top: 56.25%; /* 16:9 Screen Ratio Base */
-        }
-
-        .scroll-wrapper {
-            position: absolute; top:0; left:0; width:100%; height:100%; overflow-y:auto; overflow-x:hidden;
-            -webkit-overflow-scrolling: touch; background: var(--preview-bg);
+            width: 100%; background: var(--border); border-radius: var(--radius-lg); overflow: hidden;
+            border: 1px solid var(--border); box-shadow: var(--shadow-md); position: relative;
         }
 
         .viewport-canvas {
-            width: 100%; min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column;
-            padding: 40px 50px; position: relative; background-position: center; background-size: cover; background-repeat: no-repeat;
+            width: 100%; min-height: 480px; box-sizing: border-box; display: flex; flex-direction: column;
+            padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
         }
-
-        .layer-blur-overlay { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
 
         .block-editable {
             width: 100%; background: transparent; border: none; outline: none;
-            white-space: pre-wrap; word-wrap: break-word; word-break: break-word; /* បង្ខំឱ្យចុះបន្ទាត់អូតូទោះវាយជាប់គ្នា */
-            z-index: 5; position: relative; margin: 0;
+            white-space: pre-wrap; word-wrap: break-word; word-break: break-word; position: relative; margin: 0;
         }
         .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
-        .view-title { font-size: 24px; text-align: center; margin-bottom: 20px; font-weight: 700; }
-        .view-main { font-size: 16px; text-align: center; min-height: 50px; margin-bottom: 40px; line-height: 1.6; }
-        .view-footer { font-size: 11px; text-align: right; margin-top: auto; color: var(--text-muted); }
+        .view-title { font-size: 32px; text-align: center; margin-bottom: 20px; font-weight: 700; color: var(--text-main); }
+        .view-main { font-size: 20px; text-align: center; min-height: 60px; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); }
+        .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: var(--text-muted); }
 
         .node-hidden { display: none !important; }
 
-        .logo-box { width: 100%; display: none; z-index: 6; margin-bottom: 12px; }
-        .logo-node { max-height: 50px; max-width: 150px; object-fit: contain; }
-
-        .center-logo-box { position: absolute; pointer-events: none; z-index: 2; display: none; }
+        .logo-box { width: 100%; display: none; margin-bottom: 16px; }
+        .logo-node { max-height: 50px; max-width: 140px; object-fit: contain; }
+        .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* 🔘 QUICK ACTIONS BAR */
-        .bottom-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+        .bottom-bar { display: flex; gap: 12px; }
         .action-btn {
-            flex: 1; min-width: 130px; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
-            font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            gap: 8px; background: var(--bg-card); color: var(--text-main); transition: all 0.2s;
+            flex: 1; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-md);
+            font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 6px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
         }
-        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
-        .action-btn.primary-btn:hover { background: #3b82f6; border-color: #3b82f6; }
 
-        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; }
-        .sample-pill { background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; cursor: pointer; color: var(--text-main); font-size: 11px; }
-        .sample-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 600; cursor: pointer; }
-
-        /* 📱 RESPONSIVE ADJUSTMENTS FOR SMALL PHONES */
         @media (max-width: 600px) {
-            body { padding: 10px; }
-            .control-panel { padding: 16px; gap: 14px; }
-            .viewport-canvas { padding: 25px 30px; }
-            .ctrl-row { flex-direction: column; align-items: flex-start; gap: 6px; }
-            .ctrl-row label { min-width: 100%; }
-            .input-slider, .select-custom { width: 100%; }
-            .btn-group { width: 100%; }
-            .btn-group .mini-btn { flex: 1; text-align: center; }
+            .control-panel { padding: 16px; gap: 12px; }
+            .viewport-canvas { padding: 30px 20px; min-height: 360px; }
+            .view-title { font-size: 24px; }
+            .view-main { font-size: 16px; }
+            .bottom-bar { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -228,190 +265,248 @@
 
 <div class="app-container">
     
+    <!-- 🎛️ CONTROL PANEL -->
     <div class="control-panel">
         <div class="app-header">
-            <div class="logo-title">ផ្ទាំងគ្រប់គ្រងពុម្ពអក្សរ <span>Toathmor Pro</span></div>
-            <button class="btn-theme" id="themeToggleBtn">🌙 Dark</button>
+            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.3</span></div>
+            <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
         </div>
 
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('text-tab')">📝 អត្ថបទ</button>
-            <button class="tab-btn" onclick="switchTab('bg-tab')">🖼️ ផ្ទៃក្រោយ</button>
-            <button class="tab-btn" onclick="switchTab('logo-tab')">🛡️ ឡូហ្គូ</button>
+            <button class="tab-btn active" id="btnTabTxt" onclick="switchTab('text-tab')">📝 អក្សររចនា</button>
+            <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')">🛡️ និមិត្តសញ្ញា</button>
         </div>
 
+        <!-- TAB 1: TEXT SETTINGS -->
         <div id="text-tab" class="tab-content active">
-            <div class="group-box">
-                <div class="group-title">
-                    <span>ចំណងជើងធំ (Header)</span>
-                    <label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label>
+            
+            <!-- Accordion 1: Header Config -->
+            <div class="group-box" id="boxHeader">
+                <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
+                    <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
+                    <span class="collapse-icon">▲</span>
                 </div>
-                <div class="ctrl-row">
-                    <label>ពុម្ពអក្សរ:</label>
-                    <select id="hFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                    <label class="file-lbl" for="hFFile">➕</label><input type="file" id="hFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                </div>
-                <div class="ctrl-row">
-                    <label>ទំហំ & គម្លាត:</label>
-                    <input type="range" id="hSize" class="input-slider" min="16" max="80" value="26"><span class="val-indicator" id="hSizeLbl">26px</span>
-                </div>
-                <div class="ctrl-row">
-                    <label>គម្លាតជួរ/តួ:</label>
-                    <input type="range" id="hLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.4">
-                    <input type="range" id="hSpace" class="input-slider" min="-2" max="8" step="0.5" value="0">
-                </div>
-                <div class="ctrl-row">
-                    <label>រចនាបថ:</label>
-                    <div class="btn-group">
-                        <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
-                        <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
-                        <button class="mini-btn" id="hU" onclick="toggleTextFormat('header','U')">U</button>
+                
+                <div class="group-body-collapsible">
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header">
+                            <label>បង្ហាញចំណងជើង៖</label>
+                            <label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label>
+                        </div>
                     </div>
-                    <div class="btn-group" style="margin-left: auto;">
-                        <button class="mini-btn" id="hAL" onclick="setTextAlignment('header','left')">ឆ្វេង</button>
-                        <button class="mini-btn active" id="hAC" onclick="setTextAlignment('header','center')">កណ្តាល</button>
-                        <button class="mini-btn" id="hAR" onclick="setTextAlignment('header','right')">ស្តាំ</button>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                        <div class="input-actions-flex">
+                            <select id="hFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                            <label class="file-lbl" for="hFFile">➕ ផ្ទុកចូល</label><input type="file" id="hFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                        </div>
                     </div>
-                </div>
-                <div class="ctrl-row">
-                    <label>ពណ៌អក្សរ:</label>
-                    <input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; cursor:pointer;">
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="hSize" class="input-slider" min="16" max="70" value="32">
+                            <span class="val-indicator" id="hSizeLbl">32px</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="hLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.4">
+                            <span class="val-indicator" id="hLineLbl">1.4</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>គម្លាតតួអក្សរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="hSpace" class="input-slider" min="-2" max="10" step="0.5" value="0">
+                            <span class="val-indicator" id="hSpaceLbl">0px</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
+                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                            <div class="btn-group">
+                                <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
+                                <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
+                                <button class="mini-btn" id="hU" onclick="toggleTextFormat('header','U')">U</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="mini-btn" id="hALeft" onclick="setTextAlignment('header','left')">ឆ្វេង</button>
+                                <button class="mini-btn active" id="hACenter" onclick="setTextAlignment('header','center')">កណ្តាល</button>
+                                <button class="mini-btn" id="hARight" onclick="setTextAlignment('header','right')">ស្តាំ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
+                        <input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                    </div>
                 </div>
             </div>
 
-            <div class="group-box">
-                <div class="group-title">
-                    <span>អត្ថបទកណ្តាល (Main)</span>
-                    <label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label>
+            <!-- Accordion 2: Main Text Config -->
+            <div class="group-box" id="boxMain">
+                <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
+                    <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
+                    <span class="collapse-icon">▲</span>
                 </div>
-                <div class="ctrl-row">
-                    <label>ពុម្ពអក្សរ:</label>
-                    <select id="mFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                    <label class="file-lbl" for="mFFile">➕</label><input type="file" id="mFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                </div>
-                <div class="ctrl-row">
-                    <label>ទំហំ & គម្លាត:</label>
-                    <input type="range" id="mSize" class="input-slider" min="12" max="50" value="17"><span class="val-indicator" id="mSizeLbl">17px</span>
-                </div>
-                <div class="ctrl-row">
-                    <label>គម្លាតជួរ/តួ:</label>
-                    <input type="range" id="mLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.6">
-                    <input type="range" id="mSpace" class="input-slider" min="-2" max="8" step="0.5" value="0">
-                </div>
-                <div class="ctrl-row">
-                    <label>រចនាបថ:</label>
-                    <div class="btn-group">
-                        <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
-                        <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
-                        <button class="mini-btn" id="mU" onclick="toggleTextFormat('main','U')">U</button>
+                
+                <div class="group-body-collapsible">
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header">
+                            <label>បង្ហាញអត្ថបទស្នូល៖</label>
+                            <label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label>
+                        </div>
                     </div>
-                    <div class="btn-group" style="margin-left: auto;">
-                        <button class="mini-btn" id="mAL" onclick="setTextAlignment('main','left')">ឆ្វេង</button>
-                        <button class="mini-btn active" id="mAC" onclick="setTextAlignment('main','center')">កណ្តាល</button>
-                        <button class="mini-btn" id="mAR" onclick="setTextAlignment('main','right')">ស្តាំ</button>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                        <div class="input-actions-flex">
+                            <select id="mFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                            <label class="file-lbl" for="mFFile">➕ ផ្ទុកចូល</label><input type="file" id="mFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                        </div>
                     </div>
-                </div>
-                <div class="ctrl-row">
-                    <label>ពណ៌អក្សរ:</label>
-                    <input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; cursor:pointer;">
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="mSize" class="input-slider" min="12" max="45" value="20">
+                            <span class="val-indicator" id="mSizeLbl">20px</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="mLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.6">
+                            <span class="val-indicator" id="mLineLbl">1.6</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>គម្លាតតួអក្សរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="mSpace" class="input-slider" min="-2" max="10" step="0.5" value="0">
+                            <span class="val-indicator" id="mSpaceLbl">0px</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
+                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                            <div class="btn-group">
+                                <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
+                                <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
+                                <button class="mini-btn" id="mU" onclick="toggleTextFormat('main','U')">U</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="mini-btn" id="mALeft" onclick="setTextAlignment('main','left')">ឆ្វេង</button>
+                                <button class="mini-btn active" id="mACenter" onclick="setTextAlignment('main','center')">កណ្តាល</button>
+                                <button class="mini-btn" id="mARight" onclick="setTextAlignment('main','right')">ស្តាំ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
+                        <input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                    </div>
                 </div>
             </div>
 
+            <!-- Accordion 3: Footer Config -->
+            <div class="group-box" id="boxFooter">
+                <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
+                    <div class="group-title">ហត្ថលេខា (Footer)</div>
+                    <span class="collapse-icon">▲</span>
+                </div>
+                
+                <div class="group-body-collapsible">
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header">
+                            <label>បង្ហាញហត្ថលេខា៖</label>
+                            <label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                        <div class="input-actions-flex">
+                            <select id="fFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                            <label class="file-lbl" for="fFFile">➕ ផ្ទុកចូល</label><input type="file" id="fFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                        <div class="slider-wrapper">
+                            <input type="range" id="fSize" class="input-slider" min="10" max="25" value="13">
+                            <span class="val-indicator" id="fSizeLbl">13px</span>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
+                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                            <div class="btn-group">
+                                <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
+                                <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
+                                <button class="mini-btn" id="fU" onclick="toggleTextFormat('footer','U')">U</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="mini-btn" id="fALeft" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
+                                <button class="mini-btn" id="fACenter" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
+                                <button class="mini-btn active" id="fARight" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
+                        <input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Canvas Background Color Selector -->
             <div class="group-box">
-                <div class="group-title">
-                    <span>ឯកសារយោង (Footer)</span>
-                    <label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label>
-                </div>
-                <div class="ctrl-row">
-                    <label>ពុម្ពអក្សរ:</label>
-                    <select id="fFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                    <label class="file-lbl" for="fFFile">➕</label><input type="file" id="fFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                </div>
-                <div class="ctrl-row">
-                    <label>ទំហំអក្សរ:</label>
-                    <input type="range" id="fSize" class="input-slider" min="10" max="30" value="12"><span class="val-indicator" id="fSizeLbl">12px</span>
-                </div>
-                <div class="ctrl-row">
-                    <label>រចនាបថ:</label>
-                    <div class="btn-group">
-                        <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
-                        <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
-                        <button class="mini-btn" id="fU" onclick="toggleTextFormat('footer','U')">U</button>
-                    </div>
-                    <div class="btn-group" style="margin-left: auto;">
-                        <button class="mini-btn" id="fAL" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
-                        <button class="mini-btn" id="fAC" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
-                        <button class="mini-btn active" id="fAR" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
-                    </div>
-                </div>
-                <div class="ctrl-row">
-                    <label>ពណ៌ Footer:</label>
-                    <input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; cursor:pointer;">
+                <div class="group-title">ពណ៌ផ្ទាំងខាងក្រោយ (Canvas Background)</div>
+                <div class="ctrl-row" style="margin-top:12px;">
+                    <div class="ctrl-row-header"><label>ពណ៌ផ្ទៃគំនូរ៖</label></div>
+                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; width:50px; height:32px; cursor:pointer;">
                 </div>
             </div>
         </div>
 
-        <div id="bg-tab" class="tab-content">
-            <div class="group-box">
-                <div class="group-title">ការកំណត់ផ្ទៃខាងក្រោយ</div>
-                <div class="ctrl-row">
-                    <label>ពណ៌ផ្ទៃក្រោយ:</label>
-                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; cursor:pointer;">
-                </div>
-                <div class="ctrl-row" style="border-top:1px dashed var(--border); padding-top:12px; margin-top:10px;">
-                    <label class="file-lbl" for="bgUpload">🌄 ផ្ទុកកម្រាលរូបភាព</label>
-                    <input type="file" id="bgUpload" class="file-hidden" accept="image/*">
-                    <label class="switch"><input type="checkbox" id="useBgImage" checked><span class="slider"></span></label>
-                </div>
-                <div class="ctrl-row">
-                    <label>ទំហំរូបភាព:</label>
-                    <input type="range" id="bgScale" class="input-slider" min="50" max="200" value="100"><span class="val-indicator" id="bgScaleLbl">100%</span>
-                </div>
-                <div class="ctrl-row">
-                    <label>ម៉ូដ Blend:</label>
-                    <select id="blendSelect" class="select-custom">
-                        <option value="normal">Normal</option>
-                        <option value="multiply">Multiply</option>
-                        <option value="screen">Screen</option>
-                        <option value="overlay">Overlay</option>
-                    </select>
-                </div>
-                <div class="ctrl-row" style="border-top:1px dashed var(--border); padding-top:12px; margin-top:10px;">
-                    <label>Overlay ពណ៌:</label>
-                    <input type="color" id="layerColor" value="#000000" style="border:none; background:transparent; cursor:pointer;">
-                    <select id="layerStyle" class="select-custom"><option value="solid">ស្មើ (Solid)</option><option value="gradient">ប្រដេញ (Gradient)</option></select>
-                </div>
-                <div class="ctrl-row">
-                    <label>កម្រិតព្រិល:</label>
-                    <input type="range" id="layerOpacity" class="input-slider" min="0" max="1" step="0.05" value="0">
-                </div>
-            </div>
-        </div>
-
+        <!-- TAB 2: LOGO ENGINE -->
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
-                <div class="group-title">ការកំណត់ឡូហ្គូ</div>
+                <div class="group-title" style="margin-bottom:12px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
                 <div class="ctrl-row">
-                    <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white;">🛡️ ជ្រើសរើសឡូហ្គូ</label>
-                    <input type="file" id="logoUpload" class="file-hidden" accept="image/*">
-                    <label class="switch"><input type="checkbox" id="useLogo" checked><span class="slider"></span></label>
+                    <div class="ctrl-row-header">
+                        <label>ប្រើប្រាស់ឡូហ្គូ៖</label>
+                        <label class="switch"><input type="checkbox" id="useLogo" checked onchange="drawLogoLayer()"><span class="slider"></span></label>
+                    </div>
                 </div>
-                <div class="ctrl-row">
-                    <label>ទំហំឡូហ្គូ:</label>
-                    <input type="range" id="logoScale" class="input-slider" min="20" max="250" value="55"><span class="val-indicator" id="logoScaleLbl">55px</span>
+                <div class="ctrl-row" style="margin-top:12px;">
+                    <div class="ctrl-row-header"><label>ជ្រើសរើសរូបភាពឡូហ្គូ៖</label></div>
+                    <div class="input-actions-flex">
+                        <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white; width:100%; text-align:center;">🛡️ ជ្រើសរើសរូបភាពពីឧបករណ៍</label>
+                        <input type="file" id="logoUpload" class="file-hidden" accept="image/*">
+                    </div>
                 </div>
-                <div class="ctrl-row">
-                    <label>ភាពច្បាស់ (Alpha):</label>
-                    <input type="range" id="logoAlpha" class="input-slider" min="0.1" max="1" step="0.05" value="1">
+                <div class="ctrl-row" style="margin-top:12px;">
+                    <div class="ctrl-row-header"><label>ទំហំឡូហ្គូ៖</label></div>
+                    <div class="slider-wrapper">
+                        <input type="range" id="logoScale" class="input-slider" min="20" max="200" value="50">
+                        <span class="val-indicator" id="logoScaleLbl">50px</span>
+                    </div>
                 </div>
-                <div class="ctrl-row">
-                    <label>ទីតាំងឡូហ្គូ:</label>
-                    <select id="logoPlacement" class="select-custom">
-                        <option value="top-center">ខាងលើ - កណ្តាល</option>
+                <div class="ctrl-row" style="margin-top:12px;">
+                    <div class="ctrl-row-header"><label>ភាពច្បាស់ (Opacity)៖</label></div>
+                    <div class="slider-wrapper">
+                        <input type="range" id="logoAlpha" class="input-slider" min="0.1" max="1" step="0.05" value="1">
+                        <span class="val-indicator" id="logoAlphaLbl">1.0</span>
+                    </div>
+                </div>
+                <div class="ctrl-row" style="margin-top:12px;">
+                    <div class="ctrl-row-header"><label>ទីតាំងបង្ហាញ៖</label></div>
+                    <select id="logoPlacement" class="select-custom" onchange="drawLogoLayer()">
+                        <option value="top-center">ខាងលើ - ចំកណ្តាល</option>
                         <option value="top-left">ខាងលើ - ឆ្វេង</option>
                         <option value="top-right">ខាងលើ - ស្តាំ</option>
-                        <option value="center">ចំកណ្តាលផ្ទាំង</option>
-                        <option value="bottom-center">ខាងក្រោម - កណ្តាល</option>
+                        <option value="center">ចំកណ្តាលផ្ទាំងធំ</option>
+                        <option value="bottom-center">ខាងក្រោម - ចំកណ្តាល</option>
                         <option value="bottom-left">ខាងក្រោម - ឆ្វេង</option>
                         <option value="bottom-right" selected>ខាងក្រោម - ស្តាំ</option>
                     </select>
@@ -420,51 +515,70 @@
         </div>
     </div>
 
+    <!-- 🎨 PREVIEW MONITOR -->
     <div class="monitor-panel">
         <div class="sample-bar">
-            <span>គំរូអត្ថបទ៖</span>
+            <span>អត្ថបទគំរូ៖</span>
             <button class="sample-pill" onclick="loadSampleText('abc')">ព្យញ្ជនៈ</button>
             <button class="sample-pill" onclick="loadSampleText('proverb')">សុភាសិត</button>
             <button class="sample-pill" onclick="loadSampleText('poem')">កំណាព្យ</button>
-            <button class="btn-clear" id="actionClearBtn">🧹 សម្អាត</button>
+            <button class="btn-clear" id="actionClearBtn">🧹 សម្អាតទាំងអស់</button>
         </div>
 
         <div class="preview-frame">
-            <div class="scroll-wrapper">
-                <div class="viewport-canvas" id="vCanvas">
-                    <div class="layer-blur-overlay" id="vOverlay"></div>
-                    
-                    <div class="logo-box" id="vLogoBox">
-                        <img src="" class="logo-node" id="vLogoImg" alt="Logo">
-                    </div>
+            <div class="viewport-canvas" id="vCanvas">
+                <div class="logo-box" id="vLogoBox">
+                    <img src="" class="logo-node" id="vLogoImg" alt="Logo">
+                </div>
+                <div class="center-logo-box" id="vLogoCenterBox">
+                    <img src="" id="vLogoCenterImg" alt="Logo Center">
+                </div>
 
-                    <div class="center-logo-box" id="vLogoCenterBox">
-                        <img src="" id="vLogoCenterImg" alt="Logo Center">
-                    </div>
+                <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
+                <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បង...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ&#10;ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
+                <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
+            </div>
+        </div>
 
-                    <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="ចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
-                    <p class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទទីនេះ...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</p>
-                    <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ឈ្មោះ...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
+        <!-- ⚡ NEW FEATURE: QUICK COLOR PALETTES -->
+        <div class="quick-color-box">
+            <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
+            <div class="palette-flex">
+                <div class="palette-item" onclick="applyQuickPalette('#ffffff', '#0f172a', '#0f172a', '#64748b')" title="Minimal Light">
+                    <div class="p-split" style="background: #ffffff;"></div><div class="p-split" style="background: #0f172a;"></div>
+                </div>
+                <div class="palette-item" onclick="applyQuickPalette('#0f172a', '#f8fafc', '#f8fafc', '#94a3b8')" title="Minimal Dark">
+                    <div class="p-split" style="background: #0f172a;"></div><div class="p-split" style="background: #f8fafc;"></div>
+                </div>
+                <div class="palette-item" onclick="applyQuickPalette('#111827', '#fbbf24', '#f3f4f6', '#9ca3af')" title="Luxury Gold">
+                    <div class="p-split" style="background: #111827;"></div><div class="p-split" style="background: #fbbf24;"></div>
+                </div>
+                <div class="palette-item" onclick="applyQuickPalette('#f0fdf4', '#16a34a', '#14532d', '#475569')" title="Eco Green">
+                    <div class="p-split" style="background: #f0fdf4;"></div><div class="p-split" style="background: #16a34a;"></div>
+                </div>
+                <div class="palette-item" onclick="applyQuickPalette('#eceff1', '#1a237e', '#37474f', '#78909c')" title="Classic Royal Blue">
+                    <div class="p-split" style="background: #eceff1;"></div><div class="p-split" style="background: #1a237e;"></div>
+                </div>
+                <div class="palette-item" onclick="applyQuickPalette('#fff7ed', '#ea580c', '#431407', '#7c2d12')" title="Vintage Orange">
+                    <div class="p-split" style="background: #fff7ed;"></div><div class="p-split" style="background: #ea580c;"></div>
                 </div>
             </div>
         </div>
 
         <div class="bottom-bar">
-            <button class="action-btn primary-btn" id="btnExportImg">🖼️ រក្សាទុករូបភាព</button>
-            <button class="action-btn" id="btnExportPdf">📄 PDF</button>
-            <button class="action-btn" id="btnShareApp">🔗 ចែករំលែក</button>
+            <button class="action-btn primary-btn" id="btnExportImg">🖼️ ទាញយករូបភាព PNG</button>
+            <button class="action-btn" id="btnExportPdf">📄 នាំចេញជា PDF</button>
         </div>
     </div>
 
 </div>
 
 <script>
-    // System DOM Cache
+    // Elements Selector
     const vTitle = document.getElementById('vTitle');
     const vMainText = document.getElementById('vMainText');
     const vFooterText = document.getElementById('vFooterText');
     const vCanvas = document.getElementById('vCanvas');
-    const vOverlay = document.getElementById('vOverlay');
 
     const hFont = document.getElementById('hFont');
     const mFont = document.getElementById('mFont');
@@ -476,28 +590,23 @@
     
     const hLine = document.getElementById('hLine');
     const mLine = document.getElementById('mLine');
-    
     const hSpace = document.getElementById('hSpace');
     const mSpace = document.getElementById('mSpace');
 
     const hSizeLbl = document.getElementById('hSizeLbl');
     const mSizeLbl = document.getElementById('mSizeLbl');
     const fSizeLbl = document.getElementById('fSizeLbl');
-    const bgScaleLbl = document.getElementById('bgScaleLbl');
+    const hLineLbl = document.getElementById('hLineLbl');
+    const mLineLbl = document.getElementById('mLineLbl');
+    const hSpaceLbl = document.getElementById('hSpaceLbl');
+    const mSpaceLbl = document.getElementById('mSpaceLbl');
     const logoScaleLbl = document.getElementById('logoScaleLbl');
+    const logoAlphaLbl = document.getElementById('logoAlphaLbl');
 
     const hColorInput = document.getElementById('hColorInput');
     const mColorInput = document.getElementById('mColorInput');
     const fColorInput = document.getElementById('fColorInput');
     const panelBgColor = document.getElementById('panelBgColor');
-
-    const bgUpload = document.getElementById('bgUpload');
-    const useBgImage = document.getElementById('useBgImage');
-    const layerColor = document.getElementById('layerColor');
-    const layerStyle = document.getElementById('layerStyle');
-    const layerOpacity = document.getElementById('layerOpacity');
-    const bgScale = document.getElementById('bgScale');
-    const blendSelect = document.getElementById('blendSelect');
     
     const logoUpload = document.getElementById('logoUpload');
     const useLogo = document.getElementById('useLogo');
@@ -509,7 +618,6 @@
     const vLogoCenterBox = document.getElementById('vLogoCenterBox');
     const vLogoCenterImg = document.getElementById('vLogoCenterImg');
 
-    let memoryBgImage = null;
     let memoryLogoImage = null;
 
     let textConfigs = {
@@ -519,21 +627,36 @@
     };
 
     const textLibrary = {
-        abc: "ក ខ្ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
+        abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
         proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ​​។"
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
-    // Tab Navigation Logic
+    // Accordion Toggle Script
+    function toggleAccordion(boxId) {
+        const box = document.getElementById(boxId);
+        if (!box) return;
+        box.classList.toggle('collapsed');
+        const icon = box.querySelector('.collapse-icon');
+        if (icon) icon.textContent = box.classList.contains('collapsed') ? '▼' : '▲';
+    }
+
+    // Tabs Navigation
     function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        if(tabId === 'text-tab') document.getElementById('btnTabTxt').classList.add('active');
+        if(tabId === 'logo-tab') document.getElementById('btnTabLogo').classList.add('active');
     }
 
-    function loadSampleText(key) { vMainText.innerText = textLibrary[key]; }
-    document.getElementById('actionClearBtn').addEventListener('click', () => { vTitle.innerText=''; vMainText.innerText=''; vFooterText.innerText=''; vMainText.focus(); });
+    function loadSampleText(key) { 
+        vMainText.innerText = textLibrary[key]; 
+    }
+    
+    document.getElementById('actionClearBtn').addEventListener('click', () => { 
+        vTitle.innerText=''; vMainText.innerText=''; vFooterText.innerText=''; vMainText.focus(); 
+    });
 
     function updateVisibility(section) {
         const check = document.getElementById(`v${section.charAt(0).toUpperCase() + section.slice(1)}`);
@@ -545,7 +668,6 @@
     function toggleTextFormat(section, mode) {
         const flag = mode === 'B' ? 'bold' : (mode === 'I' ? 'italic' : 'underline');
         textConfigs[section][flag] = !textConfigs[section][flag];
-        
         const btn = document.getElementById(`${section.charAt(0)}${mode}`);
         if(textConfigs[section][flag]) btn.classList.add('active'); else btn.classList.remove('active');
 
@@ -560,76 +682,49 @@
         const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
         target.style.textAlign = alignType;
 
-        document.querySelectorAll(`#${section}-tab .mini-btn` || `.control-panel .mini-btn`).forEach(b => {
-            if(b.id && b.id.startsWith(`${section.charAt(0)}A`)) b.classList.remove('active');
-        });
-        document.getElementById(`${section.charAt(0)}A${alignType.charAt(0).toUpperCase() + alignType.slice(1)}`).classList.add('active');
+        const prefix = section.charAt(0);
+        document.getElementById(`${prefix}ALeft`).classList.remove('active');
+        document.getElementById(`${prefix}ACenter`).classList.remove('active');
+        document.getElementById(`${prefix}ARight`).classList.remove('active');
+        document.getElementById(`${prefix}A${alignType.charAt(0).toUpperCase() + alignType.slice(1)}`).classList.add('active');
     }
 
-    // Dynamic Live Customization Event Handlers
+    // ⚡ NEW FUNCTION: APPLY QUICK PALETTE
+    function applyQuickPalette(bgColor, hColor, mColor, fColor) {
+        panelBgColor.value = bgColor; vCanvas.style.backgroundColor = bgColor;
+        hColorInput.value = hColor; vTitle.style.color = hColor;
+        mColorInput.value = mColor; vMainText.style.color = mColor;
+        fColorInput.value = fColor; vFooterText.style.color = fColor;
+    }
+
+    // Dynamic UI Listeners
     hSize.addEventListener('input', (e) => { vTitle.style.fontSize = e.target.value + 'px'; hSizeLbl.textContent = e.target.value + 'px'; });
     mSize.addEventListener('input', (e) => { vMainText.style.fontSize = e.target.value + 'px'; mSizeLbl.textContent = e.target.value + 'px'; });
     fSize.addEventListener('input', (e) => { vFooterText.style.fontSize = e.target.value + 'px'; fSizeLbl.textContent = e.target.value + 'px'; });
-
-    hLine.addEventListener('input', (e) => { vTitle.style.lineHeight = e.target.value; });
-    mLine.addEventListener('input', (e) => { vMainText.style.lineHeight = e.target.value; });
-    
-    hSpace.addEventListener('input', (e) => { vTitle.style.letterSpacing = e.target.value + 'px'; });
-    mSpace.addEventListener('input', (e) => { vMainText.style.letterSpacing = e.target.value + 'px'; });
+    hLine.addEventListener('input', (e) => { vTitle.style.lineHeight = e.target.value; hLineLbl.textContent = e.target.value; });
+    mLine.addEventListener('input', (e) => { vMainText.style.lineHeight = e.target.value; mLineLbl.textContent = e.target.value; });
+    hSpace.addEventListener('input', (e) => { vTitle.style.letterSpacing = e.target.value + 'px'; hSpaceLbl.textContent = e.target.value + 'px'; });
+    mSpace.addEventListener('input', (e) => { vMainText.style.letterSpacing = e.target.value + 'px'; mSpaceLbl.textContent = e.target.value + 'px'; });
 
     hColorInput.addEventListener('input', (e) => { vTitle.style.color = e.target.value; });
     mColorInput.addEventListener('input', (e) => { vMainText.style.color = e.target.value; });
     fColorInput.addEventListener('input', (e) => { vFooterText.style.color = e.target.value; });
-    
-    panelBgColor.addEventListener('input', (e) => { 
-        vCanvas.style.backgroundColor = e.target.value; 
-        memoryBgImage = null; vCanvas.style.backgroundImage = 'none'; 
-        applyOverlayFilter(); 
-    });
+    panelBgColor.addEventListener('input', (e) => { vCanvas.style.backgroundColor = e.target.value; });
 
     hFont.addEventListener('change', (e) => { vTitle.style.fontFamily = e.target.value; });
     mFont.addEventListener('change', (e) => { vMainText.style.fontFamily = e.target.value; });
     fFont.addEventListener('change', (e) => { vFooterText.style.fontFamily = e.target.value; });
 
-    // Sanitize Clipboard Paste Data
-    function cleanPasteEvent(e) { e.preventDefault(); const t = (e.originalEvent || e).clipboardData.getData('text/plain'); document.execCommand('insertText', false, t); }
-    vTitle.addEventListener('paste', cleanPasteEvent); vMainText.addEventListener('paste', cleanPasteEvent); vFooterText.addEventListener('paste', cleanPasteEvent);
-
-    // Image Upload & Layout Engines
-    bgUpload.addEventListener('change', (e) => {
-        const f = e.target.files[0]; if(!f) return;
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-            const img = new Image();
-            img.onload = () => { memoryBgImage = img; drawBackgroundLayer(); };
-            img.src = evt.target.result;
-        };
-        reader.readAsDataURL(f);
-    });
-
-    function drawBackgroundLayer() {
-        if(useBgImage.checked && memoryBgImage) {
-            vCanvas.style.backgroundImage = `url(${memoryBgImage.src})`;
-            vCanvas.style.backgroundSize = bgScale.value + '%';
-        } else { vCanvas.style.backgroundImage = 'none'; }
-        applyOverlayFilter();
+    function cleanPasteEvent(e) { 
+        e.preventDefault(); 
+        const t = (e.originalEvent || e).clipboardData.getData('text/plain'); 
+        document.execCommand('insertText', false, t); 
     }
-    useBgImage.addEventListener('change', drawBackgroundLayer);
-    bgScale.addEventListener('input', (e) => { bgScaleLbl.textContent = e.target.value + '%'; drawBackgroundLayer(); });
+    vTitle.addEventListener('paste', cleanPasteEvent); 
+    vMainText.addEventListener('paste', cleanPasteEvent); 
+    vFooterText.addEventListener('paste', cleanPasteEvent);
 
-    function applyOverlayFilter() {
-        const hex = layerColor.value, alpha = parseFloat(layerOpacity.value), type = layerStyle.value;
-        const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
-        vOverlay.style.mixBlendMode = blendSelect.value;
-        if(type === 'gradient' && (useBgImage.checked && memoryBgImage)) {
-            vOverlay.style.background = `linear-gradient(to top, rgba(${r},${g},${b},${alpha}) 0%, rgba(${r},${g},${b},0) 100%)`;
-        } else { vOverlay.style.background = `rgba(${r},${g},${b},${alpha})`; }
-    }
-    layerColor.addEventListener('input', applyOverlayFilter);
-    layerStyle.addEventListener('change', applyOverlayFilter);
-    layerOpacity.addEventListener('input', applyOverlayFilter);
-    blendSelect.addEventListener('change', applyOverlayFilter);
-
+    // Logo Core System
     logoUpload.addEventListener('change', (e) => {
         const f = e.target.files[0]; if(!f) return;
         const reader = new FileReader();
@@ -659,26 +754,42 @@
             else { if(vCanvas.lastElementChild !== vLogoBox) vCanvas.appendChild(vLogoBox); }
         }
     }
-    useLogo.addEventListener('change', drawLogoLayer);
     logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
-    logoAlpha.addEventListener('input', drawLogoLayer);
-    logoPlacement.addEventListener('change', drawLogoLayer);
+    logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
+    /* ==========================================================================
+       🔥 FIXED & STABLE FONT IMPORTER FOR IOS SAFARI (ARRAYBUFFER + BLOB URL)
+       ========================================================================== */
     function initializeFontImporter(uploader) {
         uploader.addEventListener('change', function(e) {
             Array.from(e.target.files).forEach(file => {
-                const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*100);
+                const fontNameClean = file.name.replace(/\.[^/.]+$/, "");
+                const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+                
                 const reader = new FileReader();
+                // 🛠️ ដំណោះស្រាយ៖ ប្រើ readAsArrayBuffer ជំនួស readAsDataURL ដើម្បីកុំឱ្យ Safari បដិសេធសិទ្ធិអាន Font
                 reader.onload = function(evt) {
-                    const fontFaceObj = new FontFace(fKey, `url(${evt.target.result})`);
+                    const arrayBuffer = evt.target.result;
+                    const blob = new Blob([arrayBuffer], { type: 'font/ttf' });
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    const fontFaceObj = new FontFace(fKey, `url(${blobUrl})`);
                     fontFaceObj.load().then(function(loaded) {
                         document.fonts.add(loaded);
+                        
+                        // បន្ថែមជម្រើសទៅក្នុង Dropdown ទាំងអស់
                         [hFont, mFont, fFont].forEach(select => {
-                            const o = document.createElement('option'); o.value = fKey; o.textContent = "📁 " + file.name.replace(/\.[^/.]+$/, ""); select.appendChild(o);
+                            const o = document.createElement('option'); 
+                            o.value = fKey; 
+                            o.textContent = "📁 " + fontNameClean; 
+                            select.appendChild(o);
                         });
+                        console.log(`Successfully loaded font: ${fontNameClean}`);
+                    }).catch(err => {
+                        alert("មិនអាចបង្កើតពុម្ពអក្សរបានទេ: " + err.message);
                     });
                 };
-                reader.readAsDataURL(file);
+                reader.readAsArrayBuffer(file);
             });
         });
     }
@@ -687,7 +798,7 @@
     initializeFontImporter(document.getElementById('fFFile'));
 
     /* ==========================================================================
-       🔥 ADVANCED CANVAS WRAPPING ENGINE (FULLY AUTO WORD-WRAP & ENTER SENSITIVE)
+       🎨 HIGH-RESOLUTION WRAPPING CANVAS EXPORT SYSTEM
        ========================================================================== */
     function renderMultiLineTextCanvas(ctx, rawText, startY, fontSize, fontConfig, fontName, fontColor, alignment, letterSpacing, lineSpacing, paddingX, maxWidth) {
         ctx.save();
@@ -695,21 +806,16 @@
         ctx.font = `${fontConfig.italic ? 'italic' : 'normal'} ${fontConfig.bold ? 'bold' : 'normal'} ${fontSize}px ${fontName}, sans-serif`;
         ctx.fillStyle = fontColor; ctx.strokeStyle = fontColor;
 
-        // ១. បំបែកជួរតាមការចុះបន្ទាត់ពិតប្រាកដរបស់បងជាមុន (Manual Enter Check)
-        let paragraphs = rawText.split('\n');
+        let paragraphs = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
         let finalLines = [];
 
-        // ២. មុខងារពិនិត្យ និងកាត់បន្ទាត់ស្វ័យប្រវត្តិ (Auto Word-Wrap Algorithm)
         paragraphs.forEach(paragraph => {
             if(paragraph.trim() === "") { finalLines.push(""); return; }
-            
             let words = paragraph.split(' ');
             let currentLine = "";
 
             for(let n = 0; n < words.length; n++) {
                 let testLine = currentLine + (currentLine === "" ? "" : " ") + words[n];
-                
-                // គណនាទំហំទទឹងសរុបបូករួមទាំង Letter Spacing Custom
                 let testWidth = 0;
                 if (letterSpacing === 0) { testWidth = ctx.measureText(testLine).width; } 
                 else {
@@ -717,17 +823,13 @@
                         testWidth += ctx.measureText(testLine[i]).width + (i < testLine.length - 1 ? letterSpacing : 0);
                     }
                 }
-
-                // ប្រសិនបើទទឹងអក្សរធំជាងទំហំ Canvas ត្រូវកាត់ទម្លាក់ជួរអូតូ
                 if (testWidth > (maxWidth - (paddingX * 2)) && n > 0) {
-                    finalLines.push(currentLine);
-                    currentLine = words[n];
+                    finalLines.push(currentLine); currentLine = words[n];
                 } else { currentLine = testLine; }
             }
             finalLines.push(currentLine);
         });
 
-        // ៣. ចាប់ផ្តើមគូរអក្សរចូលទៅលើ Canvas តាមលំដាប់ជួរនីមួយៗ
         let localY = startY;
         finalLines.forEach(line => {
             let lineW = 0;
@@ -752,8 +854,8 @@
             }
 
             if (fontConfig.underline && line.trim()) {
-                ctx.beginPath(); ctx.lineWidth = Math.max(3, fontSize / 15);
-                let uY = localY + (fontSize * 1.15); ctx.moveTo(x, uY); ctx.lineTo(x + lineW, uY); ctx.stroke();
+                ctx.beginPath(); ctx.lineWidth = Math.max(3, fontSize / 14);
+                let uY = localY + (fontSize * 1.12); ctx.moveTo(x, uY); ctx.lineTo(x + lineW, uY); ctx.stroke();
             }
             localY += (fontSize * lineSpacing);
         });
@@ -763,61 +865,26 @@
 
     function buildHighResCanvas(callback) {
         document.fonts.ready.then(() => {
-            const baseW = 1920; 
-            const padX = 140;
-
-            const testCanvas = document.createElement('canvas');
-            const testCtx = testCanvas.getContext('2d');
-            
-            let dynamicHeight = 250; 
+            const baseW = 1920; const padX = 120;
+            let dynamicHeight = 240; 
             const logoHpx = useLogo.checked && memoryLogoImage ? parseInt(logoScale.value) * 2.5 : 0;
             if (logoHpx > 0 && logoPlacement.value.startsWith('top')) dynamicHeight += logoHpx + 50;
 
-            // គណនាទំហំកម្ពស់អក្សររត់ចុះក្រោមស្វ័យប្រវត្ត ដើម្បីកុំឱ្យបាក់ជួរ ឬដាច់រូបភាព
-            testCtx.font = `26px ${hFont.value}, sans-serif`;
             if (textConfigs.header.visible && vTitle.innerText.trim()) {
-                let hSizePx = parseInt(hSize.value) * 2.2;
-                dynamicHeight += (vTitle.innerText.split('\n').length * hSizePx * parseFloat(hLine.value)) + 80;
+                dynamicHeight += (vTitle.innerText.split('\n').length * (parseInt(hSize.value) * 2.4) * parseFloat(hLine.value)) + 60;
             }
             if (textConfigs.main.visible && vMainText.innerText.trim()) {
-                let mSizePx = parseInt(mSize.value) * 2.2;
-                // បន្ថែមបន្ទាត់ اندازة ប្រហាក់ប្រហែលសម្រាប់ការ Wrap
-                let approximateLines = Math.ceil(vMainText.innerText.length / 45); 
-                dynamicHeight += (approximateLines * mSizePx * parseFloat(mLine.value)) + 100;
+                let approximateLines = Math.ceil(vMainText.innerText.length / 40); 
+                dynamicHeight += (approximateLines * (parseInt(mSize.value) * 2.4) * parseFloat(mLine.value)) + 80;
             }
             if (logoHpx > 0 && logoPlacement.value.startsWith('bottom')) dynamicHeight += logoHpx + 50;
-
             const baseH = Math.max(1080, dynamicHeight);
 
             const mainCanvas = document.createElement('canvas'); mainCanvas.width = baseW; mainCanvas.height = baseH;
             const ctx = mainCanvas.getContext('2d');
 
-            // ផ្ទៃកម្រាលក្រោយ
             ctx.fillStyle = panelBgColor.value; ctx.fillRect(0, 0, baseW, baseH);
 
-            if (memoryBgImage && useBgImage.checked) {
-                let imgW = memoryBgImage.width; let imgH = memoryBgImage.height; let factor = parseInt(bgScale.value) / 100;
-                let rW = baseW * factor; let rH = (imgH * (baseW / imgW)) * factor;
-                if(rW < baseW || rH < baseH) {
-                    let r = Math.max(baseW / imgW, baseH / imgH); rW = imgW * r * factor; rH = imgH * r * factor;
-                }
-                ctx.drawImage(memoryBgImage, (baseW - rW) / 2, (baseH - rH) / 2, rW, rH);
-            }
-
-            // ពណ៌ស្បៃប្រដេញ ឬស្មើ
-            const op = parseFloat(layerOpacity.value);
-            if (op > 0) {
-                ctx.save(); ctx.globalCompositeOperation = blendSelect.value === 'normal' ? 'source-over' : blendSelect.value;
-                const hex = layerColor.value; const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
-                if (layerStyle.value === 'gradient' && memoryBgImage && useBgImage.checked) {
-                    let gld = ctx.createLinearGradient(0, baseH, 0, 0);
-                    gld.addColorStop(0, `rgba(${r},${g},${b},${op})`); gld.addColorStop(0.6, `rgba(${r},${g},${b},${op*0.2})`); gld.addColorStop(1, `rgba(${r},${g},${b},0)`);
-                    ctx.fillStyle = gld;
-                } else { ctx.fillStyle = `rgba(${r},${g},${b},${op})`; }
-                ctx.fillRect(0, 0, baseW, baseH); ctx.restore();
-            }
-
-            // ចំកណ្តាលឡូហ្គូ
             if (logoHpx > 0 && logoPlacement.value === 'center') {
                 ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
                 let aspect = memoryLogoImage.width / memoryLogoImage.height;
@@ -825,7 +892,6 @@
             }
 
             let trackY = 120;
-            // គូរឡូហ្គូផ្នែកខាងលើ
             if (logoHpx > 0 && logoPlacement.value.startsWith('top')) {
                 ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
                 let aspect = memoryLogoImage.width / memoryLogoImage.height;
@@ -835,21 +901,18 @@
                 trackY += logoHpx + 50;
             }
 
-            // គូរអត្ថបទចំណងជើង
             if (textConfigs.header.visible && vTitle.innerText.trim()) {
                 let size = parseInt(hSize.value) * 2.2;
                 trackY = renderMultiLineTextCanvas(ctx, vTitle.innerText, trackY, size, textConfigs.header, hFont.value, hColorInput.value, textConfigs.header.align, parseFloat(hSpace.value)*2, parseFloat(hLine.value), padX, baseW);
                 trackY += 40;
             }
 
-            // គូរអត្ថបទកណ្តាល (ជាមួយ Auto Word-Wrap)
             if (textConfigs.main.visible && vMainText.innerText.trim()) {
                 let size = parseInt(mSize.value) * 2.2;
                 trackY = renderMultiLineTextCanvas(ctx, vMainText.innerText, trackY, size, textConfigs.main, mFont.value, mColorInput.value, textConfigs.main.align, parseFloat(mSpace.value)*2, parseFloat(mLine.value), padX, baseW);
             }
 
             let footerY = baseH - 120;
-            // គូរឡូហ្គូផ្នែកខាងក្រោម
             if (logoHpx > 0 && logoPlacement.value.startsWith('bottom')) {
                 ctx.save(); ctx.globalAlpha = parseFloat(logoAlpha.value);
                 let aspect = memoryLogoImage.width / memoryLogoImage.height;
@@ -859,7 +922,6 @@
                 footerY -= (logoHpx + 40);
             }
 
-            // គូរអត្ថបទយោង Footer
             if (textConfigs.footer.visible && vFooterText.innerText.trim()) {
                 let size = parseInt(fSize.value) * 2.2;
                 let lines = vFooterText.innerText.split('\n');
@@ -871,10 +933,9 @@
         });
     }
 
-    // Export Trigger Buttons Connection
     document.getElementById('btnExportImg').addEventListener('click', () => {
         buildHighResCanvas((url) => {
-            const a = document.createElement('a'); a.download = 'Toathmor_Font_Tester.png'; a.href = url; a.click();
+            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.3.png'; a.href = url; a.click();
         });
     });
 
@@ -882,29 +943,20 @@
         buildHighResCanvas((url, w, h) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
-            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Font_Tester.pdf');
+            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.3.pdf');
         });
     });
 
+    // Dark/Light Theme
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     themeToggleBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 Dark'; 
-            panelBgColor.value = "#ffffff"; vCanvas.style.backgroundColor = "#ffffff";
-            hColorInput.value = "#0f172a"; mColorInput.value = "#0f172a"; fColorInput.value = "#64748b";
-            vTitle.style.color = "#0f172a"; vMainText.style.color = "#0f172a"; vFooterText.style.color = "#64748b";
+            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 ងងឹត'; 
+            applyQuickPalette('#ffffff', '#0f172a', '#0f172a', '#64748b');
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ Light'; 
-            panelBgColor.value = "#090d16"; vCanvas.style.backgroundColor = "#090d16";
-            hColorInput.value = "#f1f5f9"; mColorInput.value = "#f1f5f9"; fColorInput.value = "#94a3b8";
-            vTitle.style.color = "#f1f5f9"; vMainText.style.color = "#f1f5f9"; vFooterText.style.color = "#94a3b8";
+            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ ភ្លឺ'; 
+            applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8');
         }
-        memoryBgImage = null; vCanvas.style.backgroundImage = 'none'; applyOverlayFilter();
-    });
-
-    document.getElementById('btnShareApp').addEventListener('click', async () => {
-        if (navigator.share) { try { await navigator.share({ title: 'Toathmor Pro', text: 'កម្មវិធីតេស្តពុម្ពអក្សរខ្មែរ', url: window.location.href }); } catch(e){} }
-        else { alert('Browser នេះមិនទាន់គាំទ្រមុខងារចែករំលែកឡើយ'); }
     });
 </script>
 
