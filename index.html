@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Font Studio v3.4</title>
+    <title>Toathmor Font Studio v3.5</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -226,11 +226,18 @@
             padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
         }
 
-        /* 🛠️ ដំណោះស្រាយ CSS: ធានាឱ្យ Contenteditable គាំទ្រការចុះបន្ទាត់គ្រប់កាលៈទេសៈ */
+        /* 🛠️ ដំណោះស្រាយ CSS កម្រិតខ្ពស់៖ បង្ខំឱ្យរាល់ Element ខាងក្នុងទាំងអស់ (ទោះចុះបន្ទាត់ដាច់ដោយ div ឬ p) ប្រើប្រាស់ Font របស់ Element មេជានិច្ច */
         .block-editable {
             width: 100%; background: transparent; border: none; outline: none;
             white-space: pre-wrap !important; 
             word-wrap: break-word; word-break: break-word; position: relative; margin: 0;
+        }
+        .block-editable * {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            letter-spacing: inherit !important;
         }
         .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
@@ -266,9 +273,10 @@
 
 <div class="app-container">
     
+    <!-- 🎛️ CONTROL PANEL -->
     <div class="control-panel">
         <div class="app-header">
-            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.4</span></div>
+            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.5</span></div>
             <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
         </div>
 
@@ -277,8 +285,10 @@
             <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')">🛡️ និមិត្តសញ្ញា</button>
         </div>
 
+        <!-- TAB 1: TEXT SETTINGS -->
         <div id="text-tab" class="tab-content active">
             
+            <!-- Accordion 1: Header Config -->
             <div class="group-box" id="boxHeader">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
                     <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
@@ -342,6 +352,7 @@
                 </div>
             </div>
 
+            <!-- Accordion 2: Main Text Config -->
             <div class="group-box" id="boxMain">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
                     <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
@@ -405,6 +416,7 @@
                 </div>
             </div>
 
+            <!-- Accordion 3: Footer Config -->
             <div class="group-box" id="boxFooter">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
                     <div class="group-title">ហត្ថលេខា (Footer)</div>
@@ -454,6 +466,7 @@
                 </div>
             </div>
             
+            <!-- Canvas Background Color Selector -->
             <div class="group-box">
                 <div class="group-title">ពណ៌ផ្ទាំងខាងក្រោយ (Canvas Background)</div>
                 <div class="ctrl-row" style="margin-top:12px;">
@@ -463,6 +476,7 @@
             </div>
         </div>
 
+        <!-- TAB 2: LOGO ENGINE -->
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
                 <div class="group-title" style="margin-bottom:12px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
@@ -509,6 +523,7 @@
         </div>
     </div>
 
+    <!-- 🎨 PREVIEW MONITOR -->
     <div class="monitor-panel">
         <div class="sample-bar">
             <span>អត្ថបទគំរូ៖</span>
@@ -533,6 +548,7 @@
             </div>
         </div>
 
+        <!-- ⚡ QUICK COLOR PALETTES -->
         <div class="quick-color-box">
             <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
             <div class="palette-flex">
@@ -702,45 +718,79 @@
     fColorInput.addEventListener('input', (e) => { vFooterText.style.color = e.target.value; });
     panelBgColor.addEventListener('input', (e) => { vCanvas.style.backgroundColor = e.target.value; });
 
-    hFont.addEventListener('change', (e) => { vTitle.style.fontFamily = e.target.value; });
-    mFont.addEventListener('change', (e) => { vMainText.style.fontFamily = e.target.value; });
-    fFont.addEventListener('change', (e) => { vFooterText.style.fontFamily = e.target.value; });
+    hFont.addEventListener('change', (e) => { vTitle.style.fontFamily = e.target.value; applyFontToChildren(vTitle, e.target.value); });
+    mFont.addEventListener('change', (e) => { vMainText.style.fontFamily = e.target.value; applyFontToChildren(vMainText, e.target.value); });
+    fFont.addEventListener('change', (e) => { vFooterText.style.fontFamily = e.target.value; applyFontToChildren(vFooterText, e.target.value); });
+
+    function applyFontToChildren(element, fontName) {
+        element.style.fontFamily = fontName;
+        element.querySelectorAll('*').forEach(child => {
+            child.style.fontFamily = fontName;
+        });
+    }
 
     /* ==========================================================================
-       🔥 NEW HIGH-STABILITY MULTI-LINE PASTE CONTROLLER (iOS / SAFARI COMPATIBLE)
+       🔥 HIGH-STABILITY MULTI-LINE PASTE CONTROLLER
        ========================================================================== */
     async function cleanPasteEvent(e) { 
         e.preventDefault(); 
         let text = "";
         
-        // ប្រសិនបើកម្មវិធីរុករកគាំទ្រប្រព័ន្ធ Clipboard API សម័យថ្មី
         if (navigator.clipboard && navigator.clipboard.readText) {
-            try {
-                text = await navigator.clipboard.readText();
-            } catch (err) {
-                text = (e.originalEvent || e).clipboardData.getData('text/plain');
-            }
-        } else {
-            text = (e.originalEvent || e).clipboardData.getData('text/plain');
-        }
+            try { text = await navigator.clipboard.readText(); } catch (err) { text = (e.originalEvent || e).clipboardData.getData('text/plain'); }
+        } else { text = (e.originalEvent || e).clipboardData.getData('text/plain'); }
 
         if (!text) return;
 
-        // 🛠️ ដំណោះស្រាយសំខាន់៖ រក្សាទុក និងបំប្លែងគ្រាប់ចុះបន្ទាត់ \n ឱ្យដំណើរការលើគ្រប់ឧបករណ៍
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
         selection.deleteFromDocument();
         
         const textNode = document.createTextNode(text);
         selection.getRangeAt(0).insertNode(textNode);
-        
-        // រុញ Cursor ទៅចុងក្រោយអត្ថបទដែលទើបនឹង Paste រួច
         selection.collapseToEnd();
+        
+        // 🛠️ ចាប់បង្ខំឱ្យ Font រត់ឡើងវិញលើរាល់បន្ទាត់ដែលទើបនឹងចូល
+        const target = e.currentTarget;
+        const currentFont = target == vTitle ? hFont.value : (target == vMainText ? mFont.value : fFont.value);
+        applyFontToChildren(target, currentFont);
     }
     
     vTitle.addEventListener('paste', cleanPasteEvent); 
     vMainText.addEventListener('paste', cleanPasteEvent); 
     vFooterText.addEventListener('paste', cleanPasteEvent);
+
+    /* ==========================================================================
+       🛠️ ដំណោះស្រាយលុបបំបាត់បញ្ហា៖ ចុះបន្ទាត់ហើយពុម្ពអក្សរអត់ដើរ (MUTATION OBSERVER)
+       ========================================================================== */
+    function watchLineBreaks(element, fontSelectElement) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    // នៅពេលមាន Node ថ្មីបង្កើតឡើងដោយការ Enter ឬ Space វាដេញចាប់ Apply Font ភ្លាម
+                    applyFontToChildren(element, fontSelectElement.value);
+                }
+            });
+        });
+        observer.observe(element, { childList: true, subtree: true });
+    }
+
+    // ដាក់ឱ្យដំណើរការប្រព័ន្ធតាមដានការចុះបន្ទាត់លើផ្ទាំងទាំង៣
+    watchLineBreaks(vTitle, hFont);
+    watchLineBreaks(vMainText, mFont);
+    watchLineBreaks(vFooterText, fFont);
+
+    // លុប HTML Formats ចេញនៅពេលកំពុងវាយ និងរក្សាទុកតែអត្ថបទសុទ្ធ
+    [vTitle, vMainText, vFooterText].forEach(el => {
+        el.addEventListener('keydown', (e) => {
+            // បើចុះបន្ទាត់ Shift+Enter ឬ Enter ធម្មតា ឱ្យវាដេញតាមចាប់ Font ស្វ័យប្រវត្តតាមរយៈ Observer
+            setTimeout(() => {
+                const target = e.currentTarget;
+                const currentFont = target == vTitle ? hFont.value : (target == vMainText ? mFont.value : fFont.value);
+                applyFontToChildren(target, currentFont);
+            }, 10);
+        });
+    });
 
     // Logo Core System
     logoUpload.addEventListener('change', (e) => {
@@ -776,7 +826,7 @@
     logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
     // Stable Font Importer (ArrayBuffer + Blob URL)
-    function initializeFontImporter(uploader) {
+    function initializeFontImporter(uploader, selectTag) {
         uploader.addEventListener('change', function(e) {
             Array.from(e.target.files).forEach(file => {
                 const fontNameClean = file.name.replace(/\.[^/.]+$/, "");
@@ -797,6 +847,9 @@
                             o.textContent = "📁 " + fontNameClean; 
                             select.appendChild(o);
                         });
+                        // ចាប់ឱ្យរើសយក Font ដែលទើបនឹងបញ្ចូលនោះភ្លាមៗលើប្រអប់ដែលបានចុច Upload
+                        selectTag.value = fKey;
+                        selectTag.dispatchEvent(new Event('change'));
                         console.log(`Successfully loaded font: ${fontNameClean}`);
                     }).catch(err => {
                         alert("មិនអាចបង្កើតពុម្ពអក្សរបានទេ: " + err.message);
@@ -806,9 +859,9 @@
             });
         });
     }
-    initializeFontImporter(document.getElementById('hFFile'));
-    initializeFontImporter(document.getElementById('mFFile'));
-    initializeFontImporter(document.getElementById('fFFile'));
+    initializeFontImporter(document.getElementById('hFFile'), hFont);
+    initializeFontImporter(document.getElementById('mFFile'), mFont);
+    initializeFontImporter(document.getElementById('fFFile'), fFont);
 
     /* ==========================================================================
        🎨 HIGH-RESOLUTION CANVAS RENDERING SYSTEM (SUPPORT MULTI-LINE DRAW)
@@ -948,7 +1001,7 @@
 
     document.getElementById('btnExportImg').addEventListener('click', () => {
         buildHighResCanvas((url) => {
-            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.4.png'; a.href = url; a.click();
+            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.5.png'; a.href = url; a.click();
         });
     });
 
@@ -956,7 +1009,7 @@
         buildHighResCanvas((url, w, h) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
-            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.4.pdf');
+            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.5.pdf');
         });
     });
 
