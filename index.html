@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Font Studio v3.3</title>
+    <title>Toathmor Font Studio v3.4</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -181,7 +180,7 @@
         /* TOGGLE SWITCH */
         .switch { 
             position: relative; display: inline-block; width: 42px; height: 22px; 
-            flex-shrink: 0 !important; -webkit-flex-shrink: 0 !important; max-width: 42px; max-height: 22px;
+            flex-shrink: 0 !important; max-width: 42px; max-height: 22px;
         }
         .switch input { opacity: 0; width: 0; height: 0; display: none; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 30px; }
@@ -227,9 +226,11 @@
             padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
         }
 
+        /* 🛠️ ដំណោះស្រាយ CSS: ធានាឱ្យ Contenteditable គាំទ្រការចុះបន្ទាត់គ្រប់កាលៈទេសៈ */
         .block-editable {
             width: 100%; background: transparent; border: none; outline: none;
-            white-space: pre-wrap; word-wrap: break-word; word-break: break-word; position: relative; margin: 0;
+            white-space: pre-wrap !important; 
+            word-wrap: break-word; word-break: break-word; position: relative; margin: 0;
         }
         .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
@@ -265,10 +266,9 @@
 
 <div class="app-container">
     
-    <!-- 🎛️ CONTROL PANEL -->
     <div class="control-panel">
         <div class="app-header">
-            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.3</span></div>
+            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.4</span></div>
             <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
         </div>
 
@@ -277,10 +277,8 @@
             <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')">🛡️ និមិត្តសញ្ញា</button>
         </div>
 
-        <!-- TAB 1: TEXT SETTINGS -->
         <div id="text-tab" class="tab-content active">
             
-            <!-- Accordion 1: Header Config -->
             <div class="group-box" id="boxHeader">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
                     <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
@@ -344,7 +342,6 @@
                 </div>
             </div>
 
-            <!-- Accordion 2: Main Text Config -->
             <div class="group-box" id="boxMain">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
                     <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
@@ -408,7 +405,6 @@
                 </div>
             </div>
 
-            <!-- Accordion 3: Footer Config -->
             <div class="group-box" id="boxFooter">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
                     <div class="group-title">ហត្ថលេខា (Footer)</div>
@@ -458,7 +454,6 @@
                 </div>
             </div>
             
-            <!-- Canvas Background Color Selector -->
             <div class="group-box">
                 <div class="group-title">ពណ៌ផ្ទាំងខាងក្រោយ (Canvas Background)</div>
                 <div class="ctrl-row" style="margin-top:12px;">
@@ -468,7 +463,6 @@
             </div>
         </div>
 
-        <!-- TAB 2: LOGO ENGINE -->
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
                 <div class="group-title" style="margin-bottom:12px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
@@ -515,7 +509,6 @@
         </div>
     </div>
 
-    <!-- 🎨 PREVIEW MONITOR -->
     <div class="monitor-panel">
         <div class="sample-bar">
             <span>អត្ថបទគំរូ៖</span>
@@ -540,7 +533,6 @@
             </div>
         </div>
 
-        <!-- ⚡ NEW FEATURE: QUICK COLOR PALETTES -->
         <div class="quick-color-box">
             <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
             <div class="palette-flex">
@@ -689,7 +681,6 @@
         document.getElementById(`${prefix}A${alignType.charAt(0).toUpperCase() + alignType.slice(1)}`).classList.add('active');
     }
 
-    // ⚡ NEW FUNCTION: APPLY QUICK PALETTE
     function applyQuickPalette(bgColor, hColor, mColor, fColor) {
         panelBgColor.value = bgColor; vCanvas.style.backgroundColor = bgColor;
         hColorInput.value = hColor; vTitle.style.color = hColor;
@@ -715,11 +706,38 @@
     mFont.addEventListener('change', (e) => { vMainText.style.fontFamily = e.target.value; });
     fFont.addEventListener('change', (e) => { vFooterText.style.fontFamily = e.target.value; });
 
-    function cleanPasteEvent(e) { 
+    /* ==========================================================================
+       🔥 NEW HIGH-STABILITY MULTI-LINE PASTE CONTROLLER (iOS / SAFARI COMPATIBLE)
+       ========================================================================== */
+    async function cleanPasteEvent(e) { 
         e.preventDefault(); 
-        const t = (e.originalEvent || e).clipboardData.getData('text/plain'); 
-        document.execCommand('insertText', false, t); 
+        let text = "";
+        
+        // ប្រសិនបើកម្មវិធីរុករកគាំទ្រប្រព័ន្ធ Clipboard API សម័យថ្មី
+        if (navigator.clipboard && navigator.clipboard.readText) {
+            try {
+                text = await navigator.clipboard.readText();
+            } catch (err) {
+                text = (e.originalEvent || e).clipboardData.getData('text/plain');
+            }
+        } else {
+            text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        }
+
+        if (!text) return;
+
+        // 🛠️ ដំណោះស្រាយសំខាន់៖ រក្សាទុក និងបំប្លែងគ្រាប់ចុះបន្ទាត់ \n ឱ្យដំណើរការលើគ្រប់ឧបករណ៍
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+        selection.deleteFromDocument();
+        
+        const textNode = document.createTextNode(text);
+        selection.getRangeAt(0).insertNode(textNode);
+        
+        // រុញ Cursor ទៅចុងក្រោយអត្ថបទដែលទើបនឹង Paste រួច
+        selection.collapseToEnd();
     }
+    
     vTitle.addEventListener('paste', cleanPasteEvent); 
     vMainText.addEventListener('paste', cleanPasteEvent); 
     vFooterText.addEventListener('paste', cleanPasteEvent);
@@ -757,9 +775,7 @@
     logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
     logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
-    /* ==========================================================================
-       🔥 FIXED & STABLE FONT IMPORTER FOR IOS SAFARI (ARRAYBUFFER + BLOB URL)
-       ========================================================================== */
+    // Stable Font Importer (ArrayBuffer + Blob URL)
     function initializeFontImporter(uploader) {
         uploader.addEventListener('change', function(e) {
             Array.from(e.target.files).forEach(file => {
@@ -767,7 +783,6 @@
                 const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*1000);
                 
                 const reader = new FileReader();
-                // 🛠️ ដំណោះស្រាយ៖ ប្រើ readAsArrayBuffer ជំនួស readAsDataURL ដើម្បីកុំឱ្យ Safari បដិសេធសិទ្ធិអាន Font
                 reader.onload = function(evt) {
                     const arrayBuffer = evt.target.result;
                     const blob = new Blob([arrayBuffer], { type: 'font/ttf' });
@@ -776,8 +791,6 @@
                     const fontFaceObj = new FontFace(fKey, `url(${blobUrl})`);
                     fontFaceObj.load().then(function(loaded) {
                         document.fonts.add(loaded);
-                        
-                        // បន្ថែមជម្រើសទៅក្នុង Dropdown ទាំងអស់
                         [hFont, mFont, fFont].forEach(select => {
                             const o = document.createElement('option'); 
                             o.value = fKey; 
@@ -798,7 +811,7 @@
     initializeFontImporter(document.getElementById('fFFile'));
 
     /* ==========================================================================
-       🎨 HIGH-RESOLUTION WRAPPING CANVAS EXPORT SYSTEM
+       🎨 HIGH-RESOLUTION CANVAS RENDERING SYSTEM (SUPPORT MULTI-LINE DRAW)
        ========================================================================== */
     function renderMultiLineTextCanvas(ctx, rawText, startY, fontSize, fontConfig, fontName, fontColor, alignment, letterSpacing, lineSpacing, paddingX, maxWidth) {
         ctx.save();
@@ -874,8 +887,8 @@
                 dynamicHeight += (vTitle.innerText.split('\n').length * (parseInt(hSize.value) * 2.4) * parseFloat(hLine.value)) + 60;
             }
             if (textConfigs.main.visible && vMainText.innerText.trim()) {
-                let approximateLines = Math.ceil(vMainText.innerText.length / 40); 
-                dynamicHeight += (approximateLines * (parseInt(mSize.value) * 2.4) * parseFloat(mLine.value)) + 80;
+                let numLines = vMainText.innerText.split('\n').length;
+                dynamicHeight += (numLines * (parseInt(mSize.value) * 2.4) * parseFloat(mLine.value)) + 120;
             }
             if (logoHpx > 0 && logoPlacement.value.startsWith('bottom')) dynamicHeight += logoHpx + 50;
             const baseH = Math.max(1080, dynamicHeight);
@@ -935,7 +948,7 @@
 
     document.getElementById('btnExportImg').addEventListener('click', () => {
         buildHighResCanvas((url) => {
-            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.3.png'; a.href = url; a.click();
+            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.4.png'; a.href = url; a.click();
         });
     });
 
@@ -943,11 +956,11 @@
         buildHighResCanvas((url, w, h) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
-            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.3.pdf');
+            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.4.pdf');
         });
     });
 
-    // Dark/Light Theme
+    // Dark/Light Theme Controller
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     themeToggleBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
