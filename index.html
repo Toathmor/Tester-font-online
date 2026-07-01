@@ -75,12 +75,12 @@
         .control-panel {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: 20px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             height: fit-content;
         }
 
@@ -89,15 +89,15 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 16px;
+            padding-bottom: 12px;
         }
 
-        .logo-title { font-size: 18px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 3px 10px; border-radius: 30px; }
+        .logo-title { font-size: 16px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 2px 8px; border-radius: 30px; }
 
         .btn-theme {
-            background: var(--bg-app); border: 1px solid var(--border); padding: 6px 14px; border-radius: 30px;
-            color: var(--text-main); cursor: pointer; font-size: 12px; font-weight: 600;
+            background: var(--bg-app); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px;
+            color: var(--text-main); cursor: pointer; font-size: 11px; font-weight: 600;
         }
 
         /* TABS NAVIGATION */
@@ -111,14 +111,14 @@
         }
 
         .tab-btn {
-            flex: 1; text-align: center; padding: 10px; background: transparent; border: none;
-            color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 8px;
+            flex: 1; text-align: center; padding: 8px; background: transparent; border: none;
+            color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px;
         }
         .tab-btn.active {
             background: var(--bg-card); color: var(--accent); box-shadow: var(--shadow-sm);
         }
 
-        .tab-content { display: none; flex-direction: column; gap: 16px; }
+        .tab-content { display: none; flex-direction: column; gap: 10px; }
         .tab-content.active { display: flex; }
 
         /* ACCORDION DESIGN */
@@ -130,86 +130,104 @@
         
         .group-header-clickable {
             display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; user-select: none; padding: 4px 0;
+            cursor: pointer; user-select: none; padding-bottom: 6px;
+            margin-bottom: 0px;
+        }
+        
+        .group-box:not(.collapsed) .group-header-clickable {
+            border-bottom: 1px dashed var(--border);
+            margin-bottom: 8px;
         }
         
         .group-title {
-            font-size: 14px; font-weight: 700; color: var(--accent);
+            font-size: 13px; font-weight: 700; color: var(--accent);
             display: flex; align-items: center; gap: 8px; pointer-events: none;
         }
         
         .collapse-icon {
-            font-size: 14px; color: var(--text-muted); font-weight: bold;
+            font-size: 12px; color: var(--text-muted); font-weight: bold;
             transition: transform 0.2s ease; pointer-events: none;
         }
         
         .group-body-collapsible {
-            display: flex; flex-direction: column; gap: 14px; margin-top: 14px;
+            display: flex; flex-direction: column; gap: 10px;
             overflow: hidden;
         }
         
+        /* កែប្រែ៖ លាក់បាំង Block ខាងក្នុងនៅពេលមាន Class .collapsed */
         .group-box.collapsed .group-body-collapsible { display: none !important; }
         .group-box.collapsed .collapse-icon { transform: rotate(-90deg); }
 
-        /* CONTROL ROWS */
-        .ctrl-row { display: flex; flex-direction: column; gap: 6px; font-size: 13px; width: 100%; }
-        .ctrl-row-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .ctrl-row-header label { font-weight: 600; color: var(--text-muted); }
+        /* CONTROLS ROW LAYOUT */
+        .ctrl-row { 
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            align-items: center; 
+            gap: 12px; 
+            font-size: 12px; 
+            width: 100%; 
+        }
+        .ctrl-row.full-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ctrl-row-header label { font-weight: 600; color: var(--text-muted); white-space: nowrap; }
         
-        .slider-wrapper { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; }
+        .slider-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0; }
         .input-slider { 
-            flex: 1; min-width: 0; height: 6px; accent-color: var(--accent); cursor: pointer; 
+            flex: 1; min-width: 0; height: 5px; accent-color: var(--accent); cursor: pointer; 
             background: var(--border); border-radius: 10px; appearance: none; -webkit-appearance: none;
         }
-        .input-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); }
-        .val-indicator { min-width: 42px; text-align: right; color: var(--text-muted); font-weight: 600; font-size: 12px; }
+        .input-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; background: var(--accent); box-shadow: var(--shadow-sm); }
+        .val-indicator { min-width: 40px; text-align: right; color: var(--text-muted); font-weight: 600; font-size: 11px; }
 
         .select-custom {
-            width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--bg-card); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 13px;
+            width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 12px;
         }
 
-        .input-actions-flex { display: flex; gap: 8px; width: 100%; align-items: center; min-width: 0; }
-        .btn-group { display: flex; background: var(--bg-app); padding: 3px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; flex-shrink: 0; }
+        .input-actions-flex { display: flex; gap: 6px; width: 100%; align-items: center; min-width: 0; }
+        .btn-group { display: flex; background: var(--bg-app); padding: 2px; border-radius: 6px; border: 1px solid var(--border); width: fit-content; flex-shrink: 0; }
         .mini-btn {
-            padding: 6px 14px; border: none; background: transparent;
-            color: var(--text-main); border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+            padding: 4px 10px; border: none; background: transparent;
+            color: var(--text-main); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600;
         }
         .mini-btn.active { background: var(--accent); color: white; }
 
         /* TOGGLE SWITCH */
         .switch { 
-            position: relative; display: inline-block; width: 42px; height: 22px; 
-            flex-shrink: 0 !important; max-width: 42px; max-height: 22px;
+            position: relative; display: inline-block; width: 36px; height: 18px; 
+            flex-shrink: 0 !important; max-width: 36px; max-height: 18px;
         }
         .switch input { opacity: 0; width: 0; height: 0; display: none; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 30px; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .2s; border-radius: 50%; }
         input:checked + .slider { background-color: #10b981; }
-        input:checked + .slider:before { transform: translateX(20px); }
+        input:checked + .slider:before { transform: translateX(18px); }
 
         .file-lbl {
-            padding: 8px 14px; background: var(--accent-light); color: var(--accent); border-radius: 8px;
-            cursor: pointer; font-size: 12px; font-weight: 600; border: 1px solid transparent; white-space: nowrap;
+            padding: 6px 10px; background: var(--accent-light); color: var(--accent); border-radius: 6px;
+            cursor: pointer; font-size: 11px; font-weight: 600; border: 1px solid transparent; white-space: nowrap;
         }
         .file-hidden { display: none; }
 
         /* 🎨 PREVIEW MONITOR */
-        .monitor-panel { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; height: fit-content; }
-        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 13px; }
-        .sample-pill { background: var(--bg-card); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px; cursor: pointer; color: var(--text-main); font-size: 12px; font-weight: 500; }
+        .monitor-panel { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 24px; height: fit-content; }
+        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+        .sample-pill { background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 30px; cursor: pointer; color: var(--text-main); font-size: 11px; font-weight: 500; }
         .sample-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
+        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
 
-        /* ⚡ QUICK COLOR PALETTE COMPONENT */
+        /* QUICK COLOR PALETTE COMPONENT */
         .quick-color-box {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-            padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm);
+            padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow-sm);
         }
-        .quick-color-title { font-size: 12px; font-weight: 700; color: var(--text-muted); }
-        .palette-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+        .quick-color-title { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+        .palette-flex { display: flex; gap: 8px; flex-wrap: wrap; }
         .palette-item {
-            width: 34px; height: 34px; border-radius: 50%; border: 2px solid #ffffff; 
+            width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; 
             box-shadow: 0 0 0 1px var(--border); cursor: pointer; position: relative; overflow: hidden;
             display: flex; transform: scale(1); transition: transform 0.15s ease;
         }
@@ -222,11 +240,10 @@
         }
 
         .viewport-canvas {
-            width: 100%; min-height: 480px; box-sizing: border-box; display: flex; flex-direction: column;
+            width: 100%; min-height: 440px; box-sizing: border-box; display: flex; flex-direction: column;
             padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
         }
 
-        /* 🛠️ ដំណោះស្រាយ CSS កម្រិតខ្ពស់៖ បង្ខំឱ្យរាល់ Element ខាងក្នុងទាំងអស់ (ទោះចុះបន្ទាត់ដាច់ដោយ div ឬ p) ប្រើប្រាស់ Font របស់ Element មេជានិច្ច */
         .block-editable {
             width: 100%; background: transparent; border: none; outline: none;
             white-space: pre-wrap !important; 
@@ -241,9 +258,17 @@
         }
         .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
-        .view-title { font-size: 32px; text-align: center; margin-bottom: 20px; font-weight: 700; color: var(--text-main); }
+        /* កែប្រែ៖ ដក font-weight: bold ឬ 700 ចេញពីដងខ្លួនទម្រង់ Header ដើម្បីកុំឱ្យដិតអូតូ */
+        .view-title { 
+            font-size: 32px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-weight: normal; 
+            color: var(--text-main); 
+        }
+        
         .view-main { font-size: 20px; text-align: center; min-height: 60px; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); }
-        .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: var(--text-muted); }
+        .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: var(--text-muted); font-weight: normal; }
 
         .node-hidden { display: none !important; }
 
@@ -252,20 +277,20 @@
         .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .bottom-bar { display: flex; gap: 12px; }
+        .bottom-bar { display: flex; gap: 10px; }
         .action-btn {
-            flex: 1; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-md);
+            font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
             gap: 6px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
         }
         .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
 
         @media (max-width: 600px) {
-            .control-panel { padding: 16px; gap: 12px; }
-            .viewport-canvas { padding: 30px 20px; min-height: 360px; }
+            .control-panel { padding: 14px; gap: 10px; }
+            .viewport-canvas { padding: 24px 16px; min-height: 320px; }
             .view-title { font-size: 24px; }
             .view-main { font-size: 16px; }
-            .bottom-bar { flex-direction: column; gap: 10px; }
+            .bottom-bar { flex-direction: column; gap: 8px; }
         }
     </style>
 </head>
@@ -288,19 +313,18 @@
         <!-- TAB 1: TEXT SETTINGS -->
         <div id="text-tab" class="tab-content active">
             
+            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង (ដូចរូបភាព image_3.png) -->
             <!-- Accordion 1: Header Config -->
-            <div class="group-box" id="boxHeader">
+            <div class="group-box collapsed" id="boxHeader">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
                     <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
-                    <span class="collapse-icon">▲</span>
+                    <span class="collapse-icon">▼</span>
                 </div>
                 
                 <div class="group-body-collapsible">
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header">
-                            <label>បង្ហាញចំណងជើង៖</label>
-                            <label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label>
-                        </div>
+                    <div class="ctrl-row full-flex">
+                        <div class="ctrl-row-header"><label>បង្ហាញចំណងជើង៖</label></div>
+                        <label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label>
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
@@ -332,7 +356,7 @@
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                        <div class="input-actions-flex" style="justify-content: space-between;">
                             <div class="btn-group">
                                 <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
                                 <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
@@ -345,26 +369,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ctrl-row">
+                    <div class="ctrl-row full-flex">
                         <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
-                        <input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                        <input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;">
                     </div>
                 </div>
             </div>
 
+            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង -->
             <!-- Accordion 2: Main Text Config -->
-            <div class="group-box" id="boxMain">
+            <div class="group-box collapsed" id="boxMain">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
                     <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
-                    <span class="collapse-icon">▲</span>
+                    <span class="collapse-icon">▼</span>
                 </div>
                 
                 <div class="group-body-collapsible">
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header">
-                            <label>បង្ហាញអត្ថបទស្នូល៖</label>
-                            <label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label>
-                        </div>
+                    <div class="ctrl-row full-flex">
+                        <div class="ctrl-row-header"><label>បង្ហាញអត្ថបទស្នូល៖</label></div>
+                        <label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label>
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
@@ -396,7 +419,7 @@
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                        <div class="input-actions-flex" style="justify-content: space-between;">
                             <div class="btn-group">
                                 <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
                                 <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
@@ -409,26 +432,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ctrl-row">
+                    <div class="ctrl-row full-flex">
                         <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
-                        <input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                        <input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;">
                     </div>
                 </div>
             </div>
 
+            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង -->
             <!-- Accordion 3: Footer Config -->
-            <div class="group-box" id="boxFooter">
+            <div class="group-box collapsed" id="boxFooter">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
                     <div class="group-title">ហត្ថលេខា (Footer)</div>
-                    <span class="collapse-icon">▲</span>
+                    <span class="collapse-icon">▼</span>
                 </div>
                 
                 <div class="group-body-collapsible">
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header">
-                            <label>បង្ហាញហត្ថលេខា៖</label>
-                            <label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label>
-                        </div>
+                    <div class="ctrl-row full-flex">
+                        <div class="ctrl-row-header"><label>បង្ហាញហត្ថលេខា៖</label></div>
+                        <label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label>
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
@@ -446,7 +468,7 @@
                     </div>
                     <div class="ctrl-row">
                         <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between; gap:4px;">
+                        <div class="input-actions-flex" style="justify-content: space-between;">
                             <div class="btn-group">
                                 <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
                                 <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
@@ -459,19 +481,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ctrl-row">
+                    <div class="ctrl-row full-flex">
                         <div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div>
-                        <input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; width:44px; height:30px; cursor:pointer;">
+                        <input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;">
                     </div>
                 </div>
             </div>
             
             <!-- Canvas Background Color Selector -->
             <div class="group-box">
-                <div class="group-title">ពណ៌ផ្ទាំងខាងក្រោយ (Canvas Background)</div>
-                <div class="ctrl-row" style="margin-top:12px;">
-                    <div class="ctrl-row-header"><label>ពណ៌ផ្ទៃគំនូរ៖</label></div>
-                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; width:50px; height:32px; cursor:pointer;">
+                <div class="ctrl-row full-flex">
+                    <div class="ctrl-row-header"><label>ពណ៌ផ្ទៃគំនូរ (Canvas)៖</label></div>
+                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; width:38px; height:24px; cursor:pointer;">
                 </div>
             </div>
         </div>
@@ -479,35 +500,33 @@
         <!-- TAB 2: LOGO ENGINE -->
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
-                <div class="group-title" style="margin-bottom:12px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
-                <div class="ctrl-row">
-                    <div class="ctrl-row-header">
-                        <label>ប្រើប្រាស់ឡូហ្គូ៖</label>
-                        <label class="switch"><input type="checkbox" id="useLogo" checked onchange="drawLogoLayer()"><span class="slider"></span></label>
-                    </div>
+                <div class="group-title" style="margin-bottom:10px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
+                <div class="ctrl-row full-flex">
+                    <div class="ctrl-row-header"><label>ប្រើប្រាស់ឡូហ្គូ៖</label></div>
+                    <label class="switch"><input type="checkbox" id="useLogo" checked onchange="drawLogoLayer()"><span class="slider"></span></label>
                 </div>
-                <div class="ctrl-row" style="margin-top:12px;">
-                    <div class="ctrl-row-header"><label>ជ្រើសរើសរូបភាពឡូហ្គូ៖</label></div>
+                <div class="ctrl-row" style="margin-top:6px;">
+                    <div class="ctrl-row-header"><label>រូបភាពឡូហ្គូ៖</label></div>
                     <div class="input-actions-flex">
-                        <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white; width:100%; text-align:center;">🛡️ ជ្រើសរើសរូបភាពពីឧបករណ៍</label>
+                        <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white; width:100%; text-align:center;">🛡️ ជ្រើសរើសរូបភាព</label>
                         <input type="file" id="logoUpload" class="file-hidden" accept="image/*">
                     </div>
                 </div>
-                <div class="ctrl-row" style="margin-top:12px;">
+                <div class="ctrl-row" style="margin-top:6px;">
                     <div class="ctrl-row-header"><label>ទំហំឡូហ្គូ៖</label></div>
                     <div class="slider-wrapper">
                         <input type="range" id="logoScale" class="input-slider" min="20" max="200" value="50">
                         <span class="val-indicator" id="logoScaleLbl">50px</span>
                     </div>
                 </div>
-                <div class="ctrl-row" style="margin-top:12px;">
+                <div class="ctrl-row" style="margin-top:6px;">
                     <div class="ctrl-row-header"><label>ភាពច្បាស់ (Opacity)៖</label></div>
                     <div class="slider-wrapper">
                         <input type="range" id="logoAlpha" class="input-slider" min="0.1" max="1" step="0.05" value="1">
                         <span class="val-indicator" id="logoAlphaLbl">1.0</span>
                     </div>
                 </div>
-                <div class="ctrl-row" style="margin-top:12px;">
+                <div class="ctrl-row" style="margin-top:6px;">
                     <div class="ctrl-row-header"><label>ទីតាំងបង្ហាញ៖</label></div>
                     <select id="logoPlacement" class="select-custom" onchange="drawLogoLayer()">
                         <option value="top-center">ខាងលើ - ចំកណ្តាល</option>
@@ -542,6 +561,7 @@
                     <img src="" id="vLogoCenterImg" alt="Logo Center">
                 </div>
 
+                <!-- កែប្រែ៖ ចំណងជើង Header មិនមានដិតអូតូទៀតទេ -->
                 <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
                 <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បង...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ&#10;ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
                 <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
@@ -628,6 +648,7 @@
 
     let memoryLogoImage = null;
 
+    // កែប្រែ៖ កំណត់លក្ខខណ្ឌចាប់ផ្តើមឱ្យដក Bold ចេញពី Header (bold: false)
     let textConfigs = {
         header: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         main: { bold: false, italic: false, underline: false, align: 'center', visible: true },
@@ -636,8 +657,8 @@
 
     const textLibrary = {
         abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម。\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា。",
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ。"
     };
 
     // Accordion Toggle Script
@@ -729,19 +750,14 @@
         });
     }
 
-    /* ==========================================================================
-       🔥 HIGH-STABILITY MULTI-LINE PASTE CONTROLLER
-       ========================================================================== */
     async function cleanPasteEvent(e) { 
         e.preventDefault(); 
         let text = "";
-        
         if (navigator.clipboard && navigator.clipboard.readText) {
             try { text = await navigator.clipboard.readText(); } catch (err) { text = (e.originalEvent || e).clipboardData.getData('text/plain'); }
         } else { text = (e.originalEvent || e).clipboardData.getData('text/plain'); }
 
         if (!text) return;
-
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
         selection.deleteFromDocument();
@@ -750,7 +766,6 @@
         selection.getRangeAt(0).insertNode(textNode);
         selection.collapseToEnd();
         
-        // 🛠️ ចាប់បង្ខំឱ្យ Font រត់ឡើងវិញលើរាល់បន្ទាត់ដែលទើបនឹងចូល
         const target = e.currentTarget;
         const currentFont = target == vTitle ? hFont.value : (target == vMainText ? mFont.value : fFont.value);
         applyFontToChildren(target, currentFont);
@@ -760,14 +775,10 @@
     vMainText.addEventListener('paste', cleanPasteEvent); 
     vFooterText.addEventListener('paste', cleanPasteEvent);
 
-    /* ==========================================================================
-       🛠️ ដំណោះស្រាយលុបបំបាត់បញ្ហា៖ ចុះបន្ទាត់ហើយពុម្ពអក្សរអត់ដើរ (MUTATION OBSERVER)
-       ========================================================================== */
     function watchLineBreaks(element, fontSelectElement) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    // នៅពេលមាន Node ថ្មីបង្កើតឡើងដោយការ Enter ឬ Space វាដេញចាប់ Apply Font ភ្លាម
                     applyFontToChildren(element, fontSelectElement.value);
                 }
             });
@@ -775,15 +786,12 @@
         observer.observe(element, { childList: true, subtree: true });
     }
 
-    // ដាក់ឱ្យដំណើរការប្រព័ន្ធតាមដានការចុះបន្ទាត់លើផ្ទាំងទាំង៣
     watchLineBreaks(vTitle, hFont);
     watchLineBreaks(vMainText, mFont);
     watchLineBreaks(vFooterText, fFont);
 
-    // លុប HTML Formats ចេញនៅពេលកំពុងវាយ និងរក្សាទុកតែអត្ថបទសុទ្ធ
     [vTitle, vMainText, vFooterText].forEach(el => {
         el.addEventListener('keydown', (e) => {
-            // បើចុះបន្ទាត់ Shift+Enter ឬ Enter ធម្មតា ឱ្យវាដេញតាមចាប់ Font ស្វ័យប្រវត្តតាមរយៈ Observer
             setTimeout(() => {
                 const target = e.currentTarget;
                 const currentFont = target == vTitle ? hFont.value : (target == vMainText ? mFont.value : fFont.value);
@@ -825,7 +833,7 @@
     logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
     logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
-    // Stable Font Importer (ArrayBuffer + Blob URL)
+    // Stable Font Importer
     function initializeFontImporter(uploader, selectTag) {
         uploader.addEventListener('change', function(e) {
             Array.from(e.target.files).forEach(file => {
@@ -847,10 +855,8 @@
                             o.textContent = "📁 " + fontNameClean; 
                             select.appendChild(o);
                         });
-                        // ចាប់ឱ្យរើសយក Font ដែលទើបនឹងបញ្ចូលនោះភ្លាមៗលើប្រអប់ដែលបានចុច Upload
                         selectTag.value = fKey;
                         selectTag.dispatchEvent(new Event('change'));
-                        console.log(`Successfully loaded font: ${fontNameClean}`);
                     }).catch(err => {
                         alert("មិនអាចបង្កើតពុម្ពអក្សរបានទេ: " + err.message);
                     });
@@ -863,9 +869,7 @@
     initializeFontImporter(document.getElementById('mFFile'), mFont);
     initializeFontImporter(document.getElementById('fFFile'), fFont);
 
-    /* ==========================================================================
-       🎨 HIGH-RESOLUTION CANVAS RENDERING SYSTEM (SUPPORT MULTI-LINE DRAW)
-       ========================================================================== */
+    /* 🎨 HIGH-RESOLUTION CANVAS RENDERING SYSTEM */
     function renderMultiLineTextCanvas(ctx, rawText, startY, fontSize, fontConfig, fontName, fontColor, alignment, letterSpacing, lineSpacing, paddingX, maxWidth) {
         ctx.save();
         ctx.textBaseline = "top";
@@ -948,7 +952,6 @@
 
             const mainCanvas = document.createElement('canvas'); mainCanvas.width = baseW; mainCanvas.height = baseH;
             const ctx = mainCanvas.getContext('2d');
-
             ctx.fillStyle = panelBgColor.value; ctx.fillRect(0, 0, baseW, baseH);
 
             if (logoHpx > 0 && logoPlacement.value === 'center') {
@@ -1013,7 +1016,6 @@
         });
     });
 
-    // Dark/Light Theme Controller
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     themeToggleBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
