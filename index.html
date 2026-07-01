@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Font Studio v3.5</title>
+    <title>Toathmor Font Studio v3.6</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -90,10 +90,22 @@
             align-items: center;
             border-bottom: 1px solid var(--border);
             padding-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo-title { font-size: 16px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
         .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 2px 8px; border-radius: 30px; }
+
+        .header-actions { display: flex; align-items: center; gap: 8px; }
+
+        /* ២. រចនាបថប៊ូតុងបញ្ចូលពុម្ពរួមនៅរបារខាងលើ */
+        .global-font-lbl {
+            background: var(--accent); color: white; padding: 5px 12px; border-radius: 30px;
+            cursor: pointer; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        .global-font-lbl:hover { background: var(--accent-hover); }
 
         .btn-theme {
             background: var(--bg-app); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px;
@@ -154,7 +166,6 @@
             overflow: hidden;
         }
         
-        /* កែប្រែ៖ លាក់បាំង Block ខាងក្នុងនៅពេលមាន Class .collapsed */
         .group-box.collapsed .group-body-collapsible { display: none !important; }
         .group-box.collapsed .collapse-icon { transform: rotate(-90deg); }
 
@@ -219,12 +230,17 @@
         .sample-pill:hover { border-color: var(--accent); color: var(--accent); }
         .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
 
-        /* QUICK COLOR PALETTE COMPONENT */
+        /* ១. ប្រអប់ពណ៌រហ័ស និងពណ៌ Canvas រួមគ្នា */
         .quick-color-box {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-            padding: 10px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow-sm);
+            padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);
         }
+        .quick-color-header-row { display: flex; justify-content: space-between; align-items: center; }
         .quick-color-title { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+        
+        .canvas-picker-inline { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--text-main); }
+        .canvas-picker-inline input[type="color"] { border: 1px solid var(--border); background: transparent; width: 24px; height: 18px; cursor: pointer; border-radius: 3px; }
+
         .palette-flex { display: flex; gap: 8px; flex-wrap: wrap; }
         .palette-item {
             width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; 
@@ -258,15 +274,7 @@
         }
         .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
 
-        /* កែប្រែ៖ ដក font-weight: bold ឬ 700 ចេញពីដងខ្លួនទម្រង់ Header ដើម្បីកុំឱ្យដិតអូតូ */
-        .view-title { 
-            font-size: 32px; 
-            text-align: center; 
-            margin-bottom: 20px; 
-            font-weight: normal; 
-            color: var(--text-main); 
-        }
-        
+        .view-title { font-size: 32px; text-align: center; margin-bottom: 20px; font-weight: normal; color: var(--text-main); }
         .view-main { font-size: 20px; text-align: center; min-height: 60px; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); }
         .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: var(--text-muted); font-weight: normal; }
 
@@ -291,6 +299,8 @@
             .view-title { font-size: 24px; }
             .view-main { font-size: 16px; }
             .bottom-bar { flex-direction: column; gap: 8px; }
+            .app-header { flex-direction: column; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: space-between; }
         }
     </style>
 </head>
@@ -298,11 +308,14 @@
 
 <div class="app-container">
     
-    <!-- 🎛️ CONTROL PANEL -->
     <div class="control-panel">
         <div class="app-header">
-            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.5</span></div>
-            <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
+            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.6</span></div>
+            <div class="header-actions">
+                <label class="global-font-lbl" for="globalFontFile">➕ ផ្ទុកពុម្ពរួម (.ttf)</label>
+                <input type="file" id="globalFontFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
+                <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
+            </div>
         </div>
 
         <div class="tabs-nav">
@@ -310,11 +323,8 @@
             <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')">🛡️ និមិត្តសញ្ញា</button>
         </div>
 
-        <!-- TAB 1: TEXT SETTINGS -->
         <div id="text-tab" class="tab-content active">
             
-            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង (ដូចរូបភាព image_3.png) -->
-            <!-- Accordion 1: Header Config -->
             <div class="group-box collapsed" id="boxHeader">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
                     <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
@@ -376,8 +386,6 @@
                 </div>
             </div>
 
-            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង -->
-            <!-- Accordion 2: Main Text Config -->
             <div class="group-box collapsed" id="boxMain">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
                     <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
@@ -439,8 +447,6 @@
                 </div>
             </div>
 
-            <!-- កែប្រែ៖ ថែម Class "collapsed" ដើម្បីឱ្យលាក់បាំងពេលបើកដំបូង -->
-            <!-- Accordion 3: Footer Config -->
             <div class="group-box collapsed" id="boxFooter">
                 <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
                     <div class="group-title">ហត្ថលេខា (Footer)</div>
@@ -487,17 +493,8 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Canvas Background Color Selector -->
-            <div class="group-box">
-                <div class="ctrl-row full-flex">
-                    <div class="ctrl-row-header"><label>ពណ៌ផ្ទៃគំនូរ (Canvas)៖</label></div>
-                    <input type="color" id="panelBgColor" value="#ffffff" style="border:none; background:transparent; width:38px; height:24px; cursor:pointer;">
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 2: LOGO ENGINE -->
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
                 <div class="group-title" style="margin-bottom:10px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
@@ -542,7 +539,6 @@
         </div>
     </div>
 
-    <!-- 🎨 PREVIEW MONITOR -->
     <div class="monitor-panel">
         <div class="sample-bar">
             <span>អត្ថបទគំរូ៖</span>
@@ -561,16 +557,20 @@
                     <img src="" id="vLogoCenterImg" alt="Logo Center">
                 </div>
 
-                <!-- កែប្រែ៖ ចំណងជើង Header មិនមានដិតអូតូទៀតទេ -->
                 <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
                 <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បង...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ&#10;ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
                 <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
             </div>
         </div>
 
-        <!-- ⚡ QUICK COLOR PALETTES -->
         <div class="quick-color-box">
-            <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
+            <div class="quick-color-header-row">
+                <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
+                <div class="canvas-picker-inline">
+                    <label for="panelBgColor">ពណ៌ផ្ទៃ Canvas៖</label>
+                    <input type="color" id="panelBgColor" value="#ffffff">
+                </div>
+            </div>
             <div class="palette-flex">
                 <div class="palette-item" onclick="applyQuickPalette('#ffffff', '#0f172a', '#0f172a', '#64748b')" title="Minimal Light">
                     <div class="p-split" style="background: #ffffff;"></div><div class="p-split" style="background: #0f172a;"></div>
@@ -648,7 +648,6 @@
 
     let memoryLogoImage = null;
 
-    // កែប្រែ៖ កំណត់លក្ខខណ្ឌចាប់ផ្តើមឱ្យដក Bold ចេញពី Header (bold: false)
     let textConfigs = {
         header: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         main: { bold: false, italic: false, underline: false, align: 'center', visible: true },
@@ -833,35 +832,63 @@
     logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
     logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
-    // Stable Font Importer
+    // 📥 មុខងាររួមសម្រួលដល់ការបញ្ចូលពុម្ពអក្សរ (លក្ខណៈទូទៅ)
+    function processFontFile(file, onFontLoadedCallback) {
+        const fontNameClean = file.name.replace(/\.[^/.]+$/, "");
+        const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+        
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            const arrayBuffer = evt.target.result;
+            const blob = new Blob([arrayBuffer], { type: 'font/ttf' });
+            const blobUrl = URL.createObjectURL(blob);
+            
+            const fontFaceObj = new FontFace(fKey, `url(${blobUrl})`);
+            fontFaceObj.load().then(function(loaded) {
+                document.fonts.add(loaded);
+                onFontLoadedCallback(fKey, fontNameClean);
+            }).catch(err => {
+                alert("មិនអាចបង្កើតពុម្ពអក្សរបានទេ: " + err.message);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    // ២. មុខងារលម្អិតនៃរបារ "បញ្ចូលពុម្ពរួម (Global Font Importer)" នៅខាងលើ
+    document.getElementById('globalFontFile').addEventListener('change', function(e) {
+        Array.from(e.target.files).forEach(file => {
+            processFontFile(file, function(fKey, fontNameClean) {
+                // បញ្ចូលពុម្ពថ្មីទៅក្នុងគ្រប់ Select tags ទាំងអស់ (Header, Main, Footer)
+                [hFont, mFont, fFont].forEach(select => {
+                    const o = document.createElement('option'); 
+                    o.value = fKey; 
+                    o.textContent = "📁 " + fontNameClean; 
+                    select.appendChild(o);
+                });
+                
+                // កំណត់ជ្រើសរើសយកពុម្ពថ្មីនេះឱ្យដំណើរការអូតូតែម្តង
+                hFont.value = fKey; mFont.value = fKey; fFont.value = fKey;
+                hFont.dispatchEvent(new Event('change'));
+                mFont.dispatchEvent(new Event('change'));
+                fFont.dispatchEvent(new Event('change'));
+            });
+        });
+    });
+
+    // មុខងារបញ្ចូលពុម្ពអក្សរដោយឡែកតាមផ្នែកនីមួយៗ (រក្សាទុកដដែល)
     function initializeFontImporter(uploader, selectTag) {
         uploader.addEventListener('change', function(e) {
             Array.from(e.target.files).forEach(file => {
-                const fontNameClean = file.name.replace(/\.[^/.]+$/, "");
-                const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*1000);
-                
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    const arrayBuffer = evt.target.result;
-                    const blob = new Blob([arrayBuffer], { type: 'font/ttf' });
-                    const blobUrl = URL.createObjectURL(blob);
-                    
-                    const fontFaceObj = new FontFace(fKey, `url(${blobUrl})`);
-                    fontFaceObj.load().then(function(loaded) {
-                        document.fonts.add(loaded);
-                        [hFont, mFont, fFont].forEach(select => {
-                            const o = document.createElement('option'); 
-                            o.value = fKey; 
-                            o.textContent = "📁 " + fontNameClean; 
-                            select.appendChild(o);
-                        });
-                        selectTag.value = fKey;
-                        selectTag.dispatchEvent(new Event('change'));
-                    }).catch(err => {
-                        alert("មិនអាចបង្កើតពុម្ពអក្សរបានទេ: " + err.message);
+                processFontFile(file, function(fKey, fontNameClean) {
+                    [hFont, mFont, fFont].forEach(select => {
+                        const o = document.createElement('option'); 
+                        o.value = fKey; 
+                        o.textContent = "📁 " + fontNameClean; 
+                        select.appendChild(o);
                     });
-                };
-                reader.readAsArrayBuffer(file);
+                    selectTag.value = fKey;
+                    selectTag.dispatchEvent(new Event('change'));
+                });
             });
         });
     }
@@ -1004,7 +1031,7 @@
 
     document.getElementById('btnExportImg').addEventListener('click', () => {
         buildHighResCanvas((url) => {
-            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.5.png'; a.href = url; a.click();
+            const a = document.createElement('a'); a.download = 'Toathmor_Studio_v3.6.png'; a.href = url; a.click();
         });
     });
 
@@ -1012,7 +1039,7 @@
         buildHighResCanvas((url, w, h) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
-            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.5.pdf');
+            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save('Toathmor_Studio_v3.6.pdf');
         });
     });
 
