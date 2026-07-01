@@ -107,7 +107,6 @@
             gap: 10px; 
         }
         
-        /* 🛡️ កែប្រែប្រអប់ឡូហ្គោឱ្យបង្ហាញពេញ និងមានជ្រុងកោងស្អាត */
         .header-brand-icon {
             display: inline-flex;
             align-items: center;
@@ -115,7 +114,7 @@
             width: 48px;
             height: 48px;
             overflow: hidden;
-            border-radius: 12px; /* កែសម្រួល៖ ជ្រុងកោង 12px */
+            border-radius: 12px; 
             background: #fff;
             border: 1px solid var(--border);
             padding: 4px;
@@ -326,13 +325,17 @@
         .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .bottom-bar { display: flex; gap: 10px; }
+        /* 💾 កែសម្រួលស្ទីលប៊ូតុងផ្នែកខាងក្រោមឱ្យមើលទៅទំនើប និងស្អាតជាងមុន */
+        .bottom-bar { display: flex; gap: 12px; }
         .action-btn {
-            flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            gap: 6px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
+            flex: 1; padding: 12px 20px; border: 1px solid var(--border); border-radius: var(--radius-md);
+            font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 8px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
         }
+        .action-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
         .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
+        .action-btn.primary-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 
         @media (max-width: 600px) {
             .control-panel { padding: 14px; gap: 10px; }
@@ -350,8 +353,7 @@
     <div class="control-panel">
         <div class="app-header">
             <div class="logo-title">
-                <span class="header-brand-icon" id="headerLogoContainer">
-                    </span>
+                <span class="header-brand-icon" id="headerLogoContainer"></span>
                 ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.8</span>
             </div>
             <div class="header-actions">
@@ -580,6 +582,7 @@
             </div>
         </div>
 
+        <!-- 🔄 ធ្វើទំនើបកម្មរូបតំណាង និងប៊ូតុងរក្សាទុកខាងក្រោម -->
         <div class="bottom-bar">
             <button class="action-btn primary-btn" id="btnExportImg">🖼️ ទាញយករូបភាព PNG (4K Exact)</button>
             <button class="action-btn" id="btnExportPdf">📄 នាំចេញជា PDF</button>
@@ -644,7 +647,7 @@
     const textLibrary = {
         abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
         proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម。\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា。",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ。"
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ。"
     };
 
     function setupHeaderLogo() {
@@ -908,9 +911,13 @@
                             let drawX = startX;
                             for (let i = 0; i < line.length; i++) { ctx.fillText(line[i], drawX, currentLineY); drawX += ctx.measureText(line[i]).width + lSpacing; }
                         }
+                        
+                        /* 🛠️ ដោះស្រាយបញ្ហាបន្ទាត់រុញជាន់លើអក្សរពេលរក្សារូបភាព៖
+                           - បន្ថែមគម្លាតសុវត្ថិភាព (fSize / 6) ដើម្បីរុញបន្ទាត់ឱ្យចុះមកក្រោមជើងអក្សរខ្មែរទោះបីជាខ្នាត 4K ក៏ដោយ */
                         if (computedStyle.textDecorationLine.includes('underline')) {
                             ctx.beginPath(); ctx.lineWidth = Math.max(2 * scale, fSize / 15);
-                            ctx.moveTo(startX, currentLineY + (fSize * 1.1)); ctx.lineTo(startX + lineW, currentLineY + (fSize * 1.1)); ctx.stroke();
+                            let underlineY = currentLineY + (fSize * 1.1) + (fSize / 6);
+                            ctx.moveTo(startX, underlineY); ctx.lineTo(startX + lineW, underlineY); ctx.stroke();
                         }
                         currentLineY += lineHeight;
                     });
