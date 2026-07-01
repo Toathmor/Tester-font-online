@@ -1,9 +1,19 @@
+<script>const HEADER_LOGO_URL = "https://i.postimg.cc/Dft6G1fW/IMG-3108.png";</script>
+
 <!DOCTYPE html>
 <html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Toathmor Font Studio v3.7</title>
+    <title>Toathmor Font Studio v3.8</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Toathmor Studio">
+    <link class="apple-touch-icon" rel="apple-touch-icon" href="https://i.postimg.cc/Dft6G1fW/IMG-3108.png">
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgU3R1ZGlvIiwKICAic2hvcnRfbmFtZSI6ICJUb2F0aG1vciIsCiAgInស៊រៀល_dXJsIjogIi4uIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGIwZjE5IiwKICAidGhlbWVfY29sb3IiOiAiIzBiMGYxOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL0RmdDZHMW vXL0lNRy0zMTA4LnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,33 +22,28 @@
 
     <style>
         :root {
-            --bg-app: #f1f5f9;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #cbd5e1;
-            --accent: #4f46e5;
-            --accent-hover: #4338ca;
-            --accent-light: rgba(79, 70, 229, 0.08);
-            --preview-bg: #ffffff;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.06);
+            --bg-app: #0b0f19;          
+            --bg-card: #1e293b;         
+            --text-main: #f8fafc;       
+            --text-muted: #94a3b8;      
+            --border: #334155;          
+            --accent: #6366f1;          
+            --accent-hover: #4f46e5;
+            --accent-light: rgba(99, 102, 241, 0.15);
+            --preview-bg: #ffffff;      
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+            --shadow-md: 0 12px 30px rgba(0,0,0,0.4);
             --radius-lg: 20px;
             --radius-md: 12px;
         }
 
         [data-theme="dark"] {
-            --bg-app: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --accent: #818cf8;
-            --accent-hover: #6366f1;
-            --accent-light: rgba(129, 140, 248, 0.15);
-            --preview-bg: #0b0f19;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
-            --shadow-md: 0 12px 30px rgba(0,0,0,0.3);
+            --bg-app: #070a12;
+            --bg-card: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #64748b;
+            --border: #1e293b;
+            --preview-bg: #0b0f19; 
         }
 
         * { 
@@ -71,7 +76,6 @@
             body { padding: 12px; }
         }
 
-        /* 🎛️ CONTROL SIDEBAR */
         .control-panel {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
@@ -94,9 +98,38 @@
             gap: 10px;
         }
 
-        .logo-title { font-size: 16px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 2px 8px; border-radius: 30px; }
+        .logo-title { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--text-main); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        
+        /* 🛡️ កែប្រែប្រអប់ឡូហ្គោឱ្យបង្ហាញពេញ និងមានជ្រុងកោងស្អាត */
+        .header-brand-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            overflow: hidden;
+            border-radius: 12px; /* កែសម្រួល៖ ជ្រុងកោង 12px */
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        
+        .header-brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
 
+        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 2px 8px; border-radius: 30px; }
         .header-actions { display: flex; align-items: center; gap: 8px; }
 
         .global-font-lbl {
@@ -111,7 +144,6 @@
             color: var(--text-main); cursor: pointer; font-size: 11px; font-weight: 600;
         }
 
-        /* TABS NAVIGATION */
         .tabs-nav {
             display: flex;
             background: var(--bg-app);
@@ -132,10 +164,9 @@
         .tab-content { display: none; flex-direction: column; gap: 10px; }
         .tab-content.active { display: flex; }
 
-        /* ACCORDION DESIGN */
         .group-box {
             border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; 
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.02);
             display: flex; flex-direction: column;
         }
         
@@ -168,7 +199,6 @@
         .group-box.collapsed .group-body-collapsible { display: none !important; }
         .group-box.collapsed .collapse-icon { transform: rotate(-90deg); }
 
-        /* CONTROLS ROW LAYOUT */
         .ctrl-row { 
             display: grid;
             grid-template-columns: 100px 1fr;
@@ -194,7 +224,7 @@
 
         .select-custom {
             width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border);
-            background: var(--bg-card); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 12px;
+            background: var(--bg-app); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 12px;
         }
 
         .input-actions-flex { display: flex; gap: 6px; width: 100%; align-items: center; min-width: 0; }
@@ -221,7 +251,6 @@
         }
         .file-hidden { display: none; }
 
-        /* 🎨 PREVIEW MONITOR & RATIO ENGINE */
         .monitor-panel { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 24px; height: fit-content; }
         
         .ratio-and-samples {
@@ -233,7 +262,6 @@
         .sample-pill:hover, .ratio-pill:hover { border-color: var(--accent); color: var(--accent); }
         .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
         
-        /* ២. រចនាបថប៊ូតុងជ្រើសរើសទំហំផ្ទាំង (Ratio Bars) */
         .ratio-bar { display: flex; gap: 6px; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
         .ratio-pill {
             background: var(--bg-app); border: 1px solid var(--border); padding: 4px 12px; border-radius: 6px;
@@ -260,21 +288,18 @@
         .palette-item:hover { transform: scale(1.1); }
         .p-split { flex: 1; height: 100%; }
 
-        /* PREVIEW WRAPPER FOR FORCE ASPECT RATIO */
         .preview-frame {
             width: 100%; background: var(--border); border-radius: var(--radius-lg); overflow: hidden;
             border: 1px solid var(--border); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center;
-            padding: 10px; background-color: rgba(0,0,0,0.03);
+            padding: 10px; background-color: rgba(0,0,0,0.1);
         }
 
-        /* VIEWPORT CANVAS WITH STRICT ASPECT RATIO */
         .viewport-canvas {
             width: 100%; box-sizing: border-box; display: flex; flex-direction: column;
             padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
             overflow: hidden; word-wrap: break-word;
         }
         
-        /* ទំហំកំណត់សម្រាប់ Ratio */
         .viewport-canvas.ratio-16-9 { aspect-ratio: 16 / 9; }
         .viewport-canvas.ratio-1-1 { aspect-ratio: 1 / 1; }
         .viewport-canvas.ratio-3-4 { aspect-ratio: 3 / 4; }
@@ -288,16 +313,16 @@
             font-family: inherit !important; font-size: inherit !important;
             line-height: inherit !important; color: inherit !important; letter-spacing: inherit !important;
         }
-        .block-editable:empty:before { content: attr(placeholder); color: var(--text-muted); opacity: 0.5; }
+        .block-editable:empty:before { content: attr(placeholder); color: #64748b; opacity: 0.5; }
 
-        .view-title { font-size: 32px; text-align: center; margin-bottom: 16px; font-weight: normal; color: var(--text-main); }
-        .view-main { font-size: 18px; text-align: center; min-height: 50px; margin-bottom: 24px; line-height: 1.6; color: var(--text-main); }
-        .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: var(--text-muted); font-weight: normal; }
+        .view-title { font-size: 32px; text-align: center; margin-bottom: 16px; font-weight: normal; color: #0f172a; }
+        .view-main { font-size: 18px; text-align: center; min-height: 50px; margin-bottom: 24px; line-height: 1.6; color: #0f172a; }
+        .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: #64748b; font-weight: normal; }
 
         .node-hidden { display: none !important; }
 
         .logo-box { width: 100%; display: none; margin-bottom: 12px; }
-        .logo-node { max-height: 45px; max-width: 120px; object-fit: contain; }
+        .logo-node { max-height: 45px; max-width: 120px; object-fit: contain; border-radius: 8px; }
         .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
@@ -324,11 +349,15 @@
     
     <div class="control-panel">
         <div class="app-header">
-            <div class="logo-title">ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.7</span></div>
+            <div class="logo-title">
+                <span class="header-brand-icon" id="headerLogoContainer">
+                    </span>
+                ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.8</span>
+            </div>
             <div class="header-actions">
                 <label class="global-font-lbl" for="globalFontFile">➕ ផ្ទុកពុម្ពរួម (.ttf)</label>
                 <input type="file" id="globalFontFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                <button class="btn-theme" id="themeToggleBtn">🌙 ងងឹត</button>
+                <button class="btn-theme" id="themeToggleBtn">☀️ ភ្លឺ</button>
             </div>
         </div>
 
@@ -456,8 +485,8 @@
                             </div>
                             <div class="btn-group">
                                 <button class="mini-btn" id="fALeft" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
-                                <button class="mini-btn" id="fACenter" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
-                                <button class="mini-btn active" id="fARight" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
+                                <button class="mini-btn active" id="fACenter" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
+                                <button class="mini-btn" id="fARight" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
                             </div>
                         </div>
                     </div>
@@ -469,7 +498,7 @@
         <div id="logo-tab" class="tab-content">
             <div class="group-box">
                 <div class="group-title" style="margin-bottom:10px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
-                <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ប្រើប្រាស់ឡូហ្គូ៖</label></div><label class="switch"><input type="checkbox" id="useLogo" checked onchange="drawLogoLayer()"><span class="slider"></span></label></div>
+                <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ប្រើប្រាស់ឡូហ្គូ៖</label></div><label class="switch"><input type="checkbox" id="useLogo" onchange="drawLogoLayer()"><span class="slider"></span></label></div>
                 <div class="ctrl-row" style="margin-top:6px;">
                     <div class="ctrl-row-header"><label>រូបភាពឡូហ្គូ៖</label></div>
                     <div class="input-actions-flex">
@@ -502,7 +531,6 @@
     </div>
 
     <div class="monitor-panel">
-        
         <div class="ratio-and-samples">
             <div class="ratio-bar">
                 <span style="font-size: 11px; font-weight:600; color:var(--text-muted);">ទំហំផ្ទាំង (Ratio)៖</span>
@@ -528,8 +556,8 @@
                     <img src="" id="vLogoCenterImg" alt="Logo Center">
                 </div>
 
-                <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើងបទកំណាព្យ</h2>
-                <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បង...">អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ&#10;ឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។</div>
+                <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើង</h2>
+                <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បងនៅទីនេះ...">នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។&#10;វិជ្ជាជាទ្រព្យគាប់ចិន្តា។</div>
                 <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
             </div>
         </div>
@@ -561,7 +589,6 @@
 </div>
 
 <script>
-    // Selectors
     const vTitle = document.getElementById('vTitle');
     const vMainText = document.getElementById('vMainText');
     const vFooterText = document.getElementById('vFooterText');
@@ -620,15 +647,30 @@
         poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ。"
     };
 
-    // ២. មុខងារផ្លាស់ប្តូរទំហំផ្ទាំង Aspect Ratio
+    function setupHeaderLogo() {
+        const container = document.getElementById('headerLogoContainer');
+        if (container && HEADER_LOGO_URL) {
+            container.innerHTML = `<img src="${HEADER_LOGO_URL}" alt="Toathmor Logo">`;
+        }
+    }
+    setupHeaderLogo();
+
+    function loadDefaultCanvasLogo() {
+        vLogoImg.src = HEADER_LOGO_URL;
+        vLogoCenterImg.src = HEADER_LOGO_URL;
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => { memoryLogoImage = img; drawLogoLayer(); };
+        img.src = HEADER_LOGO_URL;
+    }
+    loadDefaultCanvasLogo();
+
     function changeAspectRatio(ratio) {
         currentRatioMode = ratio;
-        vCanvas.className = "viewport-canvas"; // Reset
-        
+        vCanvas.className = "viewport-canvas";
         if(ratio === '16-9') vCanvas.classList.add('ratio-16-9');
         if(ratio === '1-1') vCanvas.classList.add('ratio-1-1');
         if(ratio === '3-4') vCanvas.classList.add('ratio-3-4');
-
         document.querySelectorAll('.ratio-pill').forEach(btn => btn.classList.remove('active'));
         event.currentTarget.classList.add('active');
     }
@@ -649,7 +691,15 @@
         if(tabId === 'logo-tab') document.getElementById('btnTabLogo').classList.add('active');
     }
 
-    function loadSampleText(key) { vMainText.innerText = textLibrary[key]; }
+    function loadSampleText(key) { 
+        const vMainCheckbox = document.getElementById('vMain');
+        if (vMainCheckbox && !vMainCheckbox.checked) {
+            vMainCheckbox.checked = true;
+            updateVisibility('main');
+        }
+        vMainText.innerText = textLibrary[key]; 
+    }
+    
     document.getElementById('actionClearBtn').addEventListener('click', () => { vTitle.innerText=''; vMainText.innerText=''; vFooterText.innerText=''; vMainText.focus(); });
 
     function updateVisibility(section) {
@@ -690,7 +740,6 @@
         fColorInput.value = fColor; vFooterText.style.color = fColor;
     }
 
-    // Input Listeners
     hSize.addEventListener('input', (e) => { vTitle.style.fontSize = e.target.value + 'px'; hSizeLbl.textContent = e.target.value + 'px'; });
     mSize.addEventListener('input', (e) => { vMainText.style.fontSize = e.target.value + 'px'; mSizeLbl.textContent = e.target.value + 'px'; });
     fSize.addEventListener('input', (e) => { vFooterText.style.fontSize = e.target.value + 'px'; fSizeLbl.textContent = e.target.value + 'px'; });
@@ -713,7 +762,6 @@
         element.querySelectorAll('*').forEach(child => { child.style.fontFamily = fontName; });
     }
 
-    // Clean Paste System
     async function cleanPasteEvent(e) { 
         e.preventDefault(); 
         let text = "";
@@ -730,7 +778,6 @@
     }
     vTitle.addEventListener('paste', cleanPasteEvent); vMainText.addEventListener('paste', cleanPasteEvent); vFooterText.addEventListener('paste', cleanPasteEvent);
 
-    // Font Importers
     function processFontFile(file, callback) {
         const fontNameClean = file.name.replace(/\.[^/.]+$/, "");
         const fKey = 'CustomFont_' + Date.now() + '_' + Math.floor(Math.random()*1000);
@@ -750,8 +797,6 @@
                 [hFont, mFont, fFont].forEach(select => {
                     const o = document.createElement('option'); o.value = fKey; o.textContent = "📁 " + fontNameClean; select.appendChild(o);
                 });
-                hFont.value = fKey; mFont.value = fKey; fFont.value = fKey;
-                hFont.dispatchEvent(new Event('change')); mFont.dispatchEvent(new Event('change')); fFont.dispatchEvent(new Event('change'));
             });
         });
     });
@@ -761,7 +806,6 @@
             Array.from(e.target.files).forEach(file => {
                 processFontFile(file, function(fKey, fontNameClean) {
                     const o = document.createElement('option'); o.value = fKey; o.textContent = "📁 " + fontNameClean; selectTag.appendChild(o);
-                    selectTag.value = fKey; selectTag.dispatchEvent(new Event('change'));
                 });
             });
         });
@@ -770,7 +814,6 @@
     initializeFontImporter(document.getElementById('mFFile'), mFont);
     initializeFontImporter(document.getElementById('fFFile'), fFont);
 
-    // Logo Core System
     logoUpload.addEventListener('change', (e) => {
         const f = e.target.files[0]; if(!f) return;
         const reader = new FileReader();
@@ -802,30 +845,23 @@
     logoScale.addEventListener('input', (e) => { logoScaleLbl.textContent = e.target.value + 'px'; drawLogoLayer(); });
     logoAlpha.addEventListener('input', (e) => { logoAlphaLbl.textContent = e.target.value; drawLogoLayer(); });
 
-    /* 🖼️ ១. ម៉ាស៊ីនបង្កើតរូបភាពកម្រិតច្បាស់ខ្ពស់តាមទម្រង់អេក្រង់ពិត (WYSIWYG 4K Rendering) */
     function buildHighResCanvas(callback) {
         document.fonts.ready.then(() => {
-            const scale = 3; // គុណភាពកម្រិតច្បាស់ច្បាស់ 3x (លក្ខណៈ 4K)
+            const scale = 3;
             const rect = vCanvas.getBoundingClientRect();
-            
             const targetW = rect.width * scale;
             const targetH = rect.height * scale;
 
             const mainCanvas = document.createElement('canvas');
-            mainCanvas.width = targetW;
-            mainCanvas.height = targetH;
+            mainCanvas.width = targetW; mainCanvas.height = targetH;
             const ctx = mainCanvas.getContext('2d');
 
-            // ផ្ទៃពណ៌សន្លឹកដើម
             ctx.fillStyle = window.getComputedStyle(vCanvas).backgroundColor;
             ctx.fillRect(0, 0, targetW, targetH);
 
-            // មុខងារគូរអត្ថបទ និងឡូហ្គូដោយផ្អែកលើទីតាំងដើមពិតប្រាកដនៅលើអេក្រង់
             function renderDomNodeToCanvas(el, type) {
                 if (el.classList.contains('node-hidden') || window.getComputedStyle(el).display === 'none') return;
-                
                 const nodeRect = el.getBoundingClientRect();
-                // គណនាទីតាំង Relative ធៀបនឹងផ្ទាំងធំ
                 const relativeX = (nodeRect.left - rect.left) * scale;
                 const relativeY = (nodeRect.top - rect.top) * scale;
                 const nodeW = nodeRect.width * scale;
@@ -834,128 +870,87 @@
                 if (type === 'image') {
                     const imgNode = el.querySelector('img');
                     if (imgNode && imgNode.src && imgNode.complete) {
-                        ctx.save();
-                        ctx.globalAlpha = parseFloat(window.getComputedStyle(imgNode).opacity || 1);
-                        
-                        // រក្សា Ratio របស់រូបភាពឡូហ្គូកុំឱ្យខូចរាង
-                        const imgW = imgNode.naturalWidth;
-                        const imgH = imgNode.naturalHeight;
-                        const aspect = imgW / imgH;
-                        
-                        let renderH = nodeH;
-                        let renderW = nodeH * aspect;
+                        ctx.save(); ctx.globalAlpha = parseFloat(window.getComputedStyle(imgNode).opacity || 1);
+                        const aspect = imgNode.naturalWidth / imgNode.naturalHeight;
+                        let renderH = nodeH, renderW = nodeH * aspect;
                         let renderX = relativeX + (nodeW - renderW) / 2;
-                        
                         if (el.style.justifyContent === 'flex-start') renderX = relativeX;
                         if (el.style.justifyContent === 'flex-end') renderX = relativeX + nodeW - renderW;
-                        if (el.id === 'vLogoCenterBox') {
-                            renderW = nodeW; renderH = nodeW / aspect;
-                            renderX = relativeX;
-                        }
-
+                        if (el.id === 'vLogoCenterBox') { renderW = nodeW; renderH = nodeW / aspect; renderX = relativeX; }
                         ctx.drawImage(imgNode, renderX, relativeY, renderW, renderH);
                         ctx.restore();
                     }
-                } 
-                else if (type === 'text') {
-                    const rawText = el.innerText;
-                    if (!rawText.trim()) return;
-
-                    ctx.save();
-                    ctx.textBaseline = "top";
-                    
+                } else if (type === 'text') {
+                    const rawText = el.innerText; if (!rawText.trim()) return;
+                    ctx.save(); ctx.textBaseline = "top";
                     const computedStyle = window.getComputedStyle(el);
                     const fSize = parseFloat(computedStyle.fontSize) * scale;
-                    const fFamily = computedStyle.fontFamily;
-                    const fWeight = computedStyle.fontWeight;
-                    const fStyle = computedStyle.fontStyle;
-                    const fColor = computedStyle.color;
-                    const lSpacing = parseFloat(computedStyle.letterSpacing) * scale || 0;
-                    const align = computedStyle.textAlign;
+                    ctx.font = `${computedStyle.fontStyle} ${computedStyle.fontWeight} ${fSize}px ${computedStyle.fontFamily}`;
+                    ctx.fillStyle = computedStyle.color; ctx.strokeStyle = computedStyle.color;
 
-                    ctx.font = `${fStyle} ${fWeight} ${fSize}px ${fFamily}`;
-                    ctx.fillStyle = fColor;
-                    ctx.strokeStyle = fColor;
-
-                    // បំបែកអត្ថបទតាមបន្ទាត់ជួរដេកនីមួយៗ
                     const lines = rawText.split('\n');
                     let currentLineY = relativeY;
                     const lineHeight = parseFloat(computedStyle.lineHeight) * scale || (fSize * 1.4);
+                    const lSpacing = parseFloat(computedStyle.letterSpacing) * scale || 0;
+                    const align = computedStyle.textAlign;
 
                     lines.forEach(line => {
                         let lineW = 0;
                         if (lSpacing === 0) { lineW = ctx.measureText(line).width; } 
-                        else {
-                            for (let i = 0; i < line.length; i++) {
-                                lineW += ctx.measureText(line[i]).width + (i < line.length - 1 ? lSpacing : 0);
-                            }
-                        }
+                        else { for (let i = 0; i < line.length; i++) { lineW += ctx.measureText(line[i]).width + (i < line.length - 1 ? lSpacing : 0); } }
 
                         let startX = relativeX;
                         if (align === 'center') startX = relativeX + (nodeW / 2) - (lineW / 2);
                         if (align === 'right') startX = relativeX + nodeW - lineW;
 
-                        if (lSpacing === 0) {
-                            ctx.fillText(line, startX, currentLineY);
-                        } else {
+                        if (lSpacing === 0) { ctx.fillText(line, startX, currentLineY); } 
+                        else {
                             let drawX = startX;
-                            for (let i = 0; i < line.length; i++) {
-                                ctx.fillText(line[i], drawX, currentLineY);
-                                drawX += ctx.measureText(line[i]).width + lSpacing;
-                            }
+                            for (let i = 0; i < line.length; i++) { ctx.fillText(line[i], drawX, currentLineY); drawX += ctx.measureText(line[i]).width + lSpacing; }
                         }
-
-                        // គូរទម្រង់បន្ទាត់ពីក្រោម (Underline) បើសិនជាមានកំណត់
                         if (computedStyle.textDecorationLine.includes('underline')) {
-                            ctx.beginPath();
-                            ctx.lineWidth = Math.max(2 * scale, fSize / 15);
-                            ctx.moveTo(startX, currentLineY + (fSize * 1.1));
-                            ctx.lineTo(startX + lineW, currentLineY + (fSize * 1.1));
-                            ctx.stroke();
+                            ctx.beginPath(); ctx.lineWidth = Math.max(2 * scale, fSize / 15);
+                            ctx.moveTo(startX, currentLineY + (fSize * 1.1)); ctx.lineTo(startX + lineW, currentLineY + (fSize * 1.1)); ctx.stroke();
                         }
-
                         currentLineY += lineHeight;
                     });
                     ctx.restore();
                 }
             }
-
-            // ប្រមូលផ្តុំគូរ Elements តាមលំដាប់លំដោយរចនាសម្ព័ន្ធពិត
             renderDomNodeToCanvas(vLogoCenterBox, 'image');
             renderDomNodeToCanvas(vLogoBox, 'image');
             renderDomNodeToCanvas(vTitle, 'text');
             renderDomNodeToCanvas(vMainText, 'text');
             renderDomNodeToCanvas(vFooterText, 'text');
-
             callback(mainCanvas.toDataURL('image/png'), targetW, targetH);
         });
     }
 
     document.getElementById('btnExportImg').addEventListener('click', () => {
-        buildHighResCanvas((url) => {
-            const a = document.createElement('a'); a.download = `Toathmor_v3.7_${currentRatioMode}.png`; a.href = url; a.click();
-        });
+        buildHighResCanvas((url) => { const a = document.createElement('a'); a.download = `Toathmor_v3.8_${currentRatioMode}.png`; a.href = url; a.click(); });
     });
-
     document.getElementById('btnExportPdf').addEventListener('click', () => {
-        buildHighResCanvas((url, w, h) => {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]);
-            pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save(`Toathmor_v3.7_${currentRatioMode}.pdf`);
-        });
+        buildHighResCanvas((url, w, h) => { const { jsPDF } = window.jspdf; const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save(`Toathmor_v3.8_${currentRatioMode}.pdf`); });
     });
 
-    // Theme Switcher
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     themeToggleBtn.addEventListener('click', () => {
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 ងងឹត'; 
-            applyQuickPalette('#ffffff', '#0f172a', '#0f172a', '#64748b');
+            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 ងងឹត'; applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8');
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ ភ្លឺ'; 
-            applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8');
+            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ ភ្លឺ'; applyQuickPalette('#070a12', '#f1f5f9', '#f1f5f9', '#64748b');
         }
     });
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            const swBlob = new Blob([`
+                self.addEventListener('install', (e) => { self.skipWaiting(); });
+                self.addEventListener('fetch', (e) => { e.respondWith(fetch(e.request).catch(() => new Response("Offline"))); });
+            `], { type: 'text/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(err => console.log('SW registration skipped'));
+        });
+    }
 </script>
 
 </body>
