@@ -12,8 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="Toathmor Studio">
     <link class="apple-touch-icon" rel="apple-touch-icon" href="https://i.postimg.cc/Dft6G1fW/IMG-3108.png">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgU3R1ZGlvIiwKICAic2hvcnRfbmFtZSI6ICJUb2F0aG1vciIsCiAgInស៊រៀល_dXJsIjogIi4uIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGIwZjE5IiwKICAidGhlbWVfY29sb3IiOiAiIzBiMGYxOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL0RmdDZHMW vXL0lNRy0zMTA4LnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgU3R1ZGlvIiwKICAic2hvcnxfbmFtZSI6ICJUb2F0aG1vciIsCiAgInស៊រៀល_dXJsIjogIi4uIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGIwZjE5IiwKICAidGhlbWVfY29sb3IiOiAiIzBiMGYxOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL0RmdDZHMW vXL0lNRy0zMTA4LnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +24,8 @@
     <style>
         :root {
             --bg-app: #0b0f19;          
-            --bg-card: #1e293b;         
+            --bg-card: #111827;         
+            --bg-item: #1f2937;
             --text-main: #f8fafc;       
             --text-muted: #94a3b8;      
             --border: #334155;          
@@ -32,18 +34,21 @@
             --accent-light: rgba(99, 102, 241, 0.15);
             --preview-bg: #ffffff;      
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
-            --shadow-md: 0 12px 30px rgba(0,0,0,0.4);
-            --radius-lg: 20px;
+            --shadow-md: 0 12px 30px rgba(0,0,0,0.5);
+            --radius-lg: 16px;
             --radius-md: 12px;
+            --radius-sm: 8px;
+            --radius-xs: 6px; 
         }
 
         [data-theme="dark"] {
             --bg-app: #070a12;
             --bg-card: #0f172a;
+            --bg-item: #1e293b;
             --text-main: #f1f5f9;
             --text-muted: #64748b;
             --border: #1e293b;
-            --preview-bg: #0b0f19; 
+            --preview-bg: #0f172a; 
         }
 
         * { 
@@ -79,12 +84,12 @@
         .control-panel {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
-            padding: 20px;
+            padding: 24px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             height: fit-content;
         }
 
@@ -93,9 +98,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
+            padding-bottom: 16px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo-title { 
@@ -104,44 +109,47 @@
             color: var(--text-main); 
             display: flex; 
             align-items: center; 
-            gap: 10px; 
+            gap: 12px; 
         }
         
+        /* 🛠️ កែសម្រួលប្រអប់ឡូហ្គោឱ្យមូលក្លំ និងបង្ហាញពេញផ្ទៃដូច Facebook Profile */
         .header-brand-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             overflow: hidden;
-            border-radius: 12px; 
-            background: #fff;
+            border-radius: 50%; /* ប្តូរទៅជាស៊ុមមូលដូច Facebook */
+            background: #000000;     
             border: 1px solid var(--border);
-            padding: 4px;
+            padding: 0; /* ជម្រុះ padding ចេញដើម្បីឱ្យរូបភាពរត់ដល់គែម */
             flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
         }
         
         .header-brand-icon img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover; /* ប្រើ cover ដើម្បីឱ្យរូបភាពពេញរង្វង់មូល */
             display: block;
         }
 
-        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 2px 8px; border-radius: 30px; }
-        .header-actions { display: flex; align-items: center; gap: 8px; }
+        .logo-title span { color: var(--accent); font-size: 11px; font-weight: 600; background: var(--accent-light); padding: 4px 10px; border-radius: 30px; letter-spacing: 0.5px; }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .global-font-lbl {
-            background: var(--accent); color: white; padding: 5px 12px; border-radius: 30px;
-            cursor: pointer; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
-            box-shadow: var(--shadow-sm);
+            background: var(--accent); color: white; padding: 8px 16px; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: var(--shadow-sm); transition: transform 0.15s, background-color 0.2s;
         }
-        .global-font-lbl:hover { background: var(--accent-hover); }
+        .global-font-lbl:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
         .btn-theme {
-            background: var(--bg-app); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px;
-            color: var(--text-main); cursor: pointer; font-size: 11px; font-weight: 600;
+            background: var(--bg-item); border: 1px solid var(--border); width: 36px; height: 36px; border-radius: var(--radius-sm);
+            color: var(--text-main); cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; justify-content: center;
         }
+        .btn-theme:hover { background: var(--border); color: #fbbf24; }
 
         .tabs-nav {
             display: flex;
@@ -153,45 +161,72 @@
         }
 
         .tab-btn {
-            flex: 1; text-align: center; padding: 8px; background: transparent; border: none;
-            color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px;
+            flex: 1; text-align: center; padding: 10px; background: transparent; border: none;
+            color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .tab-btn.active {
-            background: var(--bg-card); color: var(--accent); box-shadow: var(--shadow-sm);
+            background: var(--bg-item); color: var(--accent); box-shadow: var(--shadow-sm);
         }
 
-        .tab-content { display: none; flex-direction: column; gap: 10px; }
+        .tab-content { display: none; flex-direction: column; gap: 12px; }
         .tab-content.active { display: flex; }
 
+        .accordion-row-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
         .group-box {
-            border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; 
-            background: rgba(255, 255, 255, 0.02);
-            display: flex; flex-direction: column;
+            flex: 1; 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-md); 
+            padding: 12px; 
+            background: var(--bg-item);
+            display: flex; 
+            flex-direction: column;
+            min-width: 0; 
         }
         
         .group-header-clickable {
-            display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; user-select: none; padding-bottom: 6px;
-            margin-bottom: 0px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            cursor: pointer; 
+            user-select: none; 
+            padding: 4px 0;
         }
         
+        .group-box:not(.collapsed) {
+            flex: none;
+            width: 100%;
+        }
+
+        .accordion-row-group.has-active .group-box.collapsed {
+            display: none; 
+        }
+
         .group-box:not(.collapsed) .group-header-clickable {
             border-bottom: 1px dashed var(--border);
-            margin-bottom: 8px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
         
         .group-title {
-            font-size: 13px; font-weight: 700; color: var(--accent);
+            font-size: 12px; font-weight: 600; color: #cbd5e1;
             display: flex; align-items: center; gap: 8px; pointer-events: none;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
+        .group-title i { color: var(--accent); font-size: 13px; }
         
         .collapse-icon {
-            font-size: 12px; color: var(--text-muted); font-weight: bold;
+            font-size: 10px; color: var(--text-muted);
             transition: transform 0.2s ease; pointer-events: none;
         }
         
         .group-body-collapsible {
-            display: flex; flex-direction: column; gap: 10px;
+            display: flex; flex-direction: column; gap: 12px;
             overflow: hidden;
         }
         
@@ -200,7 +235,7 @@
 
         .ctrl-row { 
             display: grid;
-            grid-template-columns: 100px 1fr;
+            grid-template-columns: 110px 1fr;
             align-items: center; 
             gap: 12px; 
             font-size: 12px; 
@@ -211,76 +246,102 @@
             justify-content: space-between;
             align-items: center;
         }
-        .ctrl-row-header label { font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+        .ctrl-row-header label { font-weight: 500; color: var(--text-muted); white-space: nowrap; }
         
-        .slider-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0; }
+        .slider-wrapper { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; }
         .input-slider { 
-            flex: 1; min-width: 0; height: 5px; accent-color: var(--accent); cursor: pointer; 
-            background: var(--border); border-radius: 10px; appearance: none; -webkit-appearance: none;
+            flex: 1; min-width: 0; height: 6px; accent-color: var(--accent); cursor: pointer; 
+            background: var(--bg-app); border-radius: 10px; appearance: none; -webkit-appearance: none;
         }
-        .input-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; background: var(--accent); box-shadow: var(--shadow-sm); }
-        .val-indicator { min-width: 40px; text-align: right; color: var(--text-muted); font-weight: 600; font-size: 11px; }
+        .input-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; background: var(--text-main); border: 2px solid var(--accent); box-shadow: var(--shadow-sm); }
+        .val-indicator { min-width: 45px; text-align: right; color: var(--text-main); font-weight: 600; font-size: 11px; background: var(--bg-app); padding: 2px 6px; border-radius: 4px; }
 
         .select-custom {
-            width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border);
+            width: 100%; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
             background: var(--bg-app); color: var(--text-main); outline: none; cursor: pointer; font-weight: 500; font-size: 12px;
         }
 
-        .input-actions-flex { display: flex; gap: 6px; width: 100%; align-items: center; min-width: 0; }
-        .btn-group { display: flex; background: var(--bg-app); padding: 2px; border-radius: 6px; border: 1px solid var(--border); width: fit-content; flex-shrink: 0; }
-        .mini-btn {
-            padding: 4px 10px; border: none; background: transparent;
-            color: var(--text-main); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600;
+        .input-actions-flex { 
+            display: flex; 
+            gap: 8px; 
+            width: 100%; 
+            align-items: center; 
+            min-width: 0; 
+            flex-wrap: wrap; 
         }
+        
+        .btn-group { 
+            display: flex; 
+            background: var(--bg-app); 
+            padding: 2px; 
+            border-radius: var(--radius-sm); 
+            border: 1px solid var(--border); 
+            width: fit-content; 
+            flex-shrink: 0; 
+            flex: 1; 
+            min-width: 120px; 
+        }
+        
+        .mini-btn {
+            flex: 1;
+            padding: 6px; border: none; background: transparent;
+            color: var(--text-muted); border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600;
+            text-align: center; white-space: nowrap;
+        }
+        .mini-btn:hover { color: var(--text-main); }
         .mini-btn.active { background: var(--accent); color: white; }
 
         .switch { 
-            position: relative; display: inline-block; width: 36px; height: 18px; 
-            flex-shrink: 0 !important; max-width: 36px; max-height: 18px;
+            position: relative; display: inline-block; width: 38px; height: 20px; 
+            flex-shrink: 0 !important; max-width: 38px; max-height: 20px;
         }
         .switch input { opacity: 0; width: 0; height: 0; display: none; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 30px; }
-        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .2s; border-radius: 50%; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
         input:checked + .slider { background-color: #10b981; }
         input:checked + .slider:before { transform: translateX(18px); }
 
         .file-lbl {
-            padding: 6px 10px; background: var(--accent-light); color: var(--accent); border-radius: 6px;
-            cursor: pointer; font-size: 11px; font-weight: 600; border: 1px solid transparent; white-space: nowrap;
+            padding: 8px 12px; background: var(--bg-app); color: var(--text-main); border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 11px; font-weight: 600; border: 1px solid var(--border); white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 4px;
         }
+        .file-lbl:hover { border-color: var(--accent); color: var(--accent); }
         .file-hidden { display: none; }
 
-        .monitor-panel { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 24px; height: fit-content; }
+        .monitor-panel { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; height: fit-content; }
         
         .ratio-and-samples {
-            display: flex; flex-direction: column; gap: 8px; background: var(--bg-card);
-            padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+            display: flex; flex-direction: column; gap: 10px; background: var(--bg-card);
+            padding: 16px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
         }
-        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 11px; font-weight: 600; color: var(--text-muted); }
-        .sample-pill { background: var(--bg-app); border: 1px solid var(--border); padding: 4px 10px; border-radius: 30px; cursor: pointer; color: var(--text-main); font-size: 11px; font-weight: 500; }
+        .sample-bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; font-weight: 500; color: var(--text-muted); }
+        .sample-pill { background: var(--bg-item); border: 1px solid var(--border); padding: 5px 12px; border-radius: 30px; cursor: pointer; color: var(--text-main); font-size: 11px; font-weight: 500; }
         .sample-pill:hover, .ratio-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 11px; font-weight: 700; cursor: pointer; padding: 4px 8px; }
+        .sample-bar .btn-clear { margin-left: auto; background: transparent; border: none; color: #ef4444; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 8px; display: inline-flex; align-items: center; gap: 4px; }
+        .sample-bar .btn-clear:hover { opacity: 0.8; }
         
-        .ratio-bar { display: flex; gap: 6px; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+        .ratio-bar { display: flex; gap: 8px; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 10px; flex-wrap: wrap; }
         .ratio-pill {
-            background: var(--bg-app); border: 1px solid var(--border); padding: 4px 12px; border-radius: 6px;
-            cursor: pointer; color: var(--text-main); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+            background: var(--bg-item); border: 1px solid var(--border); padding: 6px 14px; border-radius: var(--radius-sm);
+            cursor: pointer; color: var(--text-main); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
         }
         .ratio-pill.active { background: var(--accent); color: white; border-color: var(--accent); }
 
         .quick-color-box {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-            padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-sm);
         }
-        .quick-color-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .quick-color-title { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+        .quick-color-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .quick-color-title { font-size: 12px; font-weight: 600; color: var(--text-muted); display: inline-flex; align-items: center; gap: 6px; }
+        .quick-color-title i { color: #f59e0b; }
         
-        .canvas-picker-inline { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--text-main); }
-        .canvas-picker-inline input[type="color"] { border: 1px solid var(--border); background: transparent; width: 24px; height: 18px; cursor: pointer; border-radius: 3px; }
+        .canvas-picker-inline { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
+        .canvas-picker-inline input[type="color"] { border: 1px solid var(--border); background: transparent; width: 26px; height: 20px; cursor: pointer; border-radius: 4px; }
 
-        .palette-flex { display: flex; gap: 8px; flex-wrap: wrap; }
+        .palette-flex { display: flex; gap: 10px; flex-wrap: wrap; }
         .palette-item {
-            width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; 
+            width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff; 
             box-shadow: 0 0 0 1px var(--border); cursor: pointer; position: relative; overflow: hidden;
             display: flex; transform: scale(1); transition: transform 0.15s ease;
         }
@@ -288,15 +349,15 @@
         .p-split { flex: 1; height: 100%; }
 
         .preview-frame {
-            width: 100%; background: var(--border); border-radius: var(--radius-lg); overflow: hidden;
+            width: 100%; background: rgba(0,0,0,0.2); border-radius: var(--radius-lg); overflow: hidden;
             border: 1px solid var(--border); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center;
-            padding: 10px; background-color: rgba(0,0,0,0.1);
+            padding: 12px;
         }
 
         .viewport-canvas {
             width: 100%; box-sizing: border-box; display: flex; flex-direction: column;
-            padding: 40px 50px; background: var(--preview-bg); position: relative; justify-content: center;
-            overflow: hidden; word-wrap: break-word;
+            padding: 45px 55px; background: var(--preview-bg); position: relative; justify-content: center;
+            overflow: hidden; word-wrap: break-word; border-radius: 8px;
         }
         
         .viewport-canvas.ratio-16-9 { aspect-ratio: 16 / 9; }
@@ -315,34 +376,34 @@
         .block-editable:empty:before { content: attr(placeholder); color: #64748b; opacity: 0.5; }
 
         .view-title { font-size: 32px; text-align: center; margin-bottom: 16px; font-weight: normal; color: #0f172a; }
+        /* 🛠️ កែប្រែអត្ថបទគំរូឱ្យប្រើប្រាស់សញ្ញាខណ្ឌ (។) តាមក្បួនខ្នាតខ្មែរ */
         .view-main { font-size: 18px; text-align: center; min-height: 50px; margin-bottom: 24px; line-height: 1.6; color: #0f172a; }
         .view-footer { font-size: 13px; text-align: right; margin-top: auto; color: #64748b; font-weight: normal; }
 
         .node-hidden { display: none !important; }
 
         .logo-box { width: 100%; display: none; margin-bottom: 12px; }
-        .logo-node { max-height: 45px; max-width: 120px; object-fit: contain; border-radius: 8px; }
+        .logo-node { max-height: 45px; max-width: 120px; object-fit: contain; border-radius: 6px; }
         .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* 💾 កែសម្រួលស្ទីលប៊ូតុងផ្នែកខាងក្រោមឱ្យមើលទៅទំនើប និងស្អាតជាងមុន */
         .bottom-bar { display: flex; gap: 12px; }
         .action-btn {
-            flex: 1; padding: 12px 20px; border: 1px solid var(--border); border-radius: var(--radius-md);
+            flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-md);
             font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
             gap: 8px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
         }
-        .action-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+        .action-btn:hover { background: var(--bg-item); }
         .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
-        .action-btn.primary-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 
         @media (max-width: 600px) {
-            .control-panel { padding: 14px; gap: 10px; }
-            .viewport-canvas { padding: 20px 24px; }
-            .view-title { font-size: 22px; }
-            .view-main { font-size: 14px; }
-            .bottom-bar { flex-direction: column; gap: 8px; }
+            .accordion-row-group { flex-direction: column; }
+            .control-panel { padding: 16px; gap: 12px; }
+            .viewport-canvas { padding: 24px 28px; }
+            .view-title { font-size: 24px; }
+            .view-main { font-size: 15px; }
+            .bottom-bar { flex-direction: column; gap: 10px; }
+            .ctrl-row { grid-template-columns: 1fr; gap: 4px; }
         }
     </style>
 </head>
@@ -357,154 +418,152 @@
                 ស្ទូឌីយ៉ូពុម្ពអក្សរ <span>Toathmor v3.8</span>
             </div>
             <div class="header-actions">
-                <label class="global-font-lbl" for="globalFontFile">➕ ផ្ទុកពុម្ពរួម (.ttf)</label>
+                <label class="global-font-lbl" for="globalFontFile"><i class="fa-solid fa-cloud-arrow-up"></i> ផ្ទុកពុម្ពរួម</label>
                 <input type="file" id="globalFontFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                <button class="btn-theme" id="themeToggleBtn">☀️ ភ្លឺ</button>
+                <button class="btn-theme" id="themeToggleBtn"><i class="fa-solid fa-moon"></i></button>
             </div>
         </div>
 
         <div class="tabs-nav">
-            <button class="tab-btn active" id="btnTabTxt" onclick="switchTab('text-tab')">📝 អក្សររចនា</button>
-            <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')">🛡️ និមិត្តសញ្ញា</button>
+            <button class="tab-btn active" id="btnTabTxt" onclick="switchTab('text-tab')"><i class="fa-solid fa-pen-nib"></i> អក្សររចនា</button>
+            <button class="tab-btn" id="btnTabLogo" onclick="switchTab('logo-tab')"><i class="fa-solid fa-shield-halved"></i> និមិត្តសញ្ញា</button>
         </div>
 
         <div id="text-tab" class="tab-content active">
-            <div class="group-box collapsed" id="boxHeader">
-                <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
-                    <div class="group-title">ចំណងជើងផ្នែកលើ (Header)</div>
-                    <span class="collapse-icon">▼</span>
-                </div>
-                <div class="group-body-collapsible">
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញចំណងជើង៖</label></div><label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label></div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
-                        <div class="input-actions-flex">
-                            <select id="hFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                            <label class="file-lbl" for="hFFile">➕ ផ្ទុកចូល</label><input type="file" id="hFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                        </div>
+            <div class="accordion-row-group" id="rowGroup">
+                
+                <div class="group-box collapsed" id="boxHeader">
+                    <div class="group-header-clickable" onclick="toggleAccordion('boxHeader')">
+                        <div class="group-title"><i class="fa-solid fa-heading"></i> Header</div>
+                        <span class="collapse-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="hSize" class="input-slider" min="16" max="70" value="32"><span class="val-indicator" id="hSizeLbl">32px</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="hLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.4"><span class="val-indicator" id="hLineLbl">1.4</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>គម្លាតតួអក្សរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="hSpace" class="input-slider" min="-2" max="10" step="0.5" value="0"><span class="val-indicator" id="hSpaceLbl">0px</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between;">
-                            <div class="btn-group">
-                                <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
-                                <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
-                                <button class="mini-btn" id="hU" onclick="toggleTextFormat('header','U')">U</button>
-                            </div>
-                            <div class="btn-group">
-                                <button class="mini-btn" id="hALeft" onclick="setTextAlignment('header','left')">ឆ្វេង</button>
-                                <button class="mini-btn active" id="hACenter" onclick="setTextAlignment('header','center')">កណ្តាល</button>
-                                <button class="mini-btn" id="hARight" onclick="setTextAlignment('header','right')">ស្តាំ</button>
+                    <div class="group-body-collapsible">
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញ៖</label></div><label class="switch"><input type="checkbox" id="vHeader" checked onchange="updateVisibility('header')"><span class="slider"></span></label></div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                            <div class="input-actions-flex">
+                                <select id="hFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                                <label class="file-lbl" for="hFFile"><i class="fa-solid fa-folder-plus"></i></label><input type="file" id="hFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
                             </div>
                         </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="hSize" class="input-slider" min="16" max="70" value="32"><span class="val-indicator" id="hSizeLbl">32px</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="hLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.4"><span class="val-indicator" id="hLineLbl">1.4</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>គម្លាតតួ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="hSpace" class="input-slider" min="-2" max="10" step="0.5" value="0"><span class="val-indicator" id="hSpaceLbl">0px</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>តម្រឹម៖</label></div>
+                            <div class="input-actions-flex">
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="hB" onclick="toggleTextFormat('header','B')">B</button>
+                                    <button class="mini-btn" id="hI" onclick="toggleTextFormat('header','I')">I</button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="hALeft" onclick="setTextAlignment('header','left')">ឆ្វេង</button>
+                                    <button class="mini-btn active" id="hACenter" onclick="setTextAlignment('header','center')">កណ្ដាល</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                     </div>
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="hColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                 </div>
-            </div>
 
-            <div class="group-box collapsed" id="boxMain">
-                <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
-                    <div class="group-title">អត្ថបទស្នូលកណ្តាល (Main Text)</div>
-                    <span class="collapse-icon">▼</span>
-                </div>
-                <div class="group-body-collapsible">
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញអត្ថបទស្នូល៖</label></div><label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label></div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
-                        <div class="input-actions-flex">
-                            <select id="mFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                            <label class="file-lbl" for="mFFile">➕ ផ្ទុកចូល</label><input type="file" id="mFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                        </div>
+                <div class="group-box collapsed" id="boxMain">
+                    <div class="group-header-clickable" onclick="toggleAccordion('boxMain')">
+                        <div class="group-title"><i class="fa-solid fa-align-center"></i> Main Text</div>
+                        <span class="collapse-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="mSize" class="input-slider" min="12" max="45" value="18"><span class="val-indicator" id="mSizeLbl">18px</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="mLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.6"><span class="val-indicator" id="mLineLbl">1.6</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>គម្លាតតួអក្សរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="mSpace" class="input-slider" min="-2" max="10" step="0.5" value="0"><span class="val-indicator" id="mSpaceLbl">0px</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between;">
-                            <div class="btn-group">
-                                <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
-                                <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
-                                <button class="mini-btn" id="mU" onclick="toggleTextFormat('main','U')">U</button>
-                            </div>
-                            <div class="btn-group">
-                                <button class="mini-btn" id="mALeft" onclick="setTextAlignment('main','left')">ឆ្វេង</button>
-                                <button class="mini-btn active" id="mACenter" onclick="setTextAlignment('main','center')">កណ្តាល</button>
-                                <button class="mini-btn" id="mARight" onclick="setTextAlignment('main','right')">ស្តាំ</button>
+                    <div class="group-body-collapsible">
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញ៖</label></div><label class="switch"><input type="checkbox" id="vMain" checked onchange="updateVisibility('main')"><span class="slider"></span></label></div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                            <div class="input-actions-flex">
+                                <select id="mFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                                <label class="file-lbl" for="mFFile"><i class="fa-solid fa-folder-plus"></i></label><input type="file" id="mFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
                             </div>
                         </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="mSize" class="input-slider" min="12" max="45" value="18"><span class="val-indicator" id="mSizeLbl">18px</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>គម្លាតជួរ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="mLine" class="input-slider" min="1" max="2.5" step="0.1" value="1.6"><span class="val-indicator" id="mLineLbl">1.6</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>គម្លាតតួ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="mSpace" class="input-slider" min="-2" max="10" step="0.5" value="0"><span class="val-indicator" id="mSpaceLbl">0px</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>តម្រឹម៖</label></div>
+                            <div class="input-actions-flex">
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="mB" onclick="toggleTextFormat('main','B')">B</button>
+                                    <button class="mini-btn" id="mI" onclick="toggleTextFormat('main','I')">I</button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="mALeft" onclick="setTextAlignment('main','left')">ឆ្វេង</button>
+                                    <button class="mini-btn active" id="mACenter" onclick="setTextAlignment('main','center')">កណ្ដាល</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                     </div>
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="mColorInput" value="#0f172a" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                 </div>
-            </div>
 
-            <div class="group-box collapsed" id="boxFooter">
-                <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
-                    <div class="group-title">ហត្ថលេខា (Footer)</div>
-                    <span class="collapse-icon">▼</span>
-                </div>
-                <div class="group-body-collapsible">
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញហត្ថលេខា៖</label></div><label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label></div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
-                        <div class="input-actions-flex">
-                            <select id="fFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
-                            <label class="file-lbl" for="fFFile">➕ ផ្ទុកចូល</label><input type="file" id="fFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
-                        </div>
+                <div class="group-box collapsed" id="boxFooter">
+                    <div class="group-header-clickable" onclick="toggleAccordion('boxFooter')">
+                        <div class="group-title"><i class="fa-solid fa-signature"></i> Footer</div>
+                        <span class="collapse-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
-                        <div class="slider-wrapper"><input type="range" id="fSize" class="input-slider" min="10" max="25" value="13"><span class="val-indicator" id="fSizeLbl">13px</span></div>
-                    </div>
-                    <div class="ctrl-row">
-                        <div class="ctrl-row-header"><label>ទម្រង់ & តម្រឹម៖</label></div>
-                        <div class="input-actions-flex" style="justify-content: space-between;">
-                            <div class="btn-group">
-                                <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
-                                <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
-                                <button class="mini-btn" id="fU" onclick="toggleTextFormat('footer','U')">U</button>
-                            </div>
-                            <div class="btn-group">
-                                <button class="mini-btn" id="fALeft" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
-                                <button class="mini-btn active" id="fACenter" onclick="setTextAlignment('footer','center')">កណ្តាល</button>
-                                <button class="mini-btn" id="fARight" onclick="setTextAlignment('footer','right')">ស្តាំ</button>
+                    <div class="group-body-collapsible">
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>បង្ហាញ៖</label></div><label class="switch"><input type="checkbox" id="vFooter" checked onchange="updateVisibility('footer')"><span class="slider"></span></label></div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ពុម្ពអក្សរ៖</label></div>
+                            <div class="input-actions-flex">
+                                <select id="fFont" class="select-custom"><option value="'Kantumruy Pro'">Kantumruy Pro</option></select>
+                                <label class="file-lbl" for="fFFile"><i class="fa-solid fa-folder-plus"></i></label><input type="file" id="fFFile" class="file-hidden" accept=".ttf,.otf,.woff,.woff2" multiple>
                             </div>
                         </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>ទំហំអក្សរ៖</label></div>
+                            <div class="slider-wrapper"><input type="range" id="fSize" class="input-slider" min="10" max="25" value="13"><span class="val-indicator" id="fSizeLbl">13px</span></div>
+                        </div>
+                        <div class="ctrl-row">
+                            <div class="ctrl-row-header"><label>តម្រឹម៖</label></div>
+                            <div class="input-actions-flex">
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="fB" onclick="toggleTextFormat('footer','B')">B</button>
+                                    <button class="mini-btn" id="fI" onclick="toggleTextFormat('footer','I')">I</button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="mini-btn" id="fALeft" onclick="setTextAlignment('footer','left')">ឆ្វេង</button>
+                                    <button class="mini-btn active" id="fACenter" onclick="setTextAlignment('footer','center')">កណ្ដាល</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                     </div>
-                    <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ពណ៌អក្សរ៖</label></div><input type="color" id="fColorInput" value="#64748b" style="border:none; background:transparent; width:34px; height:24px; cursor:pointer;"></div>
                 </div>
+
             </div>
         </div>
 
         <div id="logo-tab" class="tab-content">
-            <div class="group-box">
-                <div class="group-title" style="margin-bottom:10px;">គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញា</div>
+            <div class="group-box" style="width:100%;">
+                <div class="group-title" style="margin-bottom:12px;"><i class="fa-solid fa-circle-nodes"></i> គ្រប់គ្រងឡូហ្គូម៉ាកសញ្ញ</div>
                 <div class="ctrl-row full-flex"><div class="ctrl-row-header"><label>ប្រើប្រាស់ឡូហ្គូ៖</label></div><label class="switch"><input type="checkbox" id="useLogo" onchange="drawLogoLayer()"><span class="slider"></span></label></div>
                 <div class="ctrl-row" style="margin-top:6px;">
                     <div class="ctrl-row-header"><label>រូបភាពឡូហ្គូ៖</label></div>
                     <div class="input-actions-flex">
-                        <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white; width:100%; text-align:center;">🛡️ ជ្រើសរើសរូបភាព</label>
+                        <label class="file-lbl" for="logoUpload" style="background:#10b981; color:white; width:100%; justify-content:center; border:none;"><i class="fa-solid fa-image"></i> ជ្រើសរើសរូបភាព</label>
                         <input type="file" id="logoUpload" class="file-hidden" accept="image/*">
                     </div>
                 </div>
@@ -535,17 +594,17 @@
     <div class="monitor-panel">
         <div class="ratio-and-samples">
             <div class="ratio-bar">
-                <span style="font-size: 11px; font-weight:600; color:var(--text-muted);">ទំហំផ្ទាំង (Ratio)៖</span>
-                <button class="ratio-pill active" onclick="changeAspectRatio('16-9')">🖥️ 16:9</button>
-                <button class="ratio-pill" onclick="changeAspectRatio('1-1')">⏹️ 1:1</button>
-                <button class="ratio-pill" onclick="changeAspectRatio('3-4')">📱 3:4</button>
+                <span style="font-size: 11px; font-weight:600; color:var(--text-muted);"><i class="fa-solid fa-vector-square"></i> ទំហំផ្ទាំង៖</span>
+                <button class="ratio-pill active" onclick="changeAspectRatio('16-9')"><i class="fa-solid fa-desktop"></i> 16:9</button>
+                <button class="ratio-pill" onclick="changeAspectRatio('1-1')"><i class="fa-solid fa-square"></i> 1:1</button>
+                <button class="ratio-pill" onclick="changeAspectRatio('3-4')"><i class="fa-solid fa-mobile-screen"></i> 3:4</button>
             </div>
             <div class="sample-bar">
                 <span>អត្ថបទគំរូ៖</span>
                 <button class="sample-pill" onclick="loadSampleText('abc')">ព្យញ្ជនៈ</button>
                 <button class="sample-pill" onclick="loadSampleText('proverb')">សុភាសិត</button>
                 <button class="sample-pill" onclick="loadSampleText('poem')">កំណាព្យ</button>
-                <button class="btn-clear" id="actionClearBtn">🧹 សម្អាត</button>
+                <button class="btn-clear" id="actionClearBtn"><i class="fa-solid fa-broom"></i> សម្អាត</button>
             </div>
         </div>
 
@@ -559,6 +618,7 @@
                 </div>
 
                 <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើង</h2>
+                <!-- 🛠️ កែប្រែអត្ថបទគំរូដើមឱ្យប្រើសញ្ញាខណ្ឌខ្មែរ (។) រួចរាល់ -->
                 <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បងនៅទីនេះ...">នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។&#10;វិជ្ជាជាទ្រព្យគាប់ចិន្តា។</div>
                 <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
             </div>
@@ -566,9 +626,9 @@
 
         <div class="quick-color-box">
             <div class="quick-color-header-row">
-                <div class="quick-color-title">⚡ ប្តូរពណ៌រហ័ស (Quick Color Palette)</div>
+                <div class="quick-color-title"><i class="fa-solid fa-bolt"></i> ប្តូរពណ៌រហ័ស (Quick Palette)</div>
                 <div class="canvas-picker-inline">
-                    <label for="panelBgColor">ពណ៌ផ្ទៃ Canvas៖</label>
+                    <label for="panelBgColor">ពណ៌ Canvas៖</label>
                     <input type="color" id="panelBgColor" value="#ffffff">
                 </div>
             </div>
@@ -582,10 +642,9 @@
             </div>
         </div>
 
-        <!-- 🔄 ធ្វើទំនើបកម្មរូបតំណាង និងប៊ូតុងរក្សាទុកខាងក្រោម -->
         <div class="bottom-bar">
-            <button class="action-btn primary-btn" id="btnExportImg">🖼️ ទាញយករូបភាព PNG (4K Exact)</button>
-            <button class="action-btn" id="btnExportPdf">📄 នាំចេញជា PDF</button>
+            <button class="action-btn primary-btn" id="btnExportImg"><i class="fa-solid fa-download"></i> ទាញយករូបភាព PNG</button>
+            <button class="action-btn" id="btnExportPdf"><i class="fa-solid fa-file-pdf"></i> នាំចេញជា PDF</button>
         </div>
     </div>
 
@@ -644,10 +703,11 @@
         footer: { bold: false, italic: false, underline: false, align: 'right', visible: true }
     };
 
+    /* 🛠️ កែសម្រួលអត្ថបទគំរូក្នុង JavaScript ឱ្យប្រើសញ្ញាខណ្ឌ (។) ទាំងអស់ */
     const textLibrary = {
         abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម。\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា。",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ。"
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
     function setupHeaderLogo() {
@@ -679,11 +739,25 @@
     }
 
     function toggleAccordion(boxId) {
+        const groupContainer = document.getElementById('rowGroup');
         const box = document.getElementById(boxId);
-        if (!box) return;
-        box.classList.toggle('collapsed');
-        const icon = box.querySelector('.collapse-icon');
-        if (icon) icon.textContent = box.classList.contains('collapsed') ? '▼' : '▲';
+        if (!box || !groupContainer) return;
+        
+        const isCollapsed = box.classList.contains('collapsed');
+        
+        document.querySelectorAll('.group-box').forEach(b => {
+            b.classList.add('collapsed');
+            const icon = b.querySelector('.collapse-icon i');
+            if (icon) icon.className = 'fa-solid fa-chevron-down';
+        });
+        groupContainer.classList.remove('has-active');
+
+        if (isCollapsed) {
+            box.classList.remove('collapsed');
+            groupContainer.classList.add('has-active');
+            const icon = box.querySelector('.collapse-icon i');
+            if (icon) icon.className = 'fa-solid fa-chevron-up';
+        }
     }
 
     function switchTab(tabId) {
@@ -713,7 +787,7 @@
     }
 
     function toggleTextFormat(section, mode) {
-        const flag = mode === 'B' ? 'bold' : (mode === 'I' ? 'italic' : 'underline');
+        const flag = mode === 'B' ? 'bold' : 'italic';
         textConfigs[section][flag] = !textConfigs[section][flag];
         const btn = document.getElementById(`${section.charAt(0)}${mode}`);
         if(textConfigs[section][flag]) btn.classList.add('active'); else btn.classList.remove('active');
@@ -721,7 +795,6 @@
         const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
         if(mode === 'B') target.style.fontWeight = textConfigs[section].bold ? 'bold' : 'normal';
         if(mode === 'I') target.style.fontStyle = textConfigs[section].italic ? 'italic' : 'normal';
-        if(mode === 'U') target.style.textDecoration = textConfigs[section].underline ? 'underline' : 'none';
     }
 
     function setTextAlignment(section, alignType) {
@@ -732,8 +805,8 @@
         const prefix = section.charAt(0);
         document.getElementById(`${prefix}ALeft`).classList.remove('active');
         document.getElementById(`${prefix}ACenter`).classList.remove('active');
-        document.getElementById(`${prefix}ARight`).classList.remove('active');
-        document.getElementById(`${prefix}A${alignType.charAt(0).toUpperCase() + alignType.slice(1)}`).classList.add('active');
+        if(alignType === 'left') document.getElementById(`${prefix}ALeft`).classList.add('active');
+        if(alignType === 'center') document.getElementById(`${prefix}ACenter`).classList.add('active');
     }
 
     function applyQuickPalette(bgColor, hColor, mColor, fColor) {
@@ -911,14 +984,6 @@
                             let drawX = startX;
                             for (let i = 0; i < line.length; i++) { ctx.fillText(line[i], drawX, currentLineY); drawX += ctx.measureText(line[i]).width + lSpacing; }
                         }
-                        
-                        /* 🛠️ ដោះស្រាយបញ្ហាបន្ទាត់រុញជាន់លើអក្សរពេលរក្សារូបភាព៖
-                           - បន្ថែមគម្លាតសុវត្ថិភាព (fSize / 6) ដើម្បីរុញបន្ទាត់ឱ្យចុះមកក្រោមជើងអក្សរខ្មែរទោះបីជាខ្នាត 4K ក៏ដោយ */
-                        if (computedStyle.textDecorationLine.includes('underline')) {
-                            ctx.beginPath(); ctx.lineWidth = Math.max(2 * scale, fSize / 15);
-                            let underlineY = currentLineY + (fSize * 1.1) + (fSize / 6);
-                            ctx.moveTo(startX, underlineY); ctx.lineTo(startX + lineW, underlineY); ctx.stroke();
-                        }
                         currentLineY += lineHeight;
                     });
                     ctx.restore();
@@ -942,10 +1007,11 @@
 
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     themeToggleBtn.addEventListener('click', () => {
+        const icon = themeToggleBtn.querySelector('i');
         if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme'); themeToggleBtn.textContent = '🌙 ងងឹត'; applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8');
+            document.documentElement.removeAttribute('data-theme'); icon.className = 'fa-solid fa-moon'; applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8');
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark'); themeToggleBtn.textContent = '☀️ ភ្លឺ'; applyQuickPalette('#070a12', '#f1f5f9', '#f1f5f9', '#64748b');
+            document.documentElement.setAttribute('data-theme', 'dark'); icon.className = 'fa-solid fa-sun'; applyQuickPalette('#070a12', '#f1f5f9', '#f1f5f9', '#64748b');
         }
     });
 
