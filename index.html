@@ -712,10 +712,9 @@
         footer: { bold: false, italic: false, underline: false, align: 'right', visible: true }
     };
 
-    /* 🛠️ កែសម្រួល៖ ប្តូរសញ្ញា | ទៅជា ។ ក្នុងអត្ថបទគំរូ */
     const textLibrary = {
         abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម。\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
         poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
@@ -727,13 +726,35 @@
     }
     setupHeaderLogo();
 
+    /* 🛠️ កែសម្រួល៖ បង្កើតមុខងារបំប្លែង URL រូបភាពទៅជា Base64 កាត់បន្ថយបញ្ហា CORS ពេល Export */
+    function convertUrlToBase64(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            const reader = new FileReader();
+            reader.onloadend = function() { callback(reader.result); }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }
+
     function loadDefaultCanvasLogo() {
+        // បើកការអនុញ្ញាត Cross-Origin លើ IMG HTML Tags លំនាំដើម
+        vLogoImg.crossOrigin = "anonymous";
+        vLogoCenterImg.crossOrigin = "anonymous";
         vLogoImg.src = HEADER_LOGO_URL;
         vLogoCenterImg.src = HEADER_LOGO_URL;
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => { memoryLogoImage = img; drawLogoLayer(); };
-        img.src = HEADER_LOGO_URL;
+
+        // បំប្លែង URL ទៅជាទិន្នន័យ Local Base64 ទុកក្នុង memoryLogoImage ការពារការគាំង Canvas
+        convertUrlToBase64(HEADER_LOGO_URL, function(base64Data) {
+            const img = new Image();
+            img.onload = () => { 
+                memoryLogoImage = img; 
+                drawLogoLayer(); 
+            };
+            img.src = base64Data;
+        });
     }
     loadDefaultCanvasLogo();
 
@@ -961,16 +982,18 @@
                 const nodeH = nodeRect.height * scale;
 
                 if (type === 'image') {
-                    const imgNode = el.querySelector('img');
-                    if (imgNode && imgNode.src && imgNode.complete) {
-                        ctx.save(); ctx.globalAlpha = parseFloat(window.getComputedStyle(imgNode).opacity || 1);
-                        const aspect = imgNode.naturalWidth / imgNode.naturalHeight;
+                    /* 🛠️ កែសម្រួល៖ ប្រើប្រាស់ memoryLogoImage (Local Data) ជំនួសឱ្យរូបភាពពី DOM Node ផ្ទាល់ ការពារការគាំង CORS Error */
+                    if (memoryLogoImage) {
+                        ctx.save(); 
+                        const imgNode = el.querySelector('img');
+                        ctx.globalAlpha = parseFloat(window.getComputedStyle(imgNode).opacity || 1);
+                        const aspect = memoryLogoImage.naturalWidth / memoryLogoImage.naturalHeight;
                         let renderH = nodeH, renderW = nodeH * aspect;
                         let renderX = relativeX + (nodeW - renderW) / 2;
                         if (el.style.justifyContent === 'flex-start') renderX = relativeX;
                         if (el.style.justifyContent === 'flex-end') renderX = relativeX + nodeW - renderW;
                         if (el.id === 'vLogoCenterBox') { renderW = nodeW; renderH = nodeW / aspect; renderX = relativeX; }
-                        ctx.drawImage(imgNode, renderX, relativeY, renderW, renderH);
+                        ctx.drawImage(memoryLogoImage, renderX, relativeY, renderW, renderH);
                         ctx.restore();
                     }
                 } else if (type === 'text') {
@@ -1002,7 +1025,6 @@
                             for (let i = 0; i < line.length; i++) { ctx.fillText(line[i], drawX, currentLineY); drawX += ctx.measureText(line[i]).width + lSpacing; }
                         }
 
-                        /* 🛠️ កែសម្រួល៖ បង្កើនកម្ពស់បន្ទាត់ក្រោម (fSize * 1.25) ដើម្បីឱ្យធ្លាក់ចុះក្រោមផុតតួអក្សរខ្មែរស្អាត មិនរត់កាត់ចំកណ្តាល */
                         if (computedStyle.textDecoration.includes('underline')) {
                             ctx.beginPath();
                             ctx.lineWidth = 1.5 * scale;
