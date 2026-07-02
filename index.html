@@ -270,7 +270,6 @@
             flex-wrap: wrap; 
         }
         
-        /* 🛠️ កែសម្រួល៖ រៀបចំប្រអប់ប៊ូតុង B I U និង តម្រឹមឆ្វេងកណ្តាលស្តាំ ឱ្យស្មើគ្នាស្អាត */
         .btn-group { 
             display: flex; 
             background: var(--bg-app); 
@@ -629,7 +628,7 @@
                 </div>
 
                 <h2 class="block-editable view-title" id="vTitle" contenteditable="true" placeholder="វាយចំណងជើង...">ចំណងជើង</h2>
-                <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បងនៅទីនេះ...">នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម।&#10;វិជ្ជាជាទ្រព្យគាប់ចិន្តា।</div>
+                <div class="block-editable view-main" id="vMainText" contenteditable="true" placeholder="សរសេរអត្ថបទសាកល្បងនៅទីនេះ...">នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។&#10;វិជ្ជាជាទ្រព្យគាប់ចិន្តា។</div>
                 <div class="block-editable view-footer" id="vFooterText" contenteditable="true" placeholder="— ប្រភព...">— ដកស្រង់ចេញពី៖ TOATHmor DESIGN</div>
             </div>
         </div>
@@ -644,7 +643,7 @@
             </div>
             <div class="palette-flex">
                 <div class="palette-item" onclick="applyQuickPalette('#ffffff', '#0f172a', '#0f172a', '#64748b')"><div class="p-split" style="background: #ffffff;"></div><div class="p-split" style="background: #0f172a;"></div></div>
-                <div class="palette-item" onclick="applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8')"><div class="p-split" style="background: #0b0f19;"></div><div class="p-split" style="background: #f8fafc;"></div></div>
+                <div class="palette-item" onclick="applyQuickPalette('#0b0f19', '#f8fafc', '#f8fafc', '#94a3b8')"><div class="p-split" style="background: #0b0f19;"></div><div class="p-split" style="background: #0b0f19;"></div></div>
                 <div class="palette-item" onclick="applyQuickPalette('#111827', '#fbbf24', '#f3f4f6', '#9ca3af')"><div class="p-split" style="background: #111827;"></div><div class="p-split" style="background: #fbbf24;"></div></div>
                 <div class="palette-item" onclick="applyQuickPalette('#f0fdf4', '#16a34a', '#14532d', '#475569')"><div class="p-split" style="background: #f0fdf4;"></div><div class="p-split" style="background: #16a34a;"></div></div>
                 <div class="palette-item" onclick="applyQuickPalette('#eceff1', '#1a237e', '#37474f', '#78909c')"><div class="p-split" style="background: #eceff1;"></div><div class="p-split" style="background: #1a237e;"></div></div>
@@ -707,17 +706,17 @@
     let memoryLogoImage = null;
     let currentRatioMode = "16-9";
 
-    /* 🛠️ កែសម្រួល៖ បន្ថែម underline ចូលក្នុងទម្រង់លំនាំដើម */
     let textConfigs = {
         header: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         main: { bold: false, italic: false, underline: false, align: 'center', visible: true },
         footer: { bold: false, italic: false, underline: false, align: 'right', visible: true }
     };
 
+    /* 🛠️ កែសម្រួល៖ ប្តូរសញ្ញា | ទៅជា ។ ក្នុងអត្ថបទគំរូ */
     const textLibrary = {
         abc: "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ប ផ ព ភ ម យ រ ល វ ស ហ ឡ អ",
-        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម।\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា।",
-        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ।"
+        proverb: "នគរថ្កើងប្លែក សប្បាយតែភ្នែក ក្នុងចិត្តរងកម្ម។\nវិជ្ជាជាទ្រព្យគាប់ចិន្តា។",
+        poem: "អនិច្ចាតោថ្មលោកកសាង មើលថាថាងយ៉ាងរស់ស្ទុះប្រែប្រាយ\nឥឡូវមកធ្លាយធ្លាក់បាក់ខ្ចាត់ខ្ចាយ ស្តាយអើយស្តាយមិនគួរមកពិការ។"
     };
 
     function setupHeaderLogo() {
@@ -796,7 +795,6 @@
         if(check.checked) target.classList.remove('node-hidden'); else target.classList.add('node-hidden');
     }
 
-    /* 🛠️ កែសម្រួល៖ បន្ថែមប្រព័ន្ធ Toggle សម្រាប់ទម្រង់គូសបន្ទាត់ក្រោម (Underline) */
     function toggleTextFormat(section, mode) {
         let flag;
         if (mode === 'B') flag = 'bold';
@@ -813,7 +811,6 @@
         if(mode === 'U') target.style.textDecoration = textConfigs[section].underline ? 'underline' : 'none';
     }
 
-    /* 🛠️ កែសម្រួល៖ បន្ថែមប្រព័ន្ធតម្រឹមឆ្វេង កណ្តាល ស្តាំ គ្រប់ដណ្តប់គ្រប់ប៊ូតុងទាំង៣ */
     function setTextAlignment(section, alignType) {
         textConfigs[section].align = alignType;
         const target = section === 'header' ? vTitle : (section === 'main' ? vMainText : vFooterText);
@@ -1005,12 +1002,12 @@
                             for (let i = 0; i < line.length; i++) { ctx.fillText(line[i], drawX, currentLineY); drawX += ctx.measureText(line[i]).width + lSpacing; }
                         }
 
-                        /* 🛠️ កែសម្រួល៖ គូររបារបន្ទាត់ក្រោមខ្ពស់សម្រាប់ការនាំចេញរូបភាព (Export Underline Support) */
+                        /* 🛠️ កែសម្រួល៖ បង្កើនកម្ពស់បន្ទាត់ក្រោម (fSize * 1.25) ដើម្បីឱ្យធ្លាក់ចុះក្រោមផុតតួអក្សរខ្មែរស្អាត មិនរត់កាត់ចំកណ្តាល */
                         if (computedStyle.textDecoration.includes('underline')) {
                             ctx.beginPath();
                             ctx.lineWidth = 1.5 * scale;
-                            ctx.moveTo(startX, currentLineY + fSize * 0.95);
-                            ctx.lineTo(startX + lineW, currentLineY + fSize * 0.95);
+                            ctx.moveTo(startX, currentLineY + fSize * 1.25);
+                            ctx.lineTo(startX + lineW, currentLineY + fSize * 1.25);
                             ctx.stroke();
                         }
 
