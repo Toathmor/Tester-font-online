@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="Toathmor Studio">
     <link class="apple-touch-icon" rel="apple-touch-icon" href="https://i.postimg.cc/Dft6G1fW/IMG-3108.png">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgU3R1ZGlvIiwKICAic2hvcnxfbmFtZSI6ICJUb2F0aG1vciIsCiAgInស៊រៀល_dXJsIjogIi4uIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF_jb2xvciI6ICIjMGIwZjE5IiwKICAidGhlbWVfY29sb3IiOiAiIzBiMGYxOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL0RmdDZHMW vXL0lNRy0zMTA4LnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRvYXRobW9yIEZvbnQgU3R1ZGlvIiwKICAic2hvcnxfbmFtZSI6ICJUb2F0aG1vciIsCiAgInស៊រៀល_dXJsIjogIi4uIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF_jb2xvciI6ICIjMGIwZjE5IiwKICAidGhlbWVfY29sb3IiOiAiIzBiMGYxOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL0RmdDZHMW vXL0lNRy0zMTA4LnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfGogIF0KfQ==">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -386,14 +386,16 @@
         .center-logo-box { position: absolute; pointer-events: none; display: none; }
         .center-logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .bottom-bar { display: flex; gap: 12px; }
+        .bottom-bar { display: flex; gap: 12px; flex-wrap: wrap; }
         .action-btn {
             flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-md);
             font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            gap: 8px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm);
+            gap: 8px; background: var(--bg-card); color: var(--text-main); box-shadow: var(--shadow-sm); min-width: 140px;
         }
         .action-btn:hover { background: var(--bg-item); }
         .action-btn.primary-btn { background: var(--accent); color: white; border-color: var(--accent); }
+        .action-btn.photo-btn { background: #10b981; color: white; border-color: #10b981; }
+        .action-btn.photo-btn:hover { background: #059669; }
 
         @media (max-width: 600px) {
             .accordion-row-group { flex-direction: column; }
@@ -652,8 +654,8 @@
         </div>
 
         <div class="bottom-bar">
-            <button class="action-btn primary-btn" id="btnExportImg"><i class="fa-solid fa-download"></i> ទាញយករូបភាព PNG</button>
-            <button class="action-btn" id="btnExportPdf"><i class="fa-solid fa-file-pdf"></i> នាំចេញជា PDF</button>
+            <button class="action-btn photo-btn" id="btnSaveToPhotos"><i class="fa-solid fa-camera"></i> Save to Photos</button>
+            <button class="action-btn" id="btnExportPdf"><i class="fa-solid fa-file-pdf"></i> PDF</button>
         </div>
     </div>
 
@@ -726,7 +728,6 @@
     }
     setupHeaderLogo();
 
-    /* 🛠️ កែសម្រួល៖ បង្កើតមុខងារបំប្លែង URL រូបភាពទៅជា Base64 កាត់បន្ថយបញ្ហា CORS ពេល Export */
     function convertUrlToBase64(url, callback) {
         const xhr = new XMLHttpRequest();
         xhr.onload = function() {
@@ -740,13 +741,11 @@
     }
 
     function loadDefaultCanvasLogo() {
-        // បើកការអនុញ្ញាត Cross-Origin លើ IMG HTML Tags លំនាំដើម
         vLogoImg.crossOrigin = "anonymous";
         vLogoCenterImg.crossOrigin = "anonymous";
         vLogoImg.src = HEADER_LOGO_URL;
         vLogoCenterImg.src = HEADER_LOGO_URL;
 
-        // បំប្លែង URL ទៅជាទិន្នន័យ Local Base64 ទុកក្នុង memoryLogoImage ការពារការគាំង Canvas
         convertUrlToBase64(HEADER_LOGO_URL, function(base64Data) {
             const img = new Image();
             img.onload = () => { 
@@ -982,7 +981,6 @@
                 const nodeH = nodeRect.height * scale;
 
                 if (type === 'image') {
-                    /* 🛠️ កែសម្រួល៖ ប្រើប្រាស់ memoryLogoImage (Local Data) ជំនួសឱ្យរូបភាពពី DOM Node ផ្ទាល់ ការពារការគាំង CORS Error */
                     if (memoryLogoImage) {
                         ctx.save(); 
                         const imgNode = el.querySelector('img');
@@ -1047,9 +1045,57 @@
         });
     }
 
-    document.getElementById('btnExportImg').addEventListener('click', () => {
-        buildHighResCanvas((url) => { const a = document.createElement('a'); a.download = `Toathmor_v3.8_${currentRatioMode}.png`; a.href = url; a.click(); });
+    async function saveImageToPhotos(dataUrl, filename) {
+        try {
+            const res = await fetch(dataUrl);
+            const blob = await res.blob();
+            const file = new File([blob], filename, { type: 'image/png' });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: 'Toathmor Font Studio',
+                    text: 'រូបភាពពុម្ពអក្សរ Toathmor'
+                });
+                return;
+            }
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+        }
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+            let win = window.open();
+            if (win) {
+                win.document.write(`
+                    <html>
+                    <head><title>Save to Photos</title><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+                    <body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;color:#fff;font-family:sans-serif;padding:20px;box-sizing:border-box;">
+                        <p style="margin-bottom:15px;font-size:14px;text-align:center;line-height:1.5;">ចុចឱ្យជាប់លើរូបភាពខាងក្រោម រួចជ្រើសរើស<br><b style="color:#10b981;">"Save Image"</b> ដើម្បីរក្សាទុកក្នុង Photos</p>
+                        <img src="${dataUrl}" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.6);"/>
+                    </body>
+                    </html>
+                `);
+            } else {
+                const a = document.createElement('a');
+                a.download = filename;
+                a.href = dataUrl;
+                a.click();
+            }
+        } else {
+            const a = document.createElement('a');
+            a.download = filename;
+            a.href = dataUrl;
+            a.click();
+        }
+    }
+
+    document.getElementById('btnSaveToPhotos').addEventListener('click', () => {
+        buildHighResCanvas((url) => { 
+            saveImageToPhotos(url, `Toathmor_v3.8_${currentRatioMode}.png`); 
+        });
     });
+
     document.getElementById('btnExportPdf').addEventListener('click', () => {
         buildHighResCanvas((url, w, h) => { const { jsPDF } = window.jspdf; const pdf = new jsPDF(w > h ? 'l' : 'p', 'px', [w, h]); pdf.addImage(url, 'PNG', 0, 0, w, h); pdf.save(`Toathmor_v3.8_${currentRatioMode}.pdf`); });
     });
